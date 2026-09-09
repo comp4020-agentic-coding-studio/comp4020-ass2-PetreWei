@@ -14,10 +14,6 @@ A local pre-commit hook (`.githooks/pre-commit`, installed by `pnpm install`) bl
 
 `spec/README.md`, `PROCESS.md` and `reflections/README.md` are in this repo and say what they are for.
 
-## This file is yours
-
-A starting point, not a rulebook: what you add to it is the harness, and the harness is assessed. This file and the sensors you wire into `check` carry forward from one deliverable to the next. The site doesn't: source, and the tests answering this deliverable's published spec, stay behind. `spec/README.md` draws the line.
-
 ## Working practices
 
 - **Start each deliverable with the `start` skill.** It fetches the spec and turns its checkable lines into tests.
