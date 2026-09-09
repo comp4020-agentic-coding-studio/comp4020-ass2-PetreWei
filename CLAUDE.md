@@ -16,7 +16,7 @@ A local pre-commit hook (`.githooks/pre-commit`, installed by `pnpm install`) bl
 
 ## This deliverable
 
-Assignment 2: design the course you wish existed, and build the site that runs it. The published brief and spec are the contract --- read them there rather than from a copy, and never let a restatement drift from the source. The spec's mechanically checkable lines are encoded in `spec/course-promises.test.ts`; the rest is the marker's judgement.
+Assignment 2: design the course you wish existed, and build the site that runs it. The published brief and spec are the contract, so read them there rather than from a copy. The spec's mechanically checkable lines are encoded in `spec/course-promises.test.ts`; the rest is the marker's judgement.
 
 Three criteria: legibility of process 45%, working deployed artefact 20%, response to the brief 35%. Process carries the most weight deliberately, and corroboration is the floor of a band rather than the top --- what lifts it is what no commit alone shows: why a decision beat the alternative, and how you knew the result was right before accepting it. Failures fixed at the harness level count for more than failures retried.
 
@@ -43,8 +43,7 @@ These are decisions about SLOP3092, not requirements of the brief. `spec/course-
 - **Start each deliverable with the `start` skill.** It fetches the spec and turns its checkable lines into tests.
 - **Argue with the plan before building.** Ask the agent what's ambiguous, what it assumed, what it missed, and which choice the spec requires versus merely prefers.
 - **Check the baseline first.** Run `pnpm check` before changing anything; a red baseline means the failure isn't yours to fix.
-- **Look at the rendered page.** Drive it in a real browser rather than reasoning about it from source.
-- **Return evidence, not a claim.** Verification produces the screenshot, console output, response body, DOM state, numbers or exit code — not a judgement by eye. "The form submits correctly" is not verification when the observed response is `{"error":"unknown port"}`.
+- **Return evidence, not a claim.** Drive the page in a real browser rather than reasoning about it from source, and produce the screenshot, console output, response body, DOM state, numbers or exit code — not a judgement by eye. "The form submits correctly" is not verification when the observed response is `{"error":"unknown port"}`.
 - **Reproduce before fixing.** For a bug found by hand, add a failing test first, confirm it fails for the right reason, then fix.
 - **Keep output pristine.** Leave no ignored errors, warnings, or backtraces in logs.
 - **Never rewrite the spec to match the build.** A disagreement between them is a decision to flag, not a diff to resolve quietly.
@@ -56,7 +55,7 @@ These are decisions about SLOP3092, not requirements of the brief. `spec/course-
 - **Say what a sensor doesn't cover.** A check that states its blind spots is trustworthy; one that implies it proves more than it does is not.
 - **Treat a red check as correct until proven otherwise.** Read it before changing anything. Update a check when the contract it encodes has genuinely changed; never weaken one to fit output you didn't intend.
 - **A permanently red check is not a sensor.** If a check stays red without being actionable, repair or remove it — a check that never turns green just teaches everyone to ignore it.
-- **A stuck automated test is evidence to investigate, not a verdict on the artefact.** Check the test's assumptions against the artefact's actual behaviour before trusting a red result.
+- **A browser tool that doesn't respond is evidence to investigate, not a verdict on the site.** Synthetic input can miss what a real interaction would catch — a key press dispatched and released inside one frame never registers as held. Check the tool's assumptions against the page's actual behaviour before believing a red result.
 - **Workflow files are harness, not spec.** Edit `.github/workflows/` only to restore a check that drifted from the initial commit's intent — diff against that commit first.
 
 ## Git and CI
@@ -82,8 +81,7 @@ These are decisions about SLOP3092, not requirements of the brief. `spec/course-
 
 ## Lessons from failures
 
-- **Verify against the built site, not the dev server.** `astro preview` may run on a different port if 4321 is busy; read the printed port. `ASTRO-DEV-TOOLBAR` in the tab order means you tested the dev server by mistake.
-- **Check the deployed URL, not just `pnpm preview`.** GitHub Pages serves the site under a subpath; a base-path or asset bug can look fine locally and only 404 once live.
+- **Verify the deployed site, not the dev server.** `ASTRO-DEV-TOOLBAR` in the tab order means you tested the dev server by mistake, and `astro preview` may run on a different port if 4321 is busy — read the printed port. Even a correct preview isn't the deployment: GitHub Pages serves the site under a subpath, so a base-path or asset bug can look fine locally and only 404 once live.
 - **Never render a plausible-looking guess.** When the real value is missing, the page fails visibly or shows nothing — a fabricated placeholder that looks like data is worse than an empty state.
 
 ## Markdown
