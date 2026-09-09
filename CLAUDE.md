@@ -40,7 +40,7 @@ The promises below are decisions about this course, not requirements of the brie
 ## Working practices
 
 - **Write the plan down before building.** Not for the marker — so there is something to argue with, and something the finished work can be checked against. It states the response, the scope wall, and what is deliberately out.
-- **Argue with the plan before building.** Ask the agent what's ambiguous, what it assumed, what it missed, and which choice the spec requires versus merely prefers.
+- **Review the plan adversarially before building.** Ask what is ambiguous, what was assumed, what is missing, and which choice the spec requires versus merely prefers — then ask for the weaknesses, the alternatives and the trade-offs by name. Agreement is not review: "you're absolutely right" means the prompt left no room for a disagreement to come out of, so put the case against the plan and answer it. This is the cheapest moment a decision will ever be to change.
 - **Correct a wrong premise before acting on it.** If an instruction contains a factual error, say so first and work from the corrected version. Quietly building on the mistake buries it in the result.
 - **Build the slice the plan describes, and stop there.** Arguing with the plan only settles what to build; nothing holds that line during the work. Unrequested extras are drift even when they're improvements — propose them separately.
 - **Keep output pristine.** Leave no ignored errors, warnings, or backtraces in logs.
