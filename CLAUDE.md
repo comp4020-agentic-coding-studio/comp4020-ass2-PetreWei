@@ -2,9 +2,7 @@
 
 This file is yours, and it arrives with no rules in it on purpose --- this note is all there is, and it goes when you write your own. The rules you hold the agent to are part of what gets marked, so they should be rules you decided on.
 
-The [course website](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/) publishes this deliverable's brief and spec, and this repo's name tells you which deliverable applies. Read both before you plan or build.
-
-This repo builds the Slop University course site with Astro: four content collections under `src/content/`, slide decks in `src/decks/`, and a generated JSON API. `README.md` documents the platform, which is fixed. The deployed site is what gets marked, not this repo.
+`README.md` documents the platform, and the platform is fixed. Nothing about it is restated here --- when a platform fact bears on a decision, read it there rather than trusting a copy in this file.
 
 ## This deliverable
 
@@ -23,7 +21,7 @@ SLOP3092, *Try Again, Later*: one decision asked in a new context every week ---
 
 The promises below are decisions about this course, not requirements of the brief. `spec/course-promises.test.ts` enforces them; this section says why they exist.
 
-- **Every session declares a `failure_scenario`.** A short, concrete sentence naming the specific failure that week is built around — "an HTTP client retries a request that already succeeded server-side", not "reliability". The field is this course's own convention, passed through by the `.loose()` content schemas, so the check is its only enforcement.
+- **Every session declares a `failure_scenario`.** A short, concrete sentence naming the specific failure that week is built around — "an HTTP client retries a request that already succeeded server-side", not "reliability". The field is this course's own convention, so the check is the only thing enforcing it.
 - **No two weeks name the same failure scenario.** The course asks one question twelve times about twelve different situations; a repeated situation is the repetition the brief warns against.
 - **Tags name this course's slice, not the field around it.** A tag built from a broad signal word — `systems`, `engineering`, `reliability`, `resilience`, `computing`, `architecture` — claims territory the twelve weeks don't cover.
 - **An assessment falls due inside the week it claims.** On or after that week's session, and before the next week's. An assessment pointing at a week no session is scheduled for is a scheduling error, not a late deadline.
@@ -36,7 +34,7 @@ The promises below are decisions about this course, not requirements of the brie
 - **No catalogue filler.** Prose that could describe any course ("students will gain a comprehensive understanding of...") is a defect, not a placeholder. The site should read in one voice with a point of view.
 - **Never write a plausible-looking guess.** An invented incident, statistic or citation that reads as real is worse than an honest omission — and a course pointing at real failures is exactly where a fabricated one does the most damage.
 - **Every curricular decision has to be visible on the site.** There is no separate syllabus document; if a decision isn't on a page, it wasn't made.
-- **Save a generated image the moment you make it.** The course key's image allowance runs for the semester and the returned URLs expire, so download the file into the repo, record where it came from, and commit it. `check:evidence` hashes the four starter images and fails on them — the artwork has to be yours.
+- **Save a generated image the moment you make it.** The course key's image allowance runs for the semester and the returned URLs expire, so download the file into the repo, record where it came from, and commit it.
 
 ## Working practices
 
@@ -52,13 +50,11 @@ The promises below are decisions about this course, not requirements of the brie
 - **Check the baseline first.** Run `pnpm check` before changing anything; a red baseline means the failure isn't yours to fix.
 - **Return evidence, not a claim.** Drive the page in a real browser rather than reasoning about it from source, and produce the screenshot, console output, response body, DOM state, numbers or exit code — not a judgement by eye. "The form submits correctly" is not verification when the observed response is `{"error":"unknown port"}`.
 - **The screenshot and the console fail independently.** A perfect screenshot can sit on top of a 404, a failed parse and placeholder values. Read both, and neither one alone counts as verified.
-- **Verify the deployed site, not the dev server.** `ASTRO-DEV-TOOLBAR` in the tab order means you tested the dev server by mistake, and `astro preview` may run on a different port if 4321 is busy — read the printed port. Even a correct preview isn't the deployment: GitHub Pages serves the site under a subpath, so a base-path or asset bug can look fine locally and only 404 once live.
+- **Verify the deployed site, not the dev server.** `ASTRO-DEV-TOOLBAR` in the tab order means you tested the dev server by mistake, and `astro preview` may run on a different port if 4321 is busy — read the printed port. Even a correct preview isn't the deployment — open the live URL.
 - **Reproduce before fixing.** For a bug found by hand, add a failing test first, confirm it fails for the right reason, then fix.
 - **Green does not mean good.** A passing suite establishes only what it checks. Qualities like coherence or whether the thing is worth having need a person — before calling a change done, show it to someone who has not seen it before.
 
 ## Sensors and checks
-
-`pnpm check` runs them, and `pnpm check:evidence` is the extra gate before you ship. CI runs the same plus secrets and the deploy.
 
 - **Ask whether a person is needed before writing a check.** "Exactly one top-level heading" is mechanical; "make it look good" needs a reader. A check for something only a person can settle is theatre, and deciding which is which is the third question `PROCESS.md` has to answer.
 - **Write the sensor before the change.** When a judgement is worth keeping, encode it as a check first, then make the work pass it — the contract then outlives the edit and rejects future drift on its own.
@@ -71,7 +67,7 @@ The promises below are decisions about this course, not requirements of the brie
 
 ## Git and CI
 
-A local pre-commit hook (`.githooks/pre-commit`, installed by `pnpm install`) blocks any commit that looks like it contains an API key. It's the sensor that actually matters for secrets --- CI's scan only sees a key after it's already pushed.
+The pre-commit hook is the sensor that actually matters for secrets: CI's scan only sees a key once it has already been pushed.
 
 Shipping makes the whole repo public, not just the site: source, commit history, CI logs and this file. Write every commit message and every rule here as something a reader outside the course will see.
 
