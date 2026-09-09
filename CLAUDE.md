@@ -22,13 +22,13 @@ SLOP3092, *Try Again, Later*: one decision asked in a new context every week —
 The promises below are decisions about this course, not requirements of the brief. `spec/course-promises.test.ts` enforces them; this section says why they exist.
 
 - **Every session declares a `failure_scenario`.** A short, concrete sentence naming the specific failure that week is built around — "an HTTP client retries a request that already succeeded server-side", not "reliability". The field is this course's own convention, so the check is the only thing enforcing it.
-- **No two weeks name the same failure scenario.** The course asks one question twelve times about twelve different situations; a repeated situation is the repetition the brief warns against.
+- **No two weeks name the same failure scenario.** A repeated situation is exactly the repetition the brief warns against.
 - **Tags name this course's slice, not the field around it.** A tag built from a broad signal word — `systems`, `engineering`, `reliability`, `resilience`, `computing`, `architecture` — claims territory the twelve weeks don't cover.
 - **An assessment falls due inside the week it claims.** On or after that week's session, and before the next week's. An assessment pointing at a week no session is scheduled for is a scheduling error, not a late deadline.
 
 ## Writing the course
 
-- **One idea, carried all the way.** The course is a single narrow subject explored across twelve weeks, not a survey of a field. A page that would sit equally well in a different course isn't finished.
+- **One idea, carried all the way.** A page that would sit equally well in a different course isn't finished.
 - **Weeks are read side by side, not in order.** Before writing a week, read the ones it will be opened next to. Two weeks that could be swapped without anyone noticing are a defect, not variety.
 - **Cohering the chunks is the work.** The agent produces content-shaped pieces; making the site's twenty-odd pages agree with each other — on the thesis, the voice, the names, the dates — is what the agent can't do for you.
 - **No catalogue filler.** Prose that could describe any course ("students will gain a comprehensive understanding of...") is a defect, not a placeholder. The site should read in one voice with a point of view.
@@ -52,8 +52,7 @@ The promises below are decisions about this course, not requirements of the brie
 - **The screenshot and the console fail independently.** A perfect screenshot can sit on top of a 404, a failed parse and placeholder values. Read both, and neither one alone counts as verified.
 - **Verify the deployed site, not the dev server.** `ASTRO-DEV-TOOLBAR` in the tab order means you tested the dev server by mistake, and `astro preview` may run on a different port if 4321 is busy — read the printed port. Even a correct preview isn't the deployment — open the live URL.
 - **Reproduce before fixing.** For a bug found by hand, add a failing test first, confirm it fails for the right reason, then fix.
-- **Green does not mean good.** A passing suite establishes only what it checks. Qualities like coherence or whether the thing is worth having need a person — before calling a change done, show it to someone who has not seen it before.
-- **A green axe pass is a floor, not proof.** `pnpm build` runs axe over every page, but that is one automated sweep on one machine. It doesn't establish that the Tab order makes sense or that the page is usable without a mouse, which is what markers actually drive.
+- **Green does not mean good.** A passing suite establishes only what it checks, and the axe sweep in `pnpm build` is one automated pass, not proof the page works without a mouse. Coherence, and whether the thing is worth having, need a person — before calling a change done, show it to someone who has not seen it before.
 
 ## Sensors and checks
 
