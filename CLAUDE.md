@@ -62,6 +62,7 @@ These are decisions about SLOP3092, not requirements of the brief. `spec/course-
 - **Say what a sensor doesn't cover.** A check that states its blind spots is trustworthy; one that implies it proves more than it does is not.
 - **Treat a red check as correct until proven otherwise.** Read it before changing anything. Update a check when the contract it encodes has genuinely changed; never weaken one to fit output you didn't intend.
 - **A permanently red check is not a sensor.** If a check stays red without being actionable, repair or remove it — a check that never turns green just teaches everyone to ignore it.
+- **A check that cannot fail is not a sensor either.** Before writing one, confirm the failure it describes can actually reach it — if the build, the schema or the type checker already rejects that state, the test only ever reports green.
 - **A browser tool that doesn't respond is evidence to investigate, not a verdict on the site.** Synthetic input can miss what a real interaction would catch — a key press dispatched and released inside one frame never registers as held. Check the tool's assumptions against the page's actual behaviour before believing a red result.
 - **Workflow files are harness, not spec.** Edit `.github/workflows/` only to restore a check that drifted from the initial commit's intent — diff against that commit first.
 
