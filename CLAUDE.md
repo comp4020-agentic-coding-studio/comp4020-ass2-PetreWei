@@ -1,5 +1,7 @@
 # COMP4020 course site
 
+This file is yours, and it arrives with no rules in it on purpose --- this note is all there is, and it goes when you write your own. The rules you hold the agent to are part of what gets marked, so they should be rules you decided on.
+
 This repo builds the Slop University course site with Astro: four content collections under `src/content/`, slide decks in `src/decks/`, and a generated JSON API. `README.md` documents the platform, which is fixed. The deployed site is what gets marked, not this repo.
 
 The [course website](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/) publishes this deliverable's brief and spec, and this repo's name tells you which deliverable applies. Read both before you plan or build.
