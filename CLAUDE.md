@@ -2,7 +2,7 @@
 
 This file is yours, and it arrives with no rules in it on purpose --- this note is all there is, and it goes when you write your own. The rules you hold the agent to are part of what gets marked, so they should be rules you decided on.
 
-`README.md` documents the platform, and the platform is fixed. Nothing about it is restated here --- when a platform fact bears on a decision, read it there rather than trusting a copy in this file.
+`README.md` documents the platform, and the platform is fixed. Nothing about it is restated here, so read it before the first change under `src/` in a session, and whenever a platform fact bears on a decision --- rather than trusting a copy in this file.
 
 ## This deliverable
 
@@ -53,6 +53,7 @@ The promises below are decisions about this course, not requirements of the brie
 - **Verify the deployed site, not the dev server.** `ASTRO-DEV-TOOLBAR` in the tab order means you tested the dev server by mistake, and `astro preview` may run on a different port if 4321 is busy — read the printed port. Even a correct preview isn't the deployment — open the live URL.
 - **Reproduce before fixing.** For a bug found by hand, add a failing test first, confirm it fails for the right reason, then fix.
 - **Green does not mean good.** A passing suite establishes only what it checks. Qualities like coherence or whether the thing is worth having need a person — before calling a change done, show it to someone who has not seen it before.
+- **A green axe pass is a floor, not proof.** `pnpm build` runs axe over every page, but that is one automated sweep on one machine. It doesn't establish that the Tab order makes sense or that the page is usable without a mouse, which is what markers actually drive.
 
 ## Sensors and checks
 
