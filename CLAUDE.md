@@ -22,7 +22,10 @@ A starting point, not a rulebook: what you add to it is the harness, and the har
 - **Argue with the plan before building.** Ask the agent what's ambiguous, what it assumed, what it missed, and which choice the spec requires versus merely prefers.
 - **Check the baseline first.** Run `pnpm check` before changing anything; a red baseline means the failure isn't yours to fix.
 - **Look at the rendered page.** Open it in a browser, or use `agent-browser`, rather than reasoning about it from source.
-- **Treat a red check as correct until proven otherwise.** Read it before changing anything, and never weaken a check to reach green.
+- **Return evidence, not a claim.** Manual testing produces the screenshot, console output, response body, DOM state or exit code. "The form submits correctly" is not verification when the observed response is `{"error":"unknown port"}`.
+- **Write the sensor before the change.** When a judgement is worth keeping, encode it as a check first, then make the work pass it — the contract then outlives the edit and rejects future drift on its own.
+- **Say what a sensor doesn't cover.** A check that states its blind spots is trustworthy; one that implies it proves more than it does is not.
+- **Treat a red check as correct until proven otherwise.** Read it before changing anything. Update a check when the contract it encodes has genuinely changed; never weaken one to fit output you didn't intend.
 - **A permanently red check is not a sensor.** If a check stays red without being actionable, repair or remove it — a check that never turns green just teaches everyone to ignore it.
 - **Reproduce before fixing.** For a bug found by hand, add a failing test first, confirm it fails for the right reason, then fix.
 - **Keep output pristine.** Leave no ignored errors, warnings, or backtraces in logs.
