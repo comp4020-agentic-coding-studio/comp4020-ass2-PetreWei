@@ -28,11 +28,10 @@ Three criteria: legibility of process 45%, working deployed artefact 20%, respon
 - **No catalogue filler.** Prose that could describe any course ("students will gain a comprehensive understanding of...") is a defect, not a placeholder. The site should read in one voice with a point of view.
 - **Never write a plausible-looking guess.** An invented incident, statistic or citation that reads as real is worse than an honest omission — and a course pointing at real failures is exactly where a fabricated one does the most damage.
 - **Every curricular decision has to be visible on the site.** There is no separate syllabus document; if a decision isn't on a page, it wasn't made.
-- **Download a generated image the moment you make it.** The course key generates images against a flat allowance for the semester and the returned URLs expire, so save the file into the repo, commit it, and record where it came from. `check:evidence` hashes the four starter images and fails on them, so the artwork has to be yours.
 
 ## This course's own promises
 
-These are decisions about SLOP3092, not requirements of the brief. `spec/course-promises.test.ts` enforces them; this section says why they exist. Don't add a check here for a dangling `related` ref: the `courseGraph()` integration already fails the build on one, so a test for it could never go red.
+These are decisions about SLOP3092, not requirements of the brief. `spec/course-promises.test.ts` enforces them; this section says why they exist.
 
 - **Every session declares a `failure_scenario`.** A short, concrete sentence naming the specific failure that week is built around — "an HTTP client retries a request that already succeeded server-side", not "reliability". The field is this course's own convention, passed through by the `.loose()` content schemas, so the check is its only enforcement.
 - **No two weeks name the same failure scenario.** The course asks one question twelve times about twelve different situations; a repeated situation is the repetition the brief warns against.
@@ -44,9 +43,7 @@ These are decisions about SLOP3092, not requirements of the brief. `spec/course-
 - **Start each deliverable with the `start` skill.** It fetches the spec and turns its checkable lines into tests.
 - **Argue with the plan before building.** Ask the agent what's ambiguous, what it assumed, what it missed, and which choice the spec requires versus merely prefers.
 - **Check the baseline first.** Run `pnpm check` before changing anything; a red baseline means the failure isn't yours to fix.
-- **Return evidence, not a claim.** Drive the page in a real browser rather than reasoning about it from source, and produce the artefact — screenshot, console output, response body, DOM state, numbers, exit code. "The form submits correctly" is not verification when the observed response was `{"error":"unknown port"}`.
-- **The screenshot and the console fail independently.** A missing file answered with an HTML 404 page parses as JSON, fills the layout with placeholders, and still screenshots perfectly. Neither one alone is evidence.
-- **Pay down cognitive debt on work you'd have to defend.** It is the failure a green suite can't see. Describe an accepted change with the file shut; when you can't, ask for a linear walkthrough — name the file and the change you intend, and take it in the order a reader needs rather than the order the code sits in.
+- **Return evidence, not a claim.** Drive the page in a real browser rather than reasoning about it from source, and produce the screenshot, console output, response body, DOM state, numbers or exit code — not a judgement by eye. "The form submits correctly" is not verification when the observed response is `{"error":"unknown port"}`.
 - **Verify the deployed site, not the dev server.** `ASTRO-DEV-TOOLBAR` in the tab order means you tested the dev server by mistake, and `astro preview` may run on a different port if 4321 is busy — read the printed port. Even a correct preview isn't the deployment: GitHub Pages serves the site under a subpath, so a base-path or asset bug can look fine locally and only 404 once live.
 - **Reproduce before fixing.** For a bug found by hand, add a failing test first, confirm it fails for the right reason, then fix.
 - **Keep output pristine.** Leave no ignored errors, warnings, or backtraces in logs.
@@ -64,7 +61,7 @@ These are decisions about SLOP3092, not requirements of the brief. `spec/course-
 
 ## Git and CI
 
-- **Commit small and often, and say why in the message.** The commit trail is evidence of process, not just the final diff, and a single dump before the deadline is the weakest version of it. The diff already shows what changed; the message is the only place the reason survives.
+- **Commit small and often.** The commit trail is evidence of process, not just the final diff; a single dump before the deadline is the weakest version of it.
 - **Commit only on green, then push immediately.** Stage files by name, never force, and read the CI run afterward — a local green is not a green deploy.
 - **Read a red CI run properly.** `gh run watch`, then `gh run view --log-failed` — hand the agent the actual failing command, output, and expected-vs-actual, not just "the build failed."
 - **Commit the updated lockfile after any dependency change.** CI installs with `--frozen-lockfile`, so a stale `pnpm-lock.yaml` breaks the build there even though it works locally.
@@ -74,7 +71,6 @@ These are decisions about SLOP3092, not requirements of the brief. `spec/course-
 - **400 to 600 words, one narrative.** A first-person account of getting from the brief to the harness and the workflow — not a run of fixes with a commit hash apiece.
 - **Its spine is three questions.** What did you decide a good course looks like; which of those decisions became a rule here or a check in `spec/`; and which you deliberately left to human judgement instead of encoding.
 - **Cite commits inline, as links whose text is the hash or range.** An uncited claim is not evidence and is discounted — markers follow citations rather than hunting the repo for material you didn't point at.
-- **Don't narrate past the evidence.** Filenames, dates, diffs and counts are evidence; labels for an era, and predictions about what comes next, are interpretation. Watch for the seam where the citations stop and the story starts.
 - **Check the rendered file on GitHub before shipping.** Images need relative paths and nothing verifies that they render.
 
 ## Grading conditions
