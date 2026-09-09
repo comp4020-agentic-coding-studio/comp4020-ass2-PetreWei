@@ -62,6 +62,7 @@ The promises below are decisions about this course, not requirements of the brie
 - **Write the sensor before the change.** When a judgement is worth keeping, encode it as a check first, then make the work pass it — the contract then outlives the edit and rejects future drift on its own.
 - **Write the assertion so it can only pass for the right reason.** Assert the thing is used, not merely that the wrong thing is absent, since a forbid-only check is satisfied by an empty page. Give a compound promise one assertion per claim, or it passes on the easy half. Name the offending value in the message, so a failure says what to go and look at.
 - **Say what passing cost.** When you change the work to satisfy a check, report what the change gave up. A constraint met is not the same as the thing improved, and the loss is invisible in a green run.
+- **Expect a check to become the target.** The spec is the measure and the agent is the optimiser, so the most mechanical criterion is the easiest one to satisfy hollowly — twelve weeks can hold twelve distinct failure scenarios and still be twelve shallow weeks. Ask what the check would let through, not only what it would catch.
 - **Say what a sensor doesn't cover.** A check that states its blind spots is trustworthy; one that implies it proves more than it does is not.
 - **Treat a red check as correct until proven otherwise.** Read it before changing anything. Update a check when the contract it encodes has genuinely changed; never weaken one to fit output you didn't intend.
 - **A permanently red check is not a sensor.** If a check stays red without being actionable, repair or remove it — a check that never turns green just teaches everyone to ignore it.
@@ -98,5 +99,6 @@ This is the assignment's whole written account: `reflections/` is unused here, a
 
 ## Maintaining this file
 
-- **Delete, don't append.** Write down what you learn as you go, and remove anything here the moment it is stale or contradicted.
-- **A recurring correction belongs in a sensor, not here.** Add a check instead of lengthening this list.
+- **Delete, don't append.** Write down what you learn as you go, and remove anything here the moment it is stale or contradicted. This file says what is true now; Git keeps the history, so nothing has to be preserved here for the record.
+- **Only what is short and always true belongs here.** A decision that applies to this session belongs in the prompt, not in a standing rule — copying it up here makes it outlive the situation that justified it.
+- **A recurring correction belongs in a sensor or a skill, not here.** Write a check when the lesson is deterministic, a skill when it's a procedure worth reusing, and lengthen this list only when it is neither.
