@@ -28,7 +28,8 @@ The promises below are decisions about this course, not requirements of the brie
 
 ## Writing the course
 
-- **One idea, carried all the way.** A page that would sit equally well in a different course isn't finished.
+- **One idea, carried all the way — and legible from outside.** A page that would sit equally well in a different course isn't finished. It isn't enough that the thesis exists: someone who reads the home page and one week should be able to say what the course argues, without assembling it themselves. Assignment 1 lost the top band because "the singular concept was not quite clear enough, and this was central to the brief."
+- **Carry the idea through structure, not volume.** If a page needs a long stretch of prose to land its point, the structure isn't doing the work. A reader should meet the argument in pieces as they move through the site, rather than face a dense object that has to be read before it makes sense.
 - **Weeks are read side by side, not in order.** Before writing a week, read the ones it will be opened next to. Two weeks that could be swapped without anyone noticing are a defect, not variety.
 - **Cohering the chunks is the work.** The agent produces content-shaped pieces; making the site's twenty-odd pages agree with each other — on the thesis, the voice, the names, the dates — is what the agent can't do for you. Every page can be defensible and still let the course drift out of focus, and nothing in the build measures that, so re-read the site end to end from time to time rather than only the page in hand.
 - **No catalogue filler.** Prose that could describe any course ("students will gain a comprehensive understanding of...") is a defect, not a placeholder. The site should read in one voice with a point of view.
@@ -87,6 +88,7 @@ Shipping makes the whole repo public, not just the site: source, commit history,
 This is the assignment's whole written account: `reflections/` is unused here, and `check:evidence` expects no reflection file in this repo.
 
 - **400 to 600 words, one narrative.** A first-person account of getting from the brief to the harness and the workflow — not a run of fixes with a commit hash apiece.
+- **Write each moment in STAR form.** The situation you were in, the task it set, the action you took, the result it produced. Assignment 1's process mark stopped at distinction for want of "evidence of your ability to communicate a high-level understanding and advanced use of agentic methods": recounting what happened reads as a competent process, while STAR is what makes a capability visible. Name the agentic method you used, not just the outcome it reached.
 - **Its spine is three questions.** What did you decide a good course looks like; which of those decisions became a rule here or a check in `spec/`; and which you deliberately left to human judgement instead of encoding.
 - **Say why this course should exist.** Sincere, speculative or satirical are all allowed, but the reason has to be on the page — it is a stated requirement, not an optional flourish.
 - **Cite the discarded work too.** A deletion, a reverted commit, a rule added and then cut: those are where judgement shows, and the top band asks for it. Successes alone read as a clean run that never happened.
