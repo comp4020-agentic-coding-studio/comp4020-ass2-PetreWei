@@ -12,7 +12,31 @@ This repo builds the Slop University course site with Astro: four content collec
 
 A local pre-commit hook (`.githooks/pre-commit`, installed by `pnpm install`) blocks any commit that looks like it contains an API key. It's the sensor that actually matters for secrets --- CI's scan only sees a key after it's already pushed.
 
-`spec/README.md`, `PROCESS.md` and `reflections/README.md` are in this repo and say what they are for.
+`spec/README.md` and `PROCESS.md` are in this repo and say what they are for. `reflections/` is unused here: an assignment's written account is `PROCESS.md`, and `check:evidence` expects no reflection file in this repo.
+
+## This deliverable
+
+Assignment 2: design the course you wish existed, and build the site that runs it. The published brief and spec are the contract --- read them there rather than from a copy, and never let a restatement drift from the source. The spec's mechanically checkable lines are encoded in `spec/course-promises.test.ts`; the rest is the marker's judgement.
+
+Three criteria: legibility of process 45%, working deployed artefact 20%, response to the brief 35%. Process carries the most weight deliberately, and corroboration is the floor of a band rather than the top --- what lifts it is what no commit alone shows: why a decision beat the alternative, and how you knew the result was right before accepting it. Failures fixed at the harness level count for more than failures retried.
+
+Markers read the site as a prospective student for about ten minutes --- the home page, a few non-adjacent weeks, an assessment, the deck --- at both viewports, and generally don't build it.
+
+## Writing the course
+
+- **One idea, carried all the way.** The course is a single narrow subject explored across twelve weeks, not a survey of a field. A page that would sit equally well in a different course isn't finished.
+- **Weeks are read side by side, not in order.** Before writing a week, read the ones it will be opened next to. Two weeks that could be swapped without anyone noticing are a defect, not variety.
+- **Cohering the chunks is the work.** The agent produces content-shaped pieces; making twenty pages agree with each other --- on the thesis, the voice, the names, the dates --- is what the agent can't do for you.
+- **No catalogue filler.** Prose that could describe any course ("students will gain a comprehensive understanding of...") is a defect, not a placeholder. The site should read in one voice with a point of view.
+- **Every curricular decision has to be visible on the site.** There is no separate syllabus document; if a decision isn't on a page, it wasn't made.
+
+## This course's own promises
+
+These are decisions about SLOP3092, not requirements of the brief. `spec/course-promises.test.ts` enforces them; this section says why they exist.
+
+- **Every session declares a `failure_scenario`.** A short, concrete sentence naming the specific failure that week is built around — "an HTTP client retries a request that already succeeded server-side", not "reliability". The field is this course's own convention, passed through by the `.loose()` content schemas, so the check is its only enforcement.
+- **No two weeks name the same failure scenario.** The course asks one question twelve times about twelve different situations; a repeated situation is the repetition the brief warns against.
+- **Tags name this course's slice, not the field around it.** A tag built from a broad signal word — `systems`, `engineering`, `reliability`, `resilience`, `computing`, `architecture` — claims territory the twelve weeks don't cover.
 
 ## Working practices
 
@@ -42,9 +66,18 @@ A local pre-commit hook (`.githooks/pre-commit`, installed by `pnpm install`) bl
 - **Read a red CI run properly.** `gh run watch`, then `gh run view --log-failed` — hand the agent the actual failing command, output, and expected-vs-actual, not just "the build failed."
 - **Commit the updated lockfile after any dependency change.** CI installs with `--frozen-lockfile`, so a stale `pnpm-lock.yaml` breaks the build there even though it works locally.
 
+## PROCESS.md
+
+- **400 to 600 words, one narrative.** A first-person account of getting from the brief to the harness and the workflow — not a run of fixes with a commit hash apiece.
+- **Its spine is three questions.** What did you decide a good course looks like; which of those decisions became a rule here or a check in `spec/`; and which you deliberately left to human judgement instead of encoding.
+- **Cite commits inline, as links whose text is the hash or range.** An uncited claim is not evidence and is discounted — markers follow citations rather than hunting the repo for material you didn't point at.
+- **Check the rendered file on GitHub before shipping.** Images need relative paths and nothing verifies that they render.
+
 ## Grading conditions
 
-- **Markers test conditions no test suite covers.** They drive the deployed site in Chrome at 1920×1080 and 390×844, by keyboard alone — Tab order, arrow keys, Enter or Space — as readily as by mouse.
+- **The submission is the deployed state of the last commit pushed to `main`.** Due noon Monday 21 September 2026, with a fifteen-minute grace — noon means 12:15pm. Nothing later counts, so ship early and treat `/ship` as repeatable rather than a deadline ritual.
+- **Markers test conditions no test suite covers.** They drive the deployed site in Chrome at 1920×1080 and 390×844, by keyboard alone — Tab order, arrow keys, Enter or Space — as readily as by mouse. The top band is about holding up under use it wasn't designed for: keyboard only, a resize mid-interaction, a slow connection.
+- **Restyling is not the artefact criterion.** Whether the site works decides that mark, not how it looks — keeping the starter's appearance can still reach the top band if the course itself reads as coherent and compelling.
 - **Green does not mean good.** A passing suite establishes only what it checks. Qualities like coherence or whether the thing is worth having need a person — before calling a change done, show it to someone who has not seen it before.
 
 ## Lessons from failures
