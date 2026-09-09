@@ -1,14 +1,14 @@
 # COMP4020 course site
 
-This file is yours, and it arrives with no rules in it on purpose --- this note is all there is, and it goes when you write your own. The rules you hold the agent to are part of what gets marked, so they should be rules you decided on.
+This file is yours, and it arrives with no rules in it on purpose — this note is all there is, and it goes when you write your own. The rules you hold the agent to are part of what gets marked, so they should be rules you decided on.
 
-`README.md` documents the platform, and the platform is fixed. Nothing about it is restated here, so read it before the first change under `src/` in a session, and whenever a platform fact bears on a decision --- rather than trusting a copy in this file.
+`README.md` documents the platform, and the platform is fixed. Nothing about it is restated here, so read it before the first change under `src/` in a session, and whenever a platform fact bears on a decision — rather than trusting a copy in this file.
 
 ## This deliverable
 
 Assignment 2: design the course you wish existed, and build the site that runs it. The published brief and spec are the contract, so read them there rather than from a copy. Of its six lines, `spec/course-promises.test.ts` holds the ones about the course's shape, `pnpm check:evidence` holds the one about process evidence, and CI's deploy job is the only thing that checks the site is actually live. Whether twelve weeks add up to a course is nobody's check but the marker's.
 
-Three criteria: legibility of process 45%, working deployed artefact 20%, response to the brief 35%. Process carries the most weight deliberately, and corroboration is the floor of a band rather than the top --- what lifts it is what no commit alone shows: why a decision beat the alternative, and how you knew the result was right before accepting it. Failures fixed at the harness level count for more than failures retried.
+Three criteria: legibility of process 45%, working deployed artefact 20%, response to the brief 35%. Process carries the most weight deliberately, and corroboration is the floor of a band rather than the top — what lifts it is what no commit alone shows: why a decision beat the alternative, and how you knew the result was right before accepting it. Failures fixed at the harness level count for more than failures retried.
 
 - **The submission is the deployed state of the last commit pushed to `main`.** Due noon Monday 21 September 2026, with a fifteen-minute grace — noon means 12:15pm. Nothing later counts, so ship early and treat `/ship` as repeatable rather than a deadline ritual.
 - **Markers read the site as a prospective student, for about ten minutes.** The home page, a few non-adjacent weeks, an assessment, the deck. They generally don't build it — the deployed site is the evidence.
@@ -17,7 +17,7 @@ Three criteria: legibility of process 45%, working deployed artefact 20%, respon
 
 ## The course
 
-SLOP3092, *Try Again, Later*: one decision asked in a new context every week --- something failed, should you try again, and how? What keeps it from being a listicle is that the obvious answer is often wrong; retrying looks like diligence and can quietly make things worse. Twelve weeks means twelve situations, not twelve topics.
+SLOP3092, *Try Again, Later*: one decision asked in a new context every week — something failed, should you try again, and how? What keeps it from being a listicle is that the obvious answer is often wrong; retrying looks like diligence and can quietly make things worse. Twelve weeks means twelve situations, not twelve topics.
 
 The promises below are decisions about this course, not requirements of the brief. `spec/course-promises.test.ts` enforces them; this section says why they exist.
 
@@ -30,7 +30,7 @@ The promises below are decisions about this course, not requirements of the brie
 
 - **One idea, carried all the way.** The course is a single narrow subject explored across twelve weeks, not a survey of a field. A page that would sit equally well in a different course isn't finished.
 - **Weeks are read side by side, not in order.** Before writing a week, read the ones it will be opened next to. Two weeks that could be swapped without anyone noticing are a defect, not variety.
-- **Cohering the chunks is the work.** The agent produces content-shaped pieces; making the site's twenty-odd pages agree with each other --- on the thesis, the voice, the names, the dates --- is what the agent can't do for you.
+- **Cohering the chunks is the work.** The agent produces content-shaped pieces; making the site's twenty-odd pages agree with each other — on the thesis, the voice, the names, the dates — is what the agent can't do for you.
 - **No catalogue filler.** Prose that could describe any course ("students will gain a comprehensive understanding of...") is a defect, not a placeholder. The site should read in one voice with a point of view.
 - **Never write a plausible-looking guess.** An invented incident, statistic or citation that reads as real is worse than an honest omission — and a course pointing at real failures is exactly where a fabricated one does the most damage.
 - **Every curricular decision has to be visible on the site.** There is no separate syllabus document; if a decision isn't on a page, it wasn't made.
