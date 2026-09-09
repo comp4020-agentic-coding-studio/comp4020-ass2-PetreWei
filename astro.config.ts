@@ -46,6 +46,10 @@ export default defineConfig({
     astromotion({
       theme: "./src/decks/theme.css",
       fontVariables: ["--font-public-sans"],
+      // A deck's HTML is astromotion's, not the theme layout's, so it does not
+      // inherit the site's icon and the browser falls back to a root
+      // /favicon.ico that does not exist. Same crest, served from `public/`.
+      favicon: "/favicon.svg",
     }),
   ],
 });

@@ -6,44 +6,68 @@ import heroImage from "../assets/images/hero-home.avif";
 import { courseMeta } from "../course-config";
 import { sessionLabels, siteConfig } from "../site-config";
 
-// STARTER_CONTENT: replace the hero artwork and its alt text below, then
-// remove this comment.
 ---
 
 <ContentLayout
   title={`${courseMeta.code}: ${courseMeta.title}`}
   description={courseMeta.description}
   heroImage={heroImage}
-  heroImageAlt="A lecture theatre reduced to flat gold and black shapes, rows of seats sweeping past the frame, in a two-ink risograph print"
+  heroImageAlt="The same hand pressing the same button five times over, each impression printed further out of register than the last, in flat gold and black on cream — a two-ink risograph print"
   {...siteConfig}
 >
   <ul class="course-tags" aria-label="Course tags">
     {courseMeta.tags.map((tag) => <li>{tag}</li>)}
   </ul>
 
-  <!-- STARTER_CONTENT: replace the authored page below, then remove this comment. -->
-  <h2>What you will do</h2>
+  <p class="thesis">
+    Something failed. Should you try again? The answer is usually yes, which is
+    the problem — retrying looks like diligence, gets rewarded almost every
+    time, and is quietly the cause of a good share of the outages you have
+    read about.
+  </p>
+
+  <h2>Twelve weeks, twelve situations</h2>
   <p>
-    Say what a student spends their time on — the making, reading, arguing or
-    measuring that fills the weeks. Name the artefact they walk out with.
+    Not twelve topics. Every week takes the same question into a new
+    situation, and the situation is always concrete enough to reproduce: a
+    read that times out once, a payment that is charged twice, ten thousand
+    clients that all come back on the same second, two people who resend the
+    same payout at 3am with no code between them at all.
+  </p>
+  <p>
+    Every week ends the same way, too — with the fix, and with what the fix
+    costs. Backoff buys a struggling dependency room and spends your latency
+    to do it. A circuit breaker gives up availability you might have had. A
+    deadline throws away work that was about to succeed. By week 12 you should
+    be unable to propose a retry policy without naming its price, which is the
+    entire skill this course is trying to teach.
   </p>
 
   <h2>Who it is for</h2>
   <p>
-    Say who this is aimed at and what they need to already know. Be specific
-    enough that someone can rule themselves in or out without emailing you.
+    Third-year students who have written code that talks to something over a
+    network and have already been surprised by it. You need to be comfortable
+    reading an unfamiliar codebase and making a small change to it; you do not
+    need distributed systems theory, and the course does not assume you have
+    run anything in production.
+  </p>
+  <p>
+    You will spend most of the semester making failures happen on purpose,
+    then deciding what to do about them. You will leave with an audit, a retry
+    policy you have defended out loud against someone briefed to break it, and
+    a written argument for not retrying at all.
   </p>
 
   <h2>Where to go next</h2>
   <CardGrid columns={2}>
     <Card title={sessionLabels.plural} href="/sessions/">
-      <p>The weekly schedule and what happens in each teaching session.</p>
+      <p>The twelve situations, in order, and what each one costs.</p>
     </Card>
     <Card title="Assessment" href="/assessments/">
-      <p>What is marked, what it is worth, and when it is due.</p>
+      <p>An audit, a policy you defend, and a case you argue. What each is worth, and when.</p>
     </Card>
     <Card title="People" href="/people/">
-      <p>Who teaches the course and how to reach them.</p>
+      <p>Who teaches the course, what to bring them, and when they are free.</p>
     </Card>
   </CardGrid>
 </ContentLayout>
@@ -56,6 +80,14 @@ import { sessionLabels, siteConfig } from "../site-config";
     margin-block: 0 2rem;
     padding: 0;
     list-style: none;
+  }
+
+  .thesis {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    margin-block: 0 2.5rem;
+    padding-inline-start: 1rem;
+    border-inline-start: 3px solid var(--at-accent, currentColor);
   }
 
   .course-tags li {

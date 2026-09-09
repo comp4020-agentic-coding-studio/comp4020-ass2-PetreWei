@@ -5,7 +5,6 @@ week: 1
 date: 2027-02-22
 teachers:
   - marisol-quaye
-slides: /decks/week-01/
 related:
   - sessions/01-reproducing-the-reflex
 ---

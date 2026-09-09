@@ -1,0 +1,114 @@
+---
+title: "Week 2: Charging twice on purpose"
+description: A retry that isn't idempotent is a bug wearing a feature's clothes
+---
+
+{/* _class: impact */}
+
+# Charging twice on purpose
+
+Week 2 — SLOP3092
+
+---
+
+## Last week
+
+A read timed out.
+
+You retried it.
+
+It worked.
+
+---
+
+## Nothing bad happened
+
+That is the problem.
+
+The reflex got rewarded before anybody examined it.
+
+---
+
+## This week: same reflex, different call
+
+```text
+POST /charges   { amount: 4200 }
+```
+
+The timeout looks identical from the outside.
+
+---
+
+{/* _class: impact */}
+
+# What does a timeout tell you?
+
+---
+
+## Two worlds
+
+| Question | The request was lost | The response was lost |
+| --- | --- | --- |
+| Server charged? | no | **yes** |
+| What you saw | timeout | timeout |
+
+You cannot tell these apart. Ever.
+
+---
+
+## So the reflex charges twice
+
+One customer. One button. Two charges.
+
+Nobody wrote a bug. The retry was the bug.
+
+---
+
+## The fix
+
+```text
+POST /charges
+Idempotency-Key: 9f2c-a41e-...
+```
+
+The client picks a key. The server checks it **before it commits**.
+
+---
+
+## What it guarantees
+
+The second request lands on the **same charge**, not a new one.
+
+Not "the retry is prevented" — the retry still happens. It just stops mattering.
+
+---
+
+## What it costs
+
+The server has to remember every key for as long as a client might retry.
+
+- window too short → a late retry double-charges anyway
+- window too long → you are storing keys forever
+
+There is no free version of this.
+
+---
+
+## In the studio
+
+1. Build the naive retry against a stub that commits, then times out
+2. Produce the double charge on purpose
+3. Add the key
+4. Confirm the same retry now costs nothing
+
+Bring the double charge to the first review.
+
+---
+
+{/* _class: impact */}
+
+# Next week
+
+You fixed *what* the retry does.
+
+Now: *how often*, and how fast.
