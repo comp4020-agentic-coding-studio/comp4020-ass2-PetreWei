@@ -23,7 +23,7 @@ The 400 is retried forever for no gain, since the request will fail the same way
 
 ## Who decides
 
-`library`. Classifying a status code as retryable or not is a judgement worth making once, correctly, for the whole client rather than re-deciding at every call site that happens to see a 4xx.
+`library`. A status code means the same thing everywhere it's returned, so the client only needs one table mapping codes to a retry verdict, checked on the way out of every call rather than reasoned about fresh at each one.
 
 ## In the studio
 

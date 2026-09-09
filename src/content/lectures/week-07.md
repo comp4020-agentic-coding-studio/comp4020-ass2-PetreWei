@@ -9,7 +9,7 @@ related:
   - sessions/07-sorting-errors-into-bins
 ---
 
-Treat every non-2xx response the same way and retry it, since a status code is just a number until someone reads it. The 400 is retried forever for no gain, since the request will fail the same way every time, and the 429 is retried before the requested wait, which is the exact behaviour the server was asking the client to stop.
+A 400 says the request is malformed, which no number of attempts will fix; a 429 says slow down, and usually names exactly how long for in a `Retry-After` header. Sorting an error into retryable or not is where week 6's transient-versus-permanent distinction gets a concrete shape: a status code, unlike a raw exception, already tells you which bucket it's in, if the client bothers to read it instead of treating every non-2xx response as the same undifferentiated failure.
 
 ## Outline
 

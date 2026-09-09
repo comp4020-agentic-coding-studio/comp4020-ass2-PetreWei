@@ -9,7 +9,7 @@ related:
   - sessions/03-becoming-the-outage
 ---
 
-Retry in a tight loop with no delay, on the theory that more attempts recover faster. The two-second blip becomes a sustained flood of requests against a service that was already struggling, long enough to turn a blip into an outage the dependency does not recover from.
+Exponential backoff doesn't make an attempt more likely to succeed, it makes the moment of the attempt less likely to land inside the storm: each wait roughly doubles, so a degrading dependency gets a rapidly thinning trickle of requests instead of a flood that never lets up. A fixed one-second delay doesn't have this property, it just delays the flood rather than shrinking it. The other ingredient, jitter, is next week's problem: a whole fleet of clients backing off on the same clock just synchronises the flood instead of preventing it.
 
 ## Outline
 

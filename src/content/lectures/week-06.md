@@ -9,7 +9,7 @@ related:
   - sessions/06-feeding-the-poison-queue
 ---
 
-Retry it the same way every other failed message is retried, since the consumer has no way to tell the two kinds of failure apart at the point of retrying. A poison message retried forever blocks the queue behind it, or burns the consumer's time indefinitely, for a failure no number of attempts will fix.
+A dead-letter queue is where a message goes once it's failed enough times that the odds of the next attempt succeeding are indistinguishable from zero, set aside rather than retried, so it stops costing anyone anything while a person decides what to do with it. Telling transient and permanent failure apart is a judgement about the failure, not the message; a malformed payload and a database that's momentarily unreachable can throw the exact same exception, which is why that judgement needs a place to live that isn't guesswork from an error string after the fact.
 
 ## Outline
 

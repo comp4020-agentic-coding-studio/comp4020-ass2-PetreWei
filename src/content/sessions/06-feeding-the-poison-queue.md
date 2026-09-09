@@ -23,7 +23,7 @@ A poison message retried forever blocks the queue behind it, or burns the consum
 
 ## Who decides
 
-`library`. Recognising a message as unretriable and routing it to a dead-letter queue instead is exactly the kind of judgement worth encoding once, in the retry library, rather than re-deciding at every consumer.
+`library`. A consumer only sees one message at a time, so it has no way to notice it's looping; the library is what can track the attempt count across calls and hold the line the consumer can't see on its own.
 
 ## In the studio
 

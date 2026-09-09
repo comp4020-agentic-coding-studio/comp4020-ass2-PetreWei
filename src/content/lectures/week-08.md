@@ -9,7 +9,7 @@ related:
   - sessions/08-watching-a-breaker-trip
 ---
 
-Keep retrying each request against the dependency individually, on the same schedule that worked for a two-second blip in week 3. Every request still pays the full timeout finding out the dependency is down, which spends the client's own latency budget on a fact that was already known after the first failure.
+A circuit breaker's half-open state is the part that actually matters: once enough failures trip it open, it stops sending requests for a cooldown period, then lets exactly one probe through to ask whether the dependency has recovered, closing again only if that probe succeeds. Skip the half-open step and a breaker either never risks finding out the dependency is back, or floods it the instant it reopens, which is week 3's problem again in a different disguise, just delayed: backoff spaces out attempts against a dependency recovering on its own, a breaker decides whether to attempt at all against one that isn't.
 
 ## Outline
 

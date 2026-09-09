@@ -9,7 +9,7 @@ related:
   - sessions/09-two-people-one-payout
 ---
 
-Whoever gets there first just resends the payout, since that is what fixing it has always meant. Two payouts, from two people who each did the reasonable thing alone. There is no code to blame and no retry loop to point at; the failure this week has the same shape as every other week's, with the state living in a spreadsheet instead of a queue.
+Every fix so far this semester has lived in a client, a library or a platform, because there was code between the failure and the retry. Take the code away and the same failure modes are still possible, no idempotency check, no backoff, no shared state between the two people acting, they just need a runbook line, a wait-and-check step, and a shared incident channel instead of a shared variable. A runbook is a retry policy a human executes instead of a process, which is why it can be wrong in exactly the same ways.
 
 ## Outline
 

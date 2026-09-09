@@ -23,7 +23,7 @@ The two-second blip becomes a sustained flood of requests against a service that
 
 ## Who decides
 
-`library`. Once a retry is worth doing at all, spacing the attempts out is not a judgement call worth repeating at every call site, so it belongs in the retry library rather than the client.
+`library`. Nothing about this call site is special: the same curve works for anything talking to anything, so the client only has to ask for a retry, not choose how long to wait before the next one.
 
 ## In the studio
 

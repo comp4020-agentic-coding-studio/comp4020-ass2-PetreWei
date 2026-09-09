@@ -9,7 +9,7 @@ related:
   - sessions/04-synchronising-a-herd
 ---
 
-Trust that each client's own backoff is enough, because each one is behaving well in isolation. Ten thousand well-behaved clients retrying on the same second is a thundering herd: the recovering dependency is hit by a synchronised spike and falls over again, and no single client did anything wrong.
+Jitter breaks the synchrony by randomising when, inside its own window, each client actually fires, so instead of ten thousand clients hitting the same second, they spread across the whole window and the dependency sees a manageable trickle. It has to be randomised on every attempt, not just the first, or clients that started backing off together stay together. Week 3 was one client learning to wait; this week is what happens when ten thousand clients learn the same lesson at the same moment.
 
 ## Outline
 

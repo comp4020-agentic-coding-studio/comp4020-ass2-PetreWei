@@ -9,7 +9,7 @@ related:
   - sessions/12-arguing-the-case
 ---
 
-Assume the retry was the villain, since eleven weeks of this course have mostly been about retries going wrong. A verdict reached without doing the actual work: eleven weeks in, the reflex to distrust retrying can become as unexamined as the reflex to trust it was in week 1.
+Every fix this semester traded something for safety: an idempotency key trades storage, backoff trades latency, a circuit breaker trades availability for correctness while it's open, a retry budget trades throughput. None of those trades were free, and none were really technical decisions, they were product decisions wearing a technical decision's clothes, the same disguise week 1's reflex wore. Arguing this case cold is the only way to notice you're making that trade before someone tells you what it cost.
 
 ## Outline
 

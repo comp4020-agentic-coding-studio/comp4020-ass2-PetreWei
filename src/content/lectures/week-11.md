@@ -9,7 +9,7 @@ related:
   - sessions/11-finding-the-point-of-no-return
 ---
 
-Retry the whole operation from the start, the way every other failure this semester has been handled. Everything the naive retry assumes: it repeats the steps that were never a problem and cannot touch the two that already happened, so retrying does not fix the failure and may duplicate the email on top of it.
+An irreversible step doesn't fail differently to a reversible one, it just can't be undone once it has run, which means the fix isn't in how you retry it, it's in when it runs. Put the email and the lock release last in the sequence, after every step that can still fail safely, and a retry of the whole operation either never reaches them or reaches them exactly once, on the attempt that actually succeeds. This is the one week where none of client, library, platform, operator or product gets to make a retry decision, because the ordering choice already made it for them, upstream of the failure.
 
 ## Outline
 

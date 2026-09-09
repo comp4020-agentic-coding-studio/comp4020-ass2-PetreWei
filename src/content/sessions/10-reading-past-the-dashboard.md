@@ -23,7 +23,7 @@ The truth: a dashboard reporting success while the retried p99 latency has climb
 
 ## Who decides
 
-`platform`. Whether a retry's cost is visible at all is a decision about what gets measured, made once, for everyone, by whoever builds the dashboard, not by any individual request that happens to succeed on its third attempt.
+`platform`. No single request can tell you it took three attempts to succeed; that fact only exists in aggregate, which puts it in whoever owns the dashboard's definition, not in the code path that already moved on once it got its answer.
 
 ## In the studio
 

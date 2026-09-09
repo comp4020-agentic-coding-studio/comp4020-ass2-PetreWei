@@ -9,7 +9,7 @@ related:
   - sessions/05-counting-to-twenty-seven
 ---
 
-Let each layer retry the call below it up to three times, since three retries at any one layer seems modest. Twenty-seven requests reach the failing dependency for the one the user made, because the retries compound multiplicatively up the stack rather than adding.
+A retry budget tracks a ratio, not a count: the fraction of recent calls that were retries, capped at something like ten percent, so retries throttle themselves as the ratio nears the cap instead of every layer independently deciding three is a small number. The three layers in this week's incident weren't wrong on their own terms, which is the same shape as week 4's thundering herd: correct in isolation, compounding in aggregate, and only visible from a vantage point no single layer has.
 
 ## Outline
 

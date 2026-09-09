@@ -9,7 +9,7 @@ related:
   - sessions/02-charging-twice-on-purpose
 ---
 
-Apply week 1's reflex unchanged: the timeout looks the same from the outside, so retry. A second charge. The client cannot tell a lost response from a lost request, so the same retry that was free last week is expensive this week.
+An idempotency key doesn't stop the timeout, it stops the timeout from mattering: the server checks the key before it commits the write, so a repeated request lands on the same charge instead of a new one. That's a property the client has to ask for, not one it can assume, which is the sense in which the bug here isn't the retry, it's retrying without knowing the answer.
 
 ## Outline
 

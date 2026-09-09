@@ -9,7 +9,7 @@ related:
   - sessions/10-reading-past-the-dashboard
 ---
 
-Read success rate as the health of the system, since that is the number the dashboard shows and it has not moved. The truth: a dashboard reporting success while the retried p99 latency has climbed to eleven seconds, because the metric that would have shown the decline was never being measured in the first place.
+Success rate answers whether a request eventually got a good response; it says nothing about how many attempts that took or how long the client waited for it. A retry that succeeds on the third try is invisible to that metric and expensive to the person waiting on it, which is why a dashboard built only on success rate can watch a dependency decline for six weeks and never move. The fix is measuring the thing retries are built to hide, retried latency and retry rate, tracked alongside success rate rather than instead of it.
 
 ## Outline
 
