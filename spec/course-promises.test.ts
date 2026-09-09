@@ -53,19 +53,21 @@ describe("course promises", () => {
 
   // The course's actual promise: every week is the same question — something
   // failed, was retrying the right call? — asked about a different situation.
-  // A `failure` frontmatter field per session is this course's own convention,
-  // not part of the fixed content schema.
-  it("names a distinct failure every week, none repeated", () => {
+  // A `failure_scenario` frontmatter field per session is this course's own
+  // convention, not part of the fixed content schema.
+  it("names a distinct failure scenario every week, none repeated", () => {
     const sessions = api.nodes.filter((node) => node.type === "sessions");
     for (const node of sessions) {
-      const failure = node.meta?.failure;
+      const failureScenario = node.meta?.failure_scenario;
       expect(
-        typeof failure === "string" && failure.trim().length > 0,
-        `${node.id} has no \`failure\` naming the week's situation`,
+        typeof failureScenario === "string" && failureScenario.trim().length > 0,
+        `${node.id} has no \`failure_scenario\` naming the week's situation`,
       ).toBe(true);
     }
-    const failures = sessions.map((node) => node.meta?.failure);
-    expect(new Set(failures).size, "two or more weeks name the same failure").toBe(failures.length);
+    const failureScenarios = sessions.map((node) => node.meta?.failure_scenario);
+    expect(new Set(failureScenarios).size, "two or more weeks name the same failure scenario").toBe(
+      failureScenarios.length,
+    );
   });
 
   it("keeps every assessment due inside the teaching week it claims", () => {
