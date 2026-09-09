@@ -12,6 +12,8 @@ This repo builds the Slop University course site with Astro: four content collec
 
 A local pre-commit hook (`.githooks/pre-commit`, installed by `pnpm install`) blocks any commit that looks like it contains an API key. It's the sensor that actually matters for secrets --- CI's scan only sees a key after it's already pushed.
 
+Shipping makes the whole repo public, not just the site: source, commit history, CI logs and this file. Write every commit message and every rule here as something a reader outside the course will see.
+
 `spec/README.md` and `PROCESS.md` are in this repo and say what they are for. `reflections/` is unused here: an assignment's written account is `PROCESS.md`, and `check:evidence` expects no reflection file in this repo.
 
 ## This deliverable
@@ -28,6 +30,7 @@ Three criteria: legibility of process 45%, working deployed artefact 20%, respon
 - **No catalogue filler.** Prose that could describe any course ("students will gain a comprehensive understanding of...") is a defect, not a placeholder. The site should read in one voice with a point of view.
 - **Never write a plausible-looking guess.** An invented incident, statistic or citation that reads as real is worse than an honest omission — and a course pointing at real failures is exactly where a fabricated one does the most damage.
 - **Every curricular decision has to be visible on the site.** There is no separate syllabus document; if a decision isn't on a page, it wasn't made.
+- **Save a generated image the moment you make it.** The course key's image allowance runs for the semester and the returned URLs expire, so download the file into the repo, record where it came from, and commit it. `check:evidence` hashes the four starter images and fails on them — the artwork has to be yours.
 
 ## This course's own promises
 
@@ -42,8 +45,10 @@ These are decisions about SLOP3092, not requirements of the brief. `spec/course-
 
 - **Start each deliverable with the `start` skill.** It fetches the spec and turns its checkable lines into tests.
 - **Argue with the plan before building.** Ask the agent what's ambiguous, what it assumed, what it missed, and which choice the spec requires versus merely prefers.
+- **Build the slice the plan describes, and stop there.** Arguing with the plan only settles what to build; nothing holds that line during the work. Unrequested extras are drift even when they're improvements — propose them separately.
 - **Check the baseline first.** Run `pnpm check` before changing anything; a red baseline means the failure isn't yours to fix.
 - **Return evidence, not a claim.** Drive the page in a real browser rather than reasoning about it from source, and produce the screenshot, console output, response body, DOM state, numbers or exit code — not a judgement by eye. "The form submits correctly" is not verification when the observed response is `{"error":"unknown port"}`.
+- **The screenshot and the console fail independently.** A perfect screenshot can sit on top of a 404, a failed parse and placeholder values. Read both, and neither one alone counts as verified.
 - **Verify the deployed site, not the dev server.** `ASTRO-DEV-TOOLBAR` in the tab order means you tested the dev server by mistake, and `astro preview` may run on a different port if 4321 is busy — read the printed port. Even a correct preview isn't the deployment: GitHub Pages serves the site under a subpath, so a base-path or asset bug can look fine locally and only 404 once live.
 - **Reproduce before fixing.** For a bug found by hand, add a failing test first, confirm it fails for the right reason, then fix.
 - **Keep output pristine.** Leave no ignored errors, warnings, or backtraces in logs.
@@ -52,6 +57,7 @@ These are decisions about SLOP3092, not requirements of the brief. `spec/course-
 
 ## Sensors and checks
 
+- **Ask whether a person is needed before writing a check.** "Exactly one top-level heading" is mechanical; "make it look good" needs a reader. A check for something only a person can settle is theatre, and deciding which is which is the third question `PROCESS.md` has to answer.
 - **Write the sensor before the change.** When a judgement is worth keeping, encode it as a check first, then make the work pass it — the contract then outlives the edit and rejects future drift on its own.
 - **Say what a sensor doesn't cover.** A check that states its blind spots is trustworthy; one that implies it proves more than it does is not.
 - **Treat a red check as correct until proven otherwise.** Read it before changing anything. Update a check when the contract it encodes has genuinely changed; never weaken one to fit output you didn't intend.
@@ -61,7 +67,7 @@ These are decisions about SLOP3092, not requirements of the brief. `spec/course-
 
 ## Git and CI
 
-- **Commit small and often.** The commit trail is evidence of process, not just the final diff; a single dump before the deadline is the weakest version of it.
+- **Commit small and often, and say why in the message.** The commit trail is evidence of process, not just the final diff, and a single dump before the deadline is the weakest version of it. The diff already shows what changed; the message is the only place the reason survives.
 - **Commit only on green, then push immediately.** Stage files by name, never force, and read the CI run afterward — a local green is not a green deploy.
 - **Read a red CI run properly.** `gh run watch`, then `gh run view --log-failed` — hand the agent the actual failing command, output, and expected-vs-actual, not just "the build failed."
 - **Commit the updated lockfile after any dependency change.** CI installs with `--frozen-lockfile`, so a stale `pnpm-lock.yaml` breaks the build there even though it works locally.
@@ -71,6 +77,7 @@ These are decisions about SLOP3092, not requirements of the brief. `spec/course-
 - **400 to 600 words, one narrative.** A first-person account of getting from the brief to the harness and the workflow — not a run of fixes with a commit hash apiece.
 - **Its spine is three questions.** What did you decide a good course looks like; which of those decisions became a rule here or a check in `spec/`; and which you deliberately left to human judgement instead of encoding.
 - **Cite commits inline, as links whose text is the hash or range.** An uncited claim is not evidence and is discounted — markers follow citations rather than hunting the repo for material you didn't point at.
+- **Don't narrate past the evidence.** Filenames, dates, diffs and counts are evidence; a label for a phase, or a claim about what the work proves, is interpretation. Notice the seam where the citations stop and the story starts.
 - **Check the rendered file on GitHub before shipping.** Images need relative paths and nothing verifies that they render.
 
 ## Grading conditions
