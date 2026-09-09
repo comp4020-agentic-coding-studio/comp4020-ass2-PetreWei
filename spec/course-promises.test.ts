@@ -70,6 +70,25 @@ describe("course promises", () => {
     );
   });
 
+  // The other half of the same promise: the situation changes every week, but
+  // the authority deciding is drawn from a closed set and recurs on purpose.
+  // Both halves are asserted, because presence alone would pass on twelve weeks
+  // that all ask the client — which is the shallow version of this course.
+  it("hands the decision to one of six authorities, and uses all six", () => {
+    const vocabulary = ["client", "library", "platform", "operator", "product", "nobody"];
+    const sessions = api.nodes.filter((node) => node.type === "sessions");
+    for (const node of sessions) {
+      const decidedBy = node.meta?.decided_by;
+      expect(
+        vocabulary.includes(decidedBy as string),
+        `${node.id} has \`decided_by: ${String(decidedBy)}\`, which is outside the closed vocabulary`,
+      ).toBe(true);
+    }
+    const used = new Set(sessions.map((node) => node.meta?.decided_by));
+    const unused = vocabulary.filter((value) => !used.has(value));
+    expect(unused, `no week hands the decision to: ${unused.join(", ")}`).toEqual([]);
+  });
+
   it("keeps every assessment due inside the teaching week it claims", () => {
     const weekStarts = new Map<number, Date>(
       api.nodes

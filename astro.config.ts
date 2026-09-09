@@ -48,7 +48,11 @@ export default defineConfig({
       fontVariables: ["--font-public-sans"],
       // A deck's HTML is astromotion's, not the theme layout's, so it does not
       // inherit the site's icon and the browser falls back to a root
-      // /favicon.ico that does not exist. Same crest, served from `public/`.
+      // /favicon.ico that does not exist. This option takes a plain path
+      // resolved against `base`, never an ImageMetadata, so the file has to
+      // sit in `public/` rather than being imported from the theme:
+      // `public/favicon.svg` is a byte copy of astro-theme-slop's
+      // `assets/slop-crest.svg`. Re-copy it if the theme's crest ever changes.
       favicon: "/favicon.svg",
     }),
   ],

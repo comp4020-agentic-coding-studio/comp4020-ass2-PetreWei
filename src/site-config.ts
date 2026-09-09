@@ -29,6 +29,6 @@ export const siteConfig = defineSiteConfig({
   ],
 
   licence: "CC-BY-NC-SA-4.0",
-  socialImage: "/src/assets/images/card.png",
+  socialImage: "/src/assets/images/card.jpg",
   socialImageAlt: `A preview card for ${courseMeta.code}: ${courseMeta.title}`,
 });
