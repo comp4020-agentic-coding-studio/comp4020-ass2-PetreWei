@@ -16,7 +16,7 @@ A local pre-commit hook (`.githooks/pre-commit`, installed by `pnpm install`) bl
 
 ## This deliverable
 
-Assignment 2: design the course you wish existed, and build the site that runs it. The published brief and spec are the contract, so read them there rather than from a copy. The spec's mechanically checkable lines are encoded in `spec/course-promises.test.ts`; the rest is the marker's judgement.
+Assignment 2: design the course you wish existed, and build the site that runs it. The published brief and spec are the contract, so read them there rather than from a copy. Of its six lines, `spec/course-promises.test.ts` holds the ones about the course's shape, `pnpm check:evidence` holds the one about process evidence, and CI's deploy job is the only thing that checks the site is actually live. Whether twelve weeks add up to a course is nobody's check but the marker's.
 
 Three criteria: legibility of process 45%, working deployed artefact 20%, response to the brief 35%. Process carries the most weight deliberately, and corroboration is the floor of a band rather than the top --- what lifts it is what no commit alone shows: why a decision beat the alternative, and how you knew the result was right before accepting it. Failures fixed at the harness level count for more than failures retried.
 
@@ -37,6 +37,7 @@ These are decisions about SLOP3092, not requirements of the brief. `spec/course-
 - **Every session declares a `failure_scenario`.** A short, concrete sentence naming the specific failure that week is built around — "an HTTP client retries a request that already succeeded server-side", not "reliability". The field is this course's own convention, passed through by the `.loose()` content schemas, so the check is its only enforcement.
 - **No two weeks name the same failure scenario.** The course asks one question twelve times about twelve different situations; a repeated situation is the repetition the brief warns against.
 - **Tags name this course's slice, not the field around it.** A tag built from a broad signal word — `systems`, `engineering`, `reliability`, `resilience`, `computing`, `architecture` — claims territory the twelve weeks don't cover.
+- **An assessment falls due inside the week it claims.** On or after that week's session, and before the next week's. An assessment pointing at a week no session is scheduled for is a scheduling error, not a late deadline.
 
 ## Working practices
 
