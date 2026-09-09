@@ -40,7 +40,6 @@ The promises below are decisions about this course, not requirements of the brie
 
 ## Working practices
 
-- **Start each deliverable with the `start` skill.** It fetches the spec and turns its checkable lines into tests.
 - **Write the plan down before building.** Not for the marker — so there is something to argue with, and something the finished work can be checked against. It states the response, the scope wall, and what is deliberately out.
 - **Argue with the plan before building.** Ask the agent what's ambiguous, what it assumed, what it missed, and which choice the spec requires versus merely prefers.
 - **Correct a wrong premise before acting on it.** If an instruction contains a factual error, say so first and work from the corrected version. Quietly building on the mistake buries it in the result.
@@ -51,7 +50,7 @@ The promises below are decisions about this course, not requirements of the brie
 
 ## Verification
 
-- **Check the baseline first.** Run `pnpm check` before changing anything; a red baseline means the failure isn't yours to fix.
+- **Check the baseline first.** Run `pnpm check` before changing anything, so a later failure is known to belong to the change. Some of this repo's baseline is red on purpose — checks waiting on content that doesn't exist yet — so read what is failing rather than assuming red means inherited.
 - **Return evidence, not a claim.** Drive the page in a real browser rather than reasoning about it from source, and produce the screenshot, console output, response body, DOM state, numbers or exit code — not a judgement by eye. "The form submits correctly" is not verification when the observed response is `{"error":"unknown port"}`.
 - **The screenshot and the console fail independently.** A perfect screenshot can sit on top of a 404, a failed parse and placeholder values. Read both, and neither one alone counts as verified.
 - **Verify the deployed site, not the dev server.** `ASTRO-DEV-TOOLBAR` in the tab order means you tested the dev server by mistake, and `astro preview` may run on a different port if 4321 is busy — read the printed port. Even a correct preview isn't the deployment — open the live URL.
@@ -69,7 +68,7 @@ The promises below are decisions about this course, not requirements of the brie
 - **Treat a red check as correct until proven otherwise.** Read it before changing anything. Update a check when the contract it encodes has genuinely changed; never weaken one to fit output you didn't intend.
 - **A permanently red check is not a sensor.** If a check stays red without being actionable, repair or remove it — a check that never turns green just teaches everyone to ignore it.
 - **A check that cannot fail is not a sensor either.** Before writing one, confirm the failure it describes can actually reach it — if the build, the schema or the type checker already rejects that state, the test only ever reports green.
-- **A browser tool that doesn't respond is evidence to investigate, not a verdict on the site.** Synthetic input can miss what a real interaction would catch — a key press dispatched and released inside one frame never registers as held. Check the tool's assumptions against the page's actual behaviour before believing a red result.
+- **A browser tool that doesn't respond is evidence to investigate, not a verdict on the site.** Check the tool's own assumptions against the page's actual behaviour before believing a red result.
 - **Workflow files are harness, not spec.** Edit `.github/workflows/` only to restore a check that drifted from the initial commit's intent — diff against that commit first.
 
 ## Git and CI
