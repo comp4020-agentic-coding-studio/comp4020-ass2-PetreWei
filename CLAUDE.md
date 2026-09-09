@@ -43,7 +43,6 @@ The promises below are decisions about this course, not requirements of the brie
 - **Start each deliverable with the `start` skill.** It fetches the spec and turns its checkable lines into tests.
 - **Argue with the plan before building.** Ask the agent what's ambiguous, what it assumed, what it missed, and which choice the spec requires versus merely prefers.
 - **Correct a wrong premise before acting on it.** If an instruction contains a factual error, say so first and work from the corrected version. Quietly building on the mistake buries it in the result.
-- **A subagent gets `Explore` or a worktree, never write access to this repo.** A prompt saying "don't edit anything" is advice, not enforcement: a subagent inherits the same tools, `Bash` included. `Explore` has no `Edit` or `Write`; `isolation: "worktree"` keeps any commit on a throwaway branch. Verify the tree afterwards either way, and never ask one what another has done — they can't see each other, so any such claim is invented.
 - **Build the slice the plan describes, and stop there.** Arguing with the plan only settles what to build; nothing holds that line during the work. Unrequested extras are drift even when they're improvements — propose them separately.
 - **Keep output pristine.** Leave no ignored errors, warnings, or backtraces in logs.
 - **Never rewrite the spec to match the build.** A disagreement between them is a decision to flag, not a diff to resolve quietly.
