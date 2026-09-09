@@ -33,6 +33,8 @@ The promises below are decisions about this course, not requirements of the brie
 - **Cohering the chunks is the work.** The agent produces content-shaped pieces; making the site's twenty-odd pages agree with each other — on the thesis, the voice, the names, the dates — is what the agent can't do for you.
 - **No catalogue filler.** Prose that could describe any course ("students will gain a comprehensive understanding of...") is a defect, not a placeholder. The site should read in one voice with a point of view.
 - **Never write a plausible-looking guess.** An invented incident, statistic or citation that reads as real is worse than an honest omission — and a course pointing at real failures is exactly where a fabricated one does the most damage.
+- **Fetch the fact, don't recall it.** A date, a figure, an outage, the order things happened in: get it from the source and say which source, rather than from memory. A confabulated detail arrives fluent and confident, which is what makes it dangerous in a course whose weeks rest on things that really happened.
+- **Ground "today" in the machine clock.** `date +%Y-%m-%d` before reasoning about the twelve weeks, a due date or the deadline — never an assumed today.
 - **Every curricular decision has to be visible on the site.** There is no separate syllabus document; if a decision isn't on a page, it wasn't made.
 - **Save a generated image the moment you make it.** The course key's image allowance runs for the semester and the returned URLs expire, so download the file into the repo, record where it came from, and commit it.
 
@@ -40,6 +42,7 @@ The promises below are decisions about this course, not requirements of the brie
 
 - **Start each deliverable with the `start` skill.** It fetches the spec and turns its checkable lines into tests.
 - **Argue with the plan before building.** Ask the agent what's ambiguous, what it assumed, what it missed, and which choice the spec requires versus merely prefers.
+- **Correct a wrong premise before acting on it.** If an instruction contains a factual error, say so first and work from the corrected version. Quietly building on the mistake buries it in the result.
 - **Build the slice the plan describes, and stop there.** Arguing with the plan only settles what to build; nothing holds that line during the work. Unrequested extras are drift even when they're improvements — propose them separately.
 - **Keep output pristine.** Leave no ignored errors, warnings, or backtraces in logs.
 - **Never rewrite the spec to match the build.** A disagreement between them is a decision to flag, not a diff to resolve quietly.
@@ -58,6 +61,8 @@ The promises below are decisions about this course, not requirements of the brie
 
 - **Ask whether a person is needed before writing a check.** "Exactly one top-level heading" is mechanical; "make it look good" needs a reader. A check for something only a person can settle is theatre, and deciding which is which is the third question `PROCESS.md` has to answer.
 - **Write the sensor before the change.** When a judgement is worth keeping, encode it as a check first, then make the work pass it — the contract then outlives the edit and rejects future drift on its own.
+- **Write the assertion so it can only pass for the right reason.** Assert the thing is used, not merely that the wrong thing is absent, since a forbid-only check is satisfied by an empty page. Give a compound promise one assertion per claim, or it passes on the easy half. Name the offending value in the message, so a failure says what to go and look at.
+- **Say what passing cost.** When you change the work to satisfy a check, report what the change gave up. A constraint met is not the same as the thing improved, and the loss is invisible in a green run.
 - **Say what a sensor doesn't cover.** A check that states its blind spots is trustworthy; one that implies it proves more than it does is not.
 - **Treat a red check as correct until proven otherwise.** Read it before changing anything. Update a check when the contract it encodes has genuinely changed; never weaken one to fit output you didn't intend.
 - **A permanently red check is not a sensor.** If a check stays red without being actionable, repair or remove it — a check that never turns green just teaches everyone to ignore it.
@@ -72,7 +77,8 @@ The pre-commit hook is the sensor that actually matters for secrets: CI's scan o
 Shipping makes the whole repo public, not just the site: source, commit history, CI logs and this file. Write every commit message and every rule here as something a reader outside the course will see.
 
 - **Commit small and often, and say why in the message.** The commit trail is evidence of process, not just the final diff, and a single dump before the deadline is the weakest version of it. The diff already shows what changed; the message is the only place the reason survives.
-- **Commit only on green, then push immediately.** Stage files by name, never force, and read the CI run afterward — a local green is not a green deploy.
+- **Commit only on green, then push immediately.** Stage files by name and read the CI run afterward — a local green is not a green deploy. The one exception is a check written ahead of the thing that satisfies it: those are red on purpose, and the commit message says which and why.
+- **Never rewrite history.** No force pushes, no amending what is already pushed, no tidying a mislabelled commit away. Correct it in the next one instead. Process is the largest criterion and the log is the evidence for it, mistakes included.
 - **Read a red CI run properly.** `gh run watch`, then `gh run view --log-failed` — hand the agent the actual failing command, output, and expected-vs-actual, not just "the build failed."
 - **Commit the updated lockfile after any dependency change.** CI installs with `--frozen-lockfile`, so a stale `pnpm-lock.yaml` breaks the build there even though it works locally.
 
