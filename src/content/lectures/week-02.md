@@ -1,23 +1,18 @@
 ---
-title: Second lecture
-description:
-  Week 2 — the first substantive material, and the run-up to the first review
+title: A retry that isn't idempotent is a bug wearing a feature's clothes
+description: "Why a timeout can't tell a client whether the write already happened, and what an idempotency key actually guarantees."
 week: 2
 date: 2027-03-01
 teachers:
   - idris-fenn
 related:
-  - sessions/02-first-review
-  - assessments/assignment-1
+  - sessions/02-charging-twice-on-purpose
 ---
 
-<!-- STARTER_CONTENT: replace this lecture, then remove this comment. -->
-
-Replace this page. It exists so the lectures listing sorts by week and the
-related block has more than one edge to draw.
+Apply week 1's reflex unchanged: the timeout looks the same from the outside, so retry. A second charge. The client cannot tell a lost response from a lost request, so the same retry that was free last week is expensive this week.
 
 ## Outline
 
-- the first substantive material, and where it shows up in practice
-- what the first review is looking for
-- reading before next week
+- why a timeout does not tell you whether the write happened
+- idempotency keys, and what they actually guarantee
+- the first review: bring the double charge and the fix
