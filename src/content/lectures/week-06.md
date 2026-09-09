@@ -1,18 +1,18 @@
 ---
-title: Some failures cannot be retried into success
-description: "Why recognising a message as unretriable belongs in the queue library, and why deciding when to stop is a product call."
+title: The mechanism does not care whether there is code involved
+description: "Why some weeks have no client, library or platform to hand the decision to, and what a runbook has in common with a retry library."
 week: 6
 date: 2027-04-12
 teachers:
   - idris-fenn
 related:
-  - sessions/06-feeding-the-poison-queue
+  - sessions/06-two-people-one-payout
 ---
 
-A dead-letter queue is where a message goes once it's failed enough times that the odds of the next attempt succeeding are indistinguishable from zero, set aside rather than retried, so it stops costing anyone anything while a person decides what to do with it. Telling transient and permanent failure apart is a judgement about the failure, not the message; a malformed payload and a database that's momentarily unreachable can throw the exact same exception, which is why that judgement needs a place to live that isn't guesswork from an error string after the fact.
+Every fix so far this semester has lived in a client, a library or a platform, because there was code between the failure and the retry. Take the code away and the same failure modes are still possible, no idempotency check, no backoff, no shared state between the two people acting, they just need a runbook line, a wait-and-check step, and a shared incident channel instead of a shared variable. A runbook is a retry policy a human executes instead of a process, which is why it can be wrong in exactly the same ways.
 
 ## Outline
 
-- transient failure versus failure that retrying cannot fix
-- dead-letter queues, and why deciding when to stop is a product decision
-- welcome back: what changed over the break
+- welcome back: why the course restarts on a week with no code in it
+- runbooks as the retry policy for people instead of code
+- what a lock looks like when the resource is a spreadsheet

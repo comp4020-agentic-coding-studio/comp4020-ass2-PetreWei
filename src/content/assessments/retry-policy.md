@@ -1,6 +1,6 @@
 ---
 title: A retry policy you have to defend
-description: "Write a retry policy for a real service, then defend it against a panel that has read weeks 5 to 8 as closely as you have."
+description: "Write a retry policy for a real service, then defend every trade in it against a panel assigned to find the one you cannot justify."
 week: 8
 due: 2027-04-30T12:00:00+10:00
 weight: 35
@@ -16,6 +16,7 @@ marking:
 spec:
   - the policy names a real service and covers what happens on failure end to end, not one mechanism in isolation
   - it states a retry budget, a backoff strategy and a breaker condition, and says how they interact
+  - "every mechanism it adopts is priced: what the policy gives up by adopting it, stated rather than implied"
   - it names at least one alternative design it rejected, and why
   - the defence responds to the specific challenge raised, not a rehearsed answer prepared in advance
 related:
@@ -26,7 +27,9 @@ related:
 
 > Choose a service, real or one you know well enough to be honest about, and write the retry policy it should have.
 
-By week 8 you've seen a retry loop cause its own outage, a herd synchronise by accident, a budget replace a per-call count, and a breaker that has to close again as much as it has to open. A policy that only covers one of these is not a policy, it's a fix for last week's failure. State what retries when, how long it backs off, when the breaker trips, and how those three interact under load.
+By week 8 you've seen a retry loop cause its own outage, a herd synchronise by accident, a budget replace a per-call count, two operators resend the same payout, a failure that could never have succeeded, and a breaker that has to close again as much as it has to open. A policy that only covers one of these is not a policy, it's a fix for last week's failure. State what retries when, how long it backs off, when the breaker trips, and how those three interact under load.
+
+Then price each of them. Every session this semester has ended by naming what its fix trades away, and a policy that reads as pure gain is a policy that has not been thought through — the panel's first question will be which of your mechanisms costs the most, and you should already know.
 
 ## What you submit
 

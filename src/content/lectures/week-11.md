@@ -15,4 +15,4 @@ An irreversible step doesn't fail differently to a reversible one, it just can't
 
 - why some steps have no retry decision to make
 - ordering an operation so the irreversible step comes last
-- what changes when a decision has already been made for you
+- compensating actions, for when the ordering is not yours

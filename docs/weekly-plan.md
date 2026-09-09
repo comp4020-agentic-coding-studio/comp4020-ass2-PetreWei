@@ -38,25 +38,36 @@ Week 5 has no Friday: Good Friday is 26 March. Nothing is scheduled into it.
 
 ## The twelve weeks
 
-Every session states the situation, the naive retry, what it costs, and who decides. `decided_by` draws on a closed vocabulary of six — `client`, `library`, `platform`, `operator`, `product`, `nobody` — and repeats deliberately: the same authority recurring in different guises is a finding, whereas a repeated situation would be the listicle the brief warns against.
+Every session states the situation, the reflex, what it costs, the fix and what it trades, and who decides. `decided_by` draws on a closed vocabulary of six — `client`, `library`, `platform`, `operator`, `product`, `nobody` — and repeats deliberately: the same authority recurring in different guises is a finding, whereas a repeated situation would be the listicle the brief warns against.
 
 | Wk | Monday | `failure_scenario` | What retrying costs | `decided_by` |
 | --- | --- | --- | --- | --- |
-
 | 1 | 22 Feb | A read times out, you retry once, it works | Nothing, this time — and that is how the reflex is learned | `client` |
 | 2 | 1 Mar | A write times out after the server has already committed it | Money: one charge becomes two | `client` |
 | 3 | 8 Mar | A retry loop with no delay meets a two-second blip | Load: you are now the outage | `library` |
 | 4 | 15 Mar | Ten thousand clients retry on the same second | Recovery: the herd stops the service coming back | `platform` |
 | 5 | 22 Mar | Three layers each retry three times | Twenty-seven requests for one click | `platform` |
-| 6 | 12 Apr | A `400` retried forever, and a `429` retried immediately | Nothing gained, plus a ban | `library` |
-| 7 | 19 Apr | A dependency is down and every request still knocks | Your own latency budget, spent waiting | `platform` |
-| 8 | 26 Apr | A message that can never succeed, retried forever | The queue itself | `product` |
-| 9 | 3 May | A failed payout retried at 3am by two people on call | Two payouts, and no code was involved | `operator` |
+| 6 | 12 Apr | A failed payout retried at 3am by two people on call | Two payouts, and no code was involved | `operator` |
+| 7 | 19 Apr | A poison message and a `400`, neither of which can ever succeed | The queue itself, and a budget spent for nothing | `library` |
+| 8 | 26 Apr | A dependency is down and every request still knocks | Your own latency budget, spent waiting | `platform` |
+| 9 | 3 May | A request retried for ninety seconds after the caller gave up | Work nobody is waiting for, queued ahead of work somebody is | `client` |
 | 10 | 10 May | Retries succeed and hide a dependency degrading for six weeks | The truth: a green dashboard and an eleven-second p99 | `platform` |
 | 11 | 17 May | The email is already sent; the lock is already released | Everything, because there is no second attempt | `nobody` |
 | 12 | 24 May | An outage where retrying was the cause, read end to end | The whole system | `product` |
 
-Each week also gets a lecture whose title is a claim rather than a topic, so the lecture list reads as an argument.
+Each week also gets a lecture whose title is a claim rather than a topic, so the lecture list reads as an argument. The lecture teaches the general mechanism; the session stays with the one situation.
+
+## The revision, after reading twelve weeks side by side
+
+The table above is the second version. The first was built, pushed, and then read end to end as the plan requires — and the read found three things no check in `spec/` could have caught, which is the argument for keeping that read in the build order rather than trusting the suite.
+
+**The thesis was only stated in week 12.** The course argues that retrying is a trade, and eleven of twelve sessions named the cost of the naive retry and then handed over a fix whose own price went unmentioned — reproducing the exact reflex the course criticises. Adding a fifth slot, the fix and what it trades, puts the argument on every page instead of the last one. This was the highest-leverage change available and it is why the four-slot structure was abandoned: Assignment 1's process mark was capped for a singular concept "not quite clear enough", and a thesis that surfaces once, in the final week, is that failure with a different cause. The three alternatives considered were leaving it in prose (invisible to a marker reading one week), splitting fix and trade into two slots (six slots reads as a form, tripping this plan's own kill-condition), and folding it into "who decides" (where it had been hiding, doing neither job).
+
+**Weeks 6 and 7 were one insight in two containers.** A poison message and a `400` are both "this will never succeed, stop trying"; the first version taught them as separate weeks, and their own lecture bodies admitted it in the connective tissue. They are now one week, and the reclaimed slot went to a genuinely absent situation: a request retried long after the caller stopped waiting. Deadline propagation is the only bound in the course a caller can reason about in a unit — seconds — that the person waiting actually shares.
+
+**Every non-code decider sat in the last four weeks.** Because markers read non-adjacent weeks, a reader landing anywhere in the first eight saw only `client`, `library` and `platform` and would have no reason to think this course was about anything but code. The operator week moved from 9 to 6, where it also breaks up a run of three consecutive `library` weeks and gives the post-break session a change of register. The new week 9 returns the decision to `client`, which weeks 1 and 2 established: the same authority, asked whether a retry is still wanted rather than whether it is safe.
+
+Rejected in the same pass: restructuring into four acts of three, which fails for the same reason candidate A did — acts only pay off read in sequence. And a fuller rework that also folded backoff into the jitter week to buy a second new situation, which was declined because two double-bill weeks would make the promise ten situations and two topics.
 
 ## Assessments
 
@@ -64,12 +75,13 @@ Three, summing to 100, each due inside the week it claims.
 
 | Assessment | Week | Due | Weight | What it asks |
 | --- | --- | --- | --- | --- |
-
 | Retry audit | 4 | Fri 19 Mar 2027 | 25 | Find every retry in a small given codebase, and for each one say what it costs and who decided it |
 | A retry policy you have to defend | 8 | Fri 30 Apr 2027 | 35 | Write the policy for a given service, then defend it against a reviewer briefed to argue the opposite |
 | The case against retrying | 12 | Fri 28 May 2027 | 40 | Take a failure and argue for not retrying, and say what you would measure to know you were right |
 
 The weights load the back of the semester on purpose: the course's actual skill is refusing to retry, and that is the last thing a student learns.
+
+All three now require the trade to be named, not just the fix — the audit prices every change it proposes, the policy prices every mechanism it adopts, and the case is nothing but a trade argued. An assessment that asked only for a working fix would have marked students on the half of the thinking the sessions had stopped teaching.
 
 ## The rest of the site
 

@@ -1,18 +1,18 @@
 ---
-title: Not every error deserves the same response
-description: "Why classifying a status code as retryable or not is a judgement worth making once, in the library, for the whole client."
+title: Some failures cannot be retried into success
+description: "How a status code and a poison message are the same problem, and where the judgement that separates them has to live."
 week: 7
 date: 2027-04-19
 teachers:
   - marisol-quaye
 related:
-  - sessions/07-sorting-errors-into-bins
+  - sessions/07-telling-a-no-from-a-not-yet
 ---
 
-A 400 says the request is malformed, which no number of attempts will fix; a 429 says slow down, and usually names exactly how long for in a `Retry-After` header. Sorting an error into retryable or not is where week 6's transient-versus-permanent distinction gets a concrete shape: a status code, unlike a raw exception, already tells you which bucket it's in, if the client bothers to read it instead of treating every non-2xx response as the same undifferentiated failure.
+A dead-letter queue and a status-code table are the same idea in two containers: somewhere to put a failure once the odds of the next attempt succeeding are indistinguishable from zero. The hard part is never the container, it's the telling — a malformed payload and a momentarily unreachable database can throw the identical exception, whereas HTTP has already done the classification for you if the client reads the code instead of treating every non-2xx response as one undifferentiated failure. A 400 is a no. A 429 is a not yet, and it usually names how long for.
 
 ## Outline
 
-- a taxonomy of failure: which errors are worth a second attempt
+- transient failure, permanent failure, and the failures that look like both
 - reading `Retry-After` instead of guessing
-- the retry policy assessment, due next week
+- dead-letter queues, and who is supposed to read them

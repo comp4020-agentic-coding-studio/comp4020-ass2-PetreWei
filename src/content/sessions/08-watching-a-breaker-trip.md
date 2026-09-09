@@ -1,11 +1,11 @@
 ---
 title: Watching a breaker trip
-description: "A dependency is down long enough that no per-request backoff helps, and every request still pays the full price finding that out."
+description: "Giving up availability on purpose, so every caller stops paying to rediscover the same outage."
 week: 8
 date: 2027-04-26
 teachers:
   - idris-fenn
-failure_scenario: A dependency is down for an extended period, and every request still knocks on its door before giving up.
+failure_scenario: "A dependency is down for an extended period, and every request still knocks on its door before giving up."
 decided_by: platform
 related:
   - assessments/retry-policy
@@ -15,13 +15,17 @@ related:
 
 A dependency goes down for minutes, not seconds, long enough that no per-request backoff is going to help.
 
-## The naive retry
+## The reflex
 
 Keep retrying each request against the dependency individually, on the same schedule that worked for a two-second blip in week 3.
 
 ## What it costs
 
 Every request still pays the full timeout finding out the dependency is down, which spends the client's own latency budget on a fact that was already known after the first failure.
+
+## The fix, and what it trades
+
+A circuit breaker that opens once enough requests have failed, waits, then lets exactly one probe through to ask whether the dependency is back, closing only if that probe succeeds. It trades availability it might have had: while the breaker is open, requests fail that would have worked, which is the course's most explicit purchase so far — a known small loss now, instead of an unknown larger one spread across every caller.
 
 ## Who decides
 

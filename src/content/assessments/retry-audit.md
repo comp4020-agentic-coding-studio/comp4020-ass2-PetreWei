@@ -1,6 +1,6 @@
 ---
 title: Retry audit
-description: "Find every retry in a real codebase and diagnose it against the four weeks that got you here — idempotent, backed off, jittered, budgeted."
+description: "Find every retry in a real codebase and diagnose it against the four weeks that got you here — safe to repeat, backed off, jittered, and honest about what each fix costs."
 week: 4
 due: 2027-03-19T12:00:00+10:00
 weight: 25
@@ -17,6 +17,7 @@ spec:
   - every retry site the codebase actually contains is found, not a sample of the obvious ones
   - each site is diagnosed against the specific failure modes named in weeks 1 to 4, not a generic checklist
   - a fix is proposed for each site that fails a check, and the fix is one this course has actually covered
+  - each proposed fix names what it trades away, in the same terms the weeks used
   - submitted by the deadline, as a single document with one entry per retry site
 related:
   - sessions/04-synchronising-a-herd
@@ -30,7 +31,7 @@ You have four weeks of failure modes to check against: does a retry site disting
 
 ## What you submit
 
-One entry per retry site you find: where it is, which of the four failure modes it's exposed to (if any), and what you'd change. A retry site that already handles everything correctly is a legitimate finding, not a gap in your search, so say so and explain why it holds up.
+One entry per retry site you find: where it is, which of the four failure modes it's exposed to (if any), what you'd change, and what that change would cost. Every fix in this course so far has traded something — latency, storage, a predictable worst case — and an entry that proposes a fix without naming its price has only done half the diagnosis. A retry site that already handles everything correctly is a legitimate finding, not a gap in your search, so say so and explain why it holds up.
 
 ## How it's marked
 

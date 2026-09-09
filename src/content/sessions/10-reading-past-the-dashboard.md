@@ -1,11 +1,11 @@
 ---
 title: Reading past the dashboard
-description: "A dependency has been degrading for six weeks, and retries have been absorbing the damage so cleanly the dashboard never moved."
+description: "Retries can absorb six weeks of decline without a dashboard moving, if nobody measures what they cost."
 week: 10
 date: 2027-05-10
 teachers:
   - idris-fenn
-failure_scenario: Retries quietly absorb a dependency degrading over six weeks, and the dashboard stays green while the retried latency climbs unmeasured.
+failure_scenario: "Retries quietly absorb a dependency degrading over six weeks, and the dashboard stays green while the retried latency climbs unmeasured."
 decided_by: platform
 ---
 
@@ -13,13 +13,17 @@ decided_by: platform
 
 A dependency has been getting slower for six weeks. Every individual request still succeeds, because retries are catching the failures before a user ever sees one.
 
-## The naive retry
+## The reflex
 
 Read success rate as the health of the system, since that is the number the dashboard shows and it has not moved.
 
 ## What it costs
 
-The truth: a dashboard reporting success while the retried p99 latency has climbed to eleven seconds, because the metric that would have shown the decline was never being measured in the first place.
+A dashboard reporting success while the retried p99 latency has climbed to eleven seconds, because the metric that would have shown the decline was never being measured in the first place.
+
+## The fix, and what it trades
+
+Measure the thing retries exist to hide: retry rate and retried latency, reported next to success rate rather than instead of it. It trades two more metrics to maintain and one more way to be paged, and it surfaces a decline nobody has to act on yet — which is how a real signal gets tuned out long before the week it finally matters.
 
 ## Who decides
 
