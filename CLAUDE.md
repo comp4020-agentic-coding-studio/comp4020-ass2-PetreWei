@@ -31,6 +31,7 @@ The promises below are decisions about this course, not requirements of the brie
 - **One idea, carried all the way.** A page that would sit equally well in a different course isn't finished.
 - **Weeks are read side by side, not in order.** Before writing a week, read the ones it will be opened next to. Two weeks that could be swapped without anyone noticing are a defect, not variety.
 - **Cohering the chunks is the work.** The agent produces content-shaped pieces; making the site's twenty-odd pages agree with each other — on the thesis, the voice, the names, the dates — is what the agent can't do for you.
+- **A run of individually sound changes can still erode the whole.** Every page can be defensible, compile and pass the checks while the course drifts out of focus. Nothing in the build measures that, so re-read the site end to end from time to time rather than only the page in hand.
 - **No catalogue filler.** Prose that could describe any course ("students will gain a comprehensive understanding of...") is a defect, not a placeholder. The site should read in one voice with a point of view.
 - **Fetch the fact, don't recall it.** A date, a figure, an outage, the order things happened in: get it from the source and say which source. A confabulated detail arrives fluent and confident, and an invented incident or citation that reads as real is worse than an honest omission — in a course resting on things that really happened, that is where the damage is worst.
 - **Ground "today" in the machine clock.** `date +%Y-%m-%d` before reasoning about the twelve weeks, a due date or the deadline — never an assumed today.
@@ -40,6 +41,7 @@ The promises below are decisions about this course, not requirements of the brie
 ## Working practices
 
 - **Start each deliverable with the `start` skill.** It fetches the spec and turns its checkable lines into tests.
+- **Write the plan down before building.** Not for the marker — so there is something to argue with, and something the finished work can be checked against. It states the response, the scope wall, and what is deliberately out.
 - **Argue with the plan before building.** Ask the agent what's ambiguous, what it assumed, what it missed, and which choice the spec requires versus merely prefers.
 - **Correct a wrong premise before acting on it.** If an instruction contains a factual error, say so first and work from the corrected version. Quietly building on the mistake buries it in the result.
 - **Build the slice the plan describes, and stop there.** Arguing with the plan only settles what to build; nothing holds that line during the work. Unrequested extras are drift even when they're improvements — propose them separately.
@@ -88,6 +90,9 @@ This is the assignment's whole written account: `reflections/` is unused here, a
 
 - **400 to 600 words, one narrative.** A first-person account of getting from the brief to the harness and the workflow — not a run of fixes with a commit hash apiece.
 - **Its spine is three questions.** What did you decide a good course looks like; which of those decisions became a rule here or a check in `spec/`; and which you deliberately left to human judgement instead of encoding.
+- **Say why this course should exist.** Sincere, speculative or satirical are all allowed, but the reason has to be on the page — it is a stated requirement, not an optional flourish.
+- **Cite the discarded work too.** A deletion, a reverted commit, a rule added and then cut: those are where judgement shows, and the top band asks for it. Successes alone read as a clean run that never happened.
+- **Carry one identifiable turning point, with a before and after.** The week 7 retrospective is built from this file — it asks for the specific change that made the assignment click, so the moment needs to be findable here rather than reconstructed later.
 - **Cite commits inline, as links whose text is the hash or range.** An uncited claim is not evidence and is discounted — markers follow citations rather than hunting the repo for material you didn't point at.
 - **Don't narrate past the evidence.** Filenames, dates, diffs and counts are evidence; a label for a phase, or a claim about what the work proves, is interpretation. Notice the seam where the citations stop and the story starts.
 - **Check the rendered file on GitHub before shipping.** Images need relative paths and nothing verifies that they render.
