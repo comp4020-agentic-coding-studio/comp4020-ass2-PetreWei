@@ -23,12 +23,14 @@ A starting point, not a rulebook: what you add to it is the harness, and the har
 - **Check the baseline first.** Run `pnpm check` before changing anything; a red baseline means the failure isn't yours to fix.
 - **Look at the rendered page.** Open it in a browser, or use `agent-browser`, rather than reasoning about it from source.
 - **Treat a red check as correct until proven otherwise.** Read it before changing anything, and never weaken a check to reach green.
+- **A permanently red check is not a sensor.** If a check stays red without being actionable, repair or remove it — a check that never turns green just teaches everyone to ignore it.
 - **Reproduce before fixing.** For a bug found by hand, add a failing test first, confirm it fails for the right reason, then fix.
 - **Keep output pristine.** Leave no ignored errors, warnings, or backtraces in logs.
 - **Never rewrite the spec to match the build.** A disagreement between them is a decision to flag, not a diff to resolve quietly.
 - **Use the cheapest recovery available.** `Esc` interrupts, `/rewind` undoes in-session, `git revert` undoes a commit.
 - **Commit small and often.** The commit trail is evidence of process, not just the final diff; a single dump before the deadline is the weakest version of it.
 - **Commit only on green, then push immediately.** Stage files by name, never force, and read the CI run afterward — a local green is not a green deploy.
+- **Read a red CI run properly.** `gh run watch`, then `gh run view --log-failed` — hand the agent the actual failing command, output, and expected-vs-actual, not just "the build failed."
 
 ## Grading conditions
 
