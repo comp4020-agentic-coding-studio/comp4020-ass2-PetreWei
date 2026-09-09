@@ -1,53 +1,17 @@
 # Process overview
 
-<!-- TEMPLATE: this file is a shape to fill in, not a form. Replace everything
-     in it with your own overview, and delete this comment — `pnpm
-     check:evidence` will remind you if it's still here. -->
-
-Written by you, for a reader: how you got from the brief to the harness and
-agentic workflow behind this submission. Markers read this file and follow its
-citations; they don't trawl the repo for evidence you didn't point at.
-
-This file is the shape; the course site's
-[assessment page](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/topics/assessment/#what-you-submit)
-is the requirement, and its
-[word counts](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/topics/assessment/#word-counts)
-cover every deliverable.
+<!-- DRAFT: the spec and harness work only; the course build is not written yet. -->
 
 ## What I built
 
-One paragraph: the thing, and the idea behind it.
+SLOP3092 *Try Again, Later*: a twelve-week course on one decision, asked in a new context each week — something failed, should you try again, and how? It should exist because retrying is the most common response to failure and the least examined one: it looks like diligence, and a client that retries a request the server already committed is how one charge becomes two. Twelve situations, not twelve topics.
 
 ## How I got here
 
-The account of the process: how the work actually went, and how you knew the
-result was right. Tell it in whatever order makes it clear. A weekly prototype
-needs a paragraph or two; an assignment needs more.
+**The spec is where I wrote down what had to stay true about the course.** Before any content existed I encoded those decisions as checks ([`bc5a4be`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-PetreWei/commit/bc5a4be)): twelve dated weeks, a distinct `failure_scenario` per session, tags no broader than the course. `failure_scenario` is a field I invented, and because the template passes unknown frontmatter keys through, that check is the only thing enforcing it. The tag check began as a list of banned phrases and I threw it away — a blocklist catches only the phrasings I thought of. It now matches signal words, so "distributed systems" and "reliability engineering" both trip it. I took the suite as right rather than merely red because each failure names its cause: `sessions/01-getting-started has no failure_scenario`, not a bare `false`. Three of the eight are red deliberately, and every commit since says which three. I declined a ninth — a dangling `related:` ref already fails the build, so that test could only ever report green, and a check that cannot fail is not a sensor.
 
-Cite the record as you go, as links whose text is the commit hash or range and
-whose target is this repo's commit or compare URL, so a reader clicks straight
-to the evidence:
+**A subagent I had told not to edit anything pushed to `main`.** One of three read-only audits edited `CLAUDE.md`, committed, pushed ([`b458a90`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-PetreWei/commit/b458a90)), and credited findings to two siblings that had died without running. `git status` caught it, not the report. I reverted ([`dcef0d2`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-PetreWei/commit/dcef0d2)), then fixed it where it could not recur ([`d47ded0`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-PetreWei/commit/d47ded0)): the prompt was never the control, since a subagent inherits Bash, whereas `Explore` has no Write and worktree isolation keeps a commit off `main`. Then I deleted that rule too ([`da3c8cf`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-PetreWei/commit/da3c8cf)) — the only line in the file about Claude Code's configuration rather than course design, and drawn from one incident. The fix lives in how I delegate; the incident belongs here.
 
-- one commit: [`a1b2c3d`](https://github.com/YOUR-ORG/YOUR-REPO/commit/a1b2c3d)
-- a range:
-  [`a1b2c3d...e4f5a6b`](https://github.com/YOUR-ORG/YOUR-REPO/compare/a1b2c3d...e4f5a6b)
+**The turning point was giving up on my own harness.** I had 28 rules of my own and was unhappy with them; the obvious move was to keep patching. I discarded them for the previous deliverable's `CLAUDE.md`, taken verbatim ([`9c25807`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-PetreWei/commit/9c25807)), then layered this assignment's rules back on. The diff settled it — most of mine were worse re-derivations of rules already there. The artefact is replaced each deliverable; the harness accumulates.
 
-To pair a prompt with the commit it produced, quote the prompt (curated, not a
-full transcript) next to the citation:
-
-> the prompt, verbatim
-
-Screenshots are welcome where one carries the point better than a sentence does.
-Commit the file to this repo and link it with a **relative** path, which is what
-makes it render on GitHub: `![alt text](docs/before.png)`. Images don't count
-towards the word count and don't replace the citation.
-
-## Before you ship
-
-`pnpm check:evidence` verifies that this comment is gone, that your citations
-resolve to real commits, that a crit week's reflection entry is in
-`reflections/`, and that your `CLAUDE.md` is there. It checks that your account
-is traceable, not that it is good: that is the marker's call.
-
-Images aren't checked: unlike a citation whose SHA doesn't resolve, a broken
-image is visible the moment this file is rendered on GitHub.
+**What I left to a person.** Nothing checks whether twelve weeks add up to a course, and I chose not to build something that pretends to. Goodhart's law says what the mechanical version lets through: twelve distinct failure scenarios can still be twelve shallow weeks, all green. Coherence needs a reader, so the harness has me re-read the site end to end instead of measuring it.
