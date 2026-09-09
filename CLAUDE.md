@@ -1,6 +1,6 @@
-# COMP4020 prototype
+# COMP4020 course site
 
-Your starter repo for a COMP4020 prototype: a static site in HTML/CSS/TypeScript that builds to plain HTML/CSS/JS and deploys to GitHub Pages. The deployed site is what gets marked, not this repo.
+This repo builds the Slop University course site with Astro: four content collections under `src/content/`, slide decks in `src/decks/`, and a generated JSON API. `README.md` documents the platform, which is fixed. The deployed site is what gets marked, not this repo.
 
 The [course website](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/) publishes this deliverable's brief and spec, and this repo's name tells you which deliverable applies. Read both before you plan or build.
 
@@ -14,43 +14,46 @@ A local pre-commit hook (`.githooks/pre-commit`, installed by `pnpm install`) bl
 
 ## This file is yours
 
-A starting point, not a rulebook: what you add to it is the harness, and the harness is assessed. This file and the sensors you wire into `check` carry across the course --- both come with you into next week's repo. The prototype doesn't: source, and the tests answering this week's published spec, stay behind. `spec/README.md` draws the line.
+A starting point, not a rulebook: what you add to it is the harness, and the harness is assessed. This file and the sensors you wire into `check` carry forward from one deliverable to the next. The site doesn't: source, and the tests answering this deliverable's published spec, stay behind. `spec/README.md` draws the line.
 
 ## Working practices
 
-- **Start each week with the `start` skill.** It fetches the spec and turns its checkable lines into tests.
+- **Start each deliverable with the `start` skill.** It fetches the spec and turns its checkable lines into tests.
 - **Argue with the plan before building.** Ask the agent what's ambiguous, what it assumed, what it missed, and which choice the spec requires versus merely prefers.
 - **Check the baseline first.** Run `pnpm check` before changing anything; a red baseline means the failure isn't yours to fix.
-- **Look at the rendered page.** Open it in a browser, or use `agent-browser`, rather than reasoning about it from source.
-- **Return evidence, not a claim.** Manual testing produces the screenshot, console output, response body, DOM state or exit code. "The form submits correctly" is not verification when the observed response is `{"error":"unknown port"}`.
-- **Write the sensor before the change.** When a judgement is worth keeping, encode it as a check first, then make the work pass it — the contract then outlives the edit and rejects future drift on its own.
-- **Say what a sensor doesn't cover.** A check that states its blind spots is trustworthy; one that implies it proves more than it does is not.
-- **Treat a red check as correct until proven otherwise.** Read it before changing anything. Update a check when the contract it encodes has genuinely changed; never weaken one to fit output you didn't intend.
-- **A permanently red check is not a sensor.** If a check stays red without being actionable, repair or remove it — a check that never turns green just teaches everyone to ignore it.
+- **Look at the rendered page.** Drive it in a real browser rather than reasoning about it from source.
+- **Return evidence, not a claim.** Verification produces the screenshot, console output, response body, DOM state, numbers or exit code — not a judgement by eye. "The form submits correctly" is not verification when the observed response is `{"error":"unknown port"}`.
 - **Reproduce before fixing.** For a bug found by hand, add a failing test first, confirm it fails for the right reason, then fix.
 - **Keep output pristine.** Leave no ignored errors, warnings, or backtraces in logs.
 - **Never rewrite the spec to match the build.** A disagreement between them is a decision to flag, not a diff to resolve quietly.
 - **Use the cheapest recovery available.** `Esc` interrupts, `/rewind` undoes in-session, `git revert` undoes a commit.
+
+## Sensors and checks
+
+- **Write the sensor before the change.** When a judgement is worth keeping, encode it as a check first, then make the work pass it — the contract then outlives the edit and rejects future drift on its own.
+- **Say what a sensor doesn't cover.** A check that states its blind spots is trustworthy; one that implies it proves more than it does is not.
+- **Treat a red check as correct until proven otherwise.** Read it before changing anything. Update a check when the contract it encodes has genuinely changed; never weaken one to fit output you didn't intend.
+- **A permanently red check is not a sensor.** If a check stays red without being actionable, repair or remove it — a check that never turns green just teaches everyone to ignore it.
+- **A stuck automated test is evidence to investigate, not a verdict on the artefact.** Check the test's assumptions against the artefact's actual behaviour before trusting a red result.
+- **Workflow files are harness, not spec.** Edit `.github/workflows/` only to restore a check that drifted from the initial commit's intent — diff against that commit first.
+
+## Git and CI
+
 - **Commit small and often.** The commit trail is evidence of process, not just the final diff; a single dump before the deadline is the weakest version of it.
 - **Commit only on green, then push immediately.** Stage files by name, never force, and read the CI run afterward — a local green is not a green deploy.
 - **Read a red CI run properly.** `gh run watch`, then `gh run view --log-failed` — hand the agent the actual failing command, output, and expected-vs-actual, not just "the build failed."
+- **Commit the updated lockfile after any dependency change.** CI installs with `--frozen-lockfile`, so a stale `pnpm-lock.yaml` breaks the build there even though it works locally.
 
 ## Grading conditions
 
 - **Markers test conditions no test suite covers.** They drive the deployed site in Chrome at 1920×1080 and 390×844, by keyboard alone — Tab order, arrow keys, Enter or Space — as readily as by mouse.
-- **Green does not mean good.** A passing suite establishes only what it checks. Qualities like playability or coherence need a person — before calling a change done, show it to someone who has not seen it before.
-- **A green accessibility or performance check is a lab estimate, not proof.** It reflects one run on one machine, not real users.
+- **Green does not mean good.** A passing suite establishes only what it checks. Qualities like coherence or whether the thing is worth having need a person — before calling a change done, show it to someone who has not seen it before.
 
 ## Lessons from failures
 
-- **Workflow files are harness, not spec.** Edit `.github/workflows/` only to restore a check that drifted from the initial commit's intent — diff against that commit first. Never weaken a check the spec requires.
 - **Verify against the built site, not the dev server.** `astro preview` may run on a different port if 4321 is busy; read the printed port. `ASTRO-DEV-TOOLBAR` in the tab order means you tested the dev server by mistake.
 - **Check the deployed URL, not just `pnpm preview`.** GitHub Pages serves the site under a subpath; a base-path or asset bug can look fine locally and only 404 once live.
-- **Commit the updated lockfile after any dependency change.** CI installs with `--frozen-lockfile`, so a stale `pnpm-lock.yaml` breaks the build there even though it works locally.
-- **Never show a plausible-looking guess.** Fail visibly, or show nothing.
-- **Measure before claiming an outcome.** Get numbers before judging by eye.
-- **JSDOM cannot run scripts or lay out pages.** Unit-test DOM-free logic directly; verify visual and interactive behaviour in a real browser.
-- **A stuck automated test is evidence to investigate, not a verdict on the app.** Check the test's assumptions against the app's actual behaviour before trusting a red result.
+- **Never render a plausible-looking guess.** When the real value is missing, the page fails visibly or shows nothing — a fabricated placeholder that looks like data is worse than an empty state.
 
 ## Markdown
 
