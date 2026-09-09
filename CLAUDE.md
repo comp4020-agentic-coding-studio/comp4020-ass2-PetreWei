@@ -33,7 +33,6 @@ A starting point, not a rulebook: what you add to it is the harness, and the har
 - **Never rewrite the spec to match the build.** A disagreement between them is a decision to flag, not a diff to resolve quietly.
 - **Use the cheapest recovery available.** `Esc` interrupts, `/rewind` undoes in-session, `git revert` undoes a commit.
 - **Write one-line paragraphs.** A hard-wrapped rewrap diffs every line and buries the sentence that changed.
-- **Lint Markdown before committing it.** Run `markdownlint-cli2 "**/*.md"`; `.markdownlint-cli2.jsonc` disables `MD013` (one-line paragraphs are the convention here, not a violation) and ignores `node_modules` and `dist`.
 - **Commit small and often.** The commit trail is evidence of process, not just the final diff; a single dump before the deadline is the weakest version of it.
 - **Commit only on green, then push immediately.** Stage files by name, never force, and read the CI run afterward — a local green is not a green deploy.
 
@@ -58,6 +57,11 @@ A starting point, not a rulebook: what you add to it is the harness, and the har
 - **Measure before claiming an outcome.** Get numbers before judging by eye.
 - **JSDOM cannot run scripts or lay out pages.** Unit-test DOM-free logic directly; verify visual and interactive behaviour in a real browser.
 - **A stuck automated test is evidence to investigate, not a verdict on the app.** Check the test's assumptions against the app's actual behaviour before trusting a red result.
+
+## Markdown
+
+- When creating or modifying Markdown files, follow `markdownlint` except `MD013`, and keep each prose paragraph on a single line.
+- After creating or modifying Markdown files, run `markdownlint-cli2 --config ~/.markdownlint-cli2.yaml` on the changed files and fix all reported problems before finishing.
 
 ## Maintaining this file
 
