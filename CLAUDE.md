@@ -81,6 +81,7 @@ Shipping makes the whole repo public, not just the site: source, commit history,
 - **Commit only on green, then push immediately.** Stage files by name and read the CI run afterward — a local green is not a green deploy. The one exception is a check written ahead of the thing that satisfies it: those are red on purpose, and the commit message says which and why.
 - **Never rewrite history.** No force pushes, no amending what is already pushed, no tidying a mislabelled commit away — correct it in the next one instead. The log should show the mistakes too.
 - **Read a red CI run properly.** `gh run watch`, then `gh run view --log-failed` — hand the agent the actual failing command, output, and expected-vs-actual, not just "the build failed."
+- **Only put a number in a commit message you have just measured.** Word counts, file sizes, test counts: read them from the command output in the same step as writing the message, never from what the edit was expected to produce. A predicted number is a claim the repository quietly contradicts.
 - **Commit the updated lockfile after any dependency change.** CI installs with `--frozen-lockfile`, so a stale `pnpm-lock.yaml` breaks the build there even though it works locally.
 
 ## 8 PROCESS.md
