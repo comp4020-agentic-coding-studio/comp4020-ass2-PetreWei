@@ -101,7 +101,7 @@ This is the assignment's whole written account: `reflections/` is unused here, a
 
 - When creating or modifying Markdown files, follow `markdownlint` except `MD013`, and keep each prose paragraph on a single line — a hard-wrapped rewrap diffs every line and buries the sentence that changed.
 - After creating or modifying Markdown files, run `markdownlint-cli2 --config ~/.markdownlint-cli2.yaml` on the changed files and fix all reported problems before finishing.
-- **Number document headings, and set them in Title Case.** `## 1 Heading Level 2`, then `### 1.1 Heading Level 3` beneath it, so a section can be cited by number rather than by quoting its title. Capitalise the principal words, leaving articles, conjunctions and prepositions of three letters or fewer in lower case unless one leads. Documents only — `CLAUDE.md`, `PROCESS.md`, `docs/` — and never under `src/`, where a session's headings and a deck's slide titles are the site's own prose and both conventions read as a form.
+- **Number document subheadings, and set them in Title Case.** `## 1 Heading Level 2`, then `### 1.1 Heading Level 3` beneath it, so a section can be cited by number rather than by quoting its title. The `# Title` itself is not numbered. Capitalise the principal words, leaving articles, conjunctions and prepositions of three letters or fewer in lower case unless one leads. Documents only — `CLAUDE.md`, `PROCESS.md`, `docs/` — and never under `src/`, where a session's headings and a deck's slide titles are the site's own prose and both conventions read as a form.
 
 ## 10 Maintaining This File
 
