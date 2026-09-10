@@ -2,11 +2,11 @@
 
 The plan the site gets built against, written before the content so there is something to argue with and something to check the finished thing against. It records the alternatives that lost, because the reasons they lost are what the plan is.
 
-## The response
+## 1 The response
 
 Twelve weeks, one question: something failed — should you try again, and how? The course exists because retrying is the most common response to failure and the least examined one. It looks like diligence. A client that retries a request the server already committed is how one charge becomes two, and nobody writes that retry believing they are doing harm. So the course is twelve situations rather than twelve topics, and the recurring finding is that the obvious answer is often wrong.
 
-## Candidates, and why four of them lost
+## 2 Candidates, and why four of them lost
 
 **A. Escalation by mechanism.** One request, then many clients, then classification, then people, then irreversibility. The natural teaching order, and each week needs the one before it. It lost as an organising principle because escalating complexity is the default shape of every systems course, so it expresses nothing about this course's claim — and because it drifts: by week 8 the material is distributed-systems reliability, which is territory the tag rule refuses and twelve weeks cannot cover.
 
@@ -18,7 +18,7 @@ Twelve weeks, one question: something failed — should you try again, and how? 
 
 **E. The plan below.** A's order, because teaching needs it. B's axis as a visible per-week coordinate, because it makes two weeks comparable. C's question as the closing move of every week, so authority accumulates instead of being week 1's abstraction.
 
-## The case against the chosen plan
+## 3 The case against the chosen plan
 
 **Markers read non-adjacent weeks, so an order that only works in sequence does not work.** This is the objection that shaped the plan. A reader landing on weeks 3 and 9 has to see the shape without reading the ten weeks between. The answer is that every session page carries the same four short slots — the situation, the naive retry, what it costs, who decides — so any two weeks read side by side show the sameness of the question and the difference of the answer immediately. The structure is the argument, which is also the answer to the tutor's note that a page should not have to be read before it makes sense.
 
@@ -30,13 +30,13 @@ Twelve weeks, one question: something failed — should you try again, and how? 
 
 **Week 9 has no code in it.** A session about an operator retrying a payout at 3am could be a section of another week rather than a week. Kept as a week because the mechanism is identical and the state lives in a spreadsheet instead of a queue, which is the point: the course's claim is about the decision, not about the runtime.
 
-## The calendar
+## 4 The calendar
 
 Semester 1, 2027. Twelve teaching weeks from Monday 22 February, with a two-week break covering Easter — Easter Monday 2027 is 29 March, computed rather than recalled, so the break takes the weeks of 29 March and 5 April. Week 12's Friday is 28 May, which is exactly the `endDate` already in `src/course-config.ts`.
 
 Week 5 has no Friday: Good Friday is 26 March. Nothing is scheduled into it.
 
-## The twelve weeks
+## 5 The twelve weeks
 
 Every session states the situation, the reflex, what it costs, the fix and what it trades, and who decides. `decided_by` draws on a closed vocabulary of six — `client`, `library`, `platform`, `operator`, `product`, `nobody` — and repeats deliberately: the same authority recurring in different guises is a finding, whereas a repeated situation would be the listicle the brief warns against.
 
@@ -57,7 +57,7 @@ Every session states the situation, the reflex, what it costs, the fix and what 
 
 Each week also gets a lecture whose title is a claim rather than a topic, so the lecture list reads as an argument. The lecture teaches the general mechanism; the session stays with the one situation.
 
-## The revision, after reading twelve weeks side by side
+## 6 The revision, after reading twelve weeks side by side
 
 The table above is the second version. The first was built, pushed, and then read end to end as the plan requires — and the read found three things no check in `spec/` could have caught, which is the argument for keeping that read in the build order rather than trusting the suite.
 
@@ -69,7 +69,7 @@ The table above is the second version. The first was built, pushed, and then rea
 
 Rejected in the same pass: restructuring into four acts of three, which fails for the same reason candidate A did — acts only pay off read in sequence. And a fuller rework that also folded backoff into the jitter week to buy a second new situation, which was declined because two double-bill weeks would make the promise ten situations and two topics.
 
-## Assessments
+## 7 Assessments
 
 Three, summing to 100, each due inside the week it claims.
 
@@ -83,24 +83,24 @@ The weights load the back of the semester on purpose: the course's actual skill 
 
 All three now require the trade to be named, not just the fix — the audit prices every change it proposes, the policy prices every mechanism it adopts, and the case is nothing but a trade argued. An assessment that asked only for a working fix would have marked students on the half of the thinking the sessions had stopped teaching.
 
-## The rest of the site
+## 8 The rest of the site
 
 - **Home page.** The thesis in one paragraph, then the twelve situations as twelve scannable lines, each linking to its week. A reader meets the argument in pieces rather than reading a block of prose to reach it.
 - **Deck.** One deck, built properly, for week 2 — the sharpest week and the one a marker is most likely to open. The starter's `week-01.deck.mdx` placeholder goes.
 - **People.** The two existing entries rewritten to fit the course, with their starter portraits replaced by generated images saved into the repo the moment they are made.
 - **Policies.** Written in the course's own voice: a resubmission is a retry, so the policy states its own backoff and its own limit. The policy page enacting the thesis is the cheapest available proof that the course is coherent rather than merely consistent.
 
-## What this adds to `spec/`
+## 9 What this adds to `spec/`
 
 One check, if it survives review: `decided_by` is present on every session and drawn from the closed vocabulary, and every value in that vocabulary is used at least once. The second half is the part worth having — it forces the twelve weeks to cover the authority range instead of asking the client every time. The field is this course's own convention and the content schemas pass unknown keys through, so a test is the only thing that could ever enforce it.
 
 Nothing else here becomes a check. Whether twelve weeks add up to a course stays a human judgement.
 
-## Scope wall
+## 10 Scope wall
 
 Out, deliberately: new content collections, restyling beyond what coherence requires (the artefact criterion is whether the site works, not how it looks), citations of real outages, and any week thirteen. Additions that occur to me mid-build get proposed separately rather than folded in.
 
-## Build order
+## 11 Build order
 
 1. The skeleton: twelve sessions with dates, `failure_scenario` and `decided_by`, and the three assessments replacing both placeholders. This turns all three deliberately-red spec checks green.
 2. Weeks 1 to 5, sessions and lectures together.
