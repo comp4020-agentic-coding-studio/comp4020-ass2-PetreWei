@@ -4,7 +4,7 @@ This file is yours, and it arrives with no rules in it on purpose — this note 
 
 `README.md` documents the platform, and the platform is fixed. Nothing about it is restated here, so read it before the first change under `src/` in a session, and whenever a platform fact bears on a decision — rather than trusting a copy in this file.
 
-## 1 This deliverable
+## 1 This Deliverable
 
 Assignment 2: design the course you wish existed, and build the site that runs it. The published brief and spec are the contract, so read them there rather than from a copy. Of its six lines, `spec/course-promises.test.ts` holds the ones about the course's shape, `pnpm check:evidence` holds the one about process evidence, and CI's deploy job is the only thing that checks the site is actually live. Whether twelve weeks add up to a course is nobody's check but the marker's.
 
@@ -15,7 +15,7 @@ Three criteria: legibility of process 45%, working deployed artefact 20%, respon
 - **They test conditions no test suite covers.** Chrome at 1920×1080 and 390×844, by keyboard alone — Tab order, arrow keys, Enter or Space — as readily as by mouse. The top band is about holding up under use it wasn't designed for: keyboard only, a resize mid-interaction, a slow connection.
 - **Restyling is not the artefact criterion.** Whether the site works decides that mark, not how it looks — keeping the starter's appearance can still reach the top band if the course itself reads as coherent and compelling.
 
-## 2 The course
+## 2 The Course
 
 SLOP3092, *Try Again, Later*: one decision asked in a new context every week — something failed, should you try again, and how? What keeps it from being a listicle is that the obvious answer is often wrong; retrying looks like diligence and can quietly make things worse. Twelve weeks means twelve situations, not twelve topics.
 
@@ -26,7 +26,7 @@ The promises below are decisions about this course, not requirements of the brie
 - **Tags name this course's slice, not the field around it.** A tag built from a broad signal word — `systems`, `engineering`, `reliability`, `resilience`, `computing`, `architecture` — claims territory the twelve weeks don't cover.
 - **An assessment falls due inside the week it claims.** On or after that week's session, and before the next week's. An assessment pointing at a week no session is scheduled for is a scheduling error, not a late deadline.
 
-## 3 Working practices
+## 3 Working Practices
 
 - **Write the plan down before building.** Not for the marker — so there is something to argue with, and something the finished work can be checked against. It states the response, the scope wall, and what is deliberately out.
 - **Review the plan adversarially before building.** Ask what is ambiguous, what was assumed, what is missing, and which choice the spec requires versus merely prefers — then ask for the weaknesses, the alternatives and the trade-offs by name. Agreement is not review: "you're absolutely right" means the prompt left no room for a disagreement to come out of, so put the case against the plan and answer it. This is the cheapest moment a decision will ever be to change.
@@ -36,7 +36,7 @@ The promises below are decisions about this course, not requirements of the brie
 - **Never rewrite the spec to match the build.** A disagreement between them is a decision to flag, not a diff to resolve quietly.
 - **Use the cheapest recovery available.** `Esc` interrupts, `/rewind` undoes in-session, `git revert` undoes a commit.
 
-## 4 Writing the course
+## 4 Writing the Course
 
 - **One idea, carried all the way — and legible from outside.** A page that would sit equally well in a different course isn't finished. It isn't enough that the thesis exists: someone who reads the home page and one week should be able to say what the course argues, without assembling it themselves. Assignment 1 lost the top band because "the singular concept was not quite clear enough, and this was central to the brief."
 - **Carry the idea through structure, not volume.** If a page needs a long stretch of prose to land its point, the structure isn't doing the work. A reader should meet the argument in pieces as they move through the site, rather than face a dense object that has to be read before it makes sense.
@@ -57,7 +57,7 @@ The promises below are decisions about this course, not requirements of the brie
 - **Reproduce before fixing.** For a bug found by hand, add a failing test first, confirm it fails for the right reason, then fix.
 - **Green does not mean good.** A passing suite establishes only what it checks, and the axe sweep in `pnpm build` is one automated pass, not proof the page works without a mouse. Coherence, and whether the thing is worth having, need a person — before calling a change done, show it to someone who has not seen it before.
 
-## 6 Sensors and checks
+## 6 Sensors and Checks
 
 - **Ask whether a person is needed before writing a check.** "Exactly one top-level heading" is mechanical; "make it look good" needs a reader. A check for something only a person can settle is theatre, and deciding which is which is the third question `PROCESS.md` has to answer.
 - **Write the sensor before the change.** When a judgement is worth keeping, encode it as a check first, then make the work pass it — the contract then outlives the edit and rejects future drift on its own.
@@ -101,9 +101,9 @@ This is the assignment's whole written account: `reflections/` is unused here, a
 
 - When creating or modifying Markdown files, follow `markdownlint` except `MD013`, and keep each prose paragraph on a single line — a hard-wrapped rewrap diffs every line and buries the sentence that changed.
 - After creating or modifying Markdown files, run `markdownlint-cli2 --config ~/.markdownlint-cli2.yaml` on the changed files and fix all reported problems before finishing.
-- **Number the headings of documents in this repo.** `## 1 Heading`, and `### 1.1 Heading` beneath it, so a section can be cited by its number rather than by quoting its title. Documents only — `CLAUDE.md`, `PROCESS.md`, `docs/`. Never under `src/`: a session's headings and a deck's slide titles are the site's own prose, where numbering reads as a form.
+- **Number document headings, and set them in Title Case.** `## 1 Heading Level 2`, then `### 1.1 Heading Level 3` beneath it, so a section can be cited by number rather than by quoting its title. Capitalise the principal words, leaving articles, conjunctions and prepositions of three letters or fewer in lower case unless one leads. Documents only — `CLAUDE.md`, `PROCESS.md`, `docs/` — and never under `src/`, where a session's headings and a deck's slide titles are the site's own prose and both conventions read as a form.
 
-## 10 Maintaining this file
+## 10 Maintaining This File
 
 - **Delete, don't append.** Write down what you learn as you go, and remove anything here the moment it is stale or contradicted. This file says what is true now; Git keeps the history, so nothing has to be preserved here for the record.
 - **Only what is short and always true belongs here.** A decision that applies to this session belongs in the prompt, not in a standing rule — copying it up here makes it outlive the situation that justified it.
