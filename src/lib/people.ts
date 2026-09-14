@@ -6,10 +6,13 @@ export const roleOrder: Record<string, number> = {
 };
 
 // Map the role enum (convenor|tutor|guest|other) to display labels rather than
-// rendering the raw lowercase value.
-export const roleLabels: Record<string, string> = {
+// rendering the raw lowercase value. "other" has no entry, so it renders no label.
+const roleLabels: Partial<Record<string, string>> = {
   convenor: "Convenor",
   tutor: "Tutor",
   guest: "Guest lecturer",
-  other: "",
 };
+
+export function roleLabelFor(role: string | undefined): string | undefined {
+  return role ? roleLabels[role] : undefined;
+}

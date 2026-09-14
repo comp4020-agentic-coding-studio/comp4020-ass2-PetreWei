@@ -2,7 +2,7 @@
 import { getPublishedCollection } from "astro-course-university/content";
 import Card from "astro-theme-university/components/Card.astro";
 import CardGrid from "astro-theme-university/components/CardGrid.astro";
-import { roleLabels, roleOrder } from "../lib/people";
+import { roleLabelFor, roleOrder } from "../lib/people";
 
 const people = await getPublishedCollection("people");
 
@@ -16,21 +16,24 @@ const visible = people.sort((a, b) => {
 
 <CardGrid columns={2}>
   {
-    visible.map((person) => (
-      <Card
-        headingLevel="h2"
-        title={person.data.title}
-        href={`/people/${person.id}/`}
-        image={person.data.photo ?? undefined}
-        imageAlt={person.data.photoAlt}
-      >
-        {person.data.role && roleLabels[person.data.role] && (
-          <p>
-            <small>{roleLabels[person.data.role]}</small>
-          </p>
-        )}
-        <p>{person.data.description}</p>
-      </Card>
-    ))
+    visible.map((person) => {
+      const roleLabel = roleLabelFor(person.data.role);
+      return (
+        <Card
+          headingLevel="h2"
+          title={person.data.title}
+          href={`/people/${person.id}/`}
+          image={person.data.photo ?? undefined}
+          imageAlt={person.data.photoAlt}
+        >
+          {roleLabel && (
+            <p>
+              <small>{roleLabel}</small>
+            </p>
+          )}
+          <p>{person.data.description}</p>
+        </Card>
+      );
+    })
   }
 </CardGrid>

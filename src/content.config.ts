@@ -33,9 +33,10 @@ const holisticMarking = z.object({
   description: z.string().trim().min(40),
 });
 
+const marking = z.discriminatedUnion("mode", [weightedMarking, holisticMarking]);
+
 export type TeacherRefs = z.infer<typeof teacherRefs>;
-export type WeightedMarking = z.infer<typeof weightedMarking>;
-export type HolisticMarking = z.infer<typeof holisticMarking>;
+export type Marking = z.infer<typeof marking>;
 
 export const collections = {
   sessions: defineCollection({
@@ -53,7 +54,7 @@ export const collections = {
       week: weekSchema,
       due: z.coerce.date(),
       weight: z.coerce.number().positive().max(100),
-      marking: z.discriminatedUnion("mode", [weightedMarking, holisticMarking]).optional(),
+      marking: marking.optional(),
     }),
   }),
 
