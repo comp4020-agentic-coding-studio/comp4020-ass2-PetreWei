@@ -8,6 +8,8 @@ const courseNodeLoader = (dir: string) =>
   glob({ pattern: ["**/*.{md,mdx}", "!**/CLAUDE.md"], base: `src/content/${dir}` });
 const teacherRefs = z.array(reference("people")).min(1);
 
+const courseNode = <T extends z.ZodRawShape>(fields: T) => courseNodeSchema.extend(fields).loose();
+
 const weightedMarking = z
   .object({
     mode: z.literal("weighted"),
@@ -31,43 +33,41 @@ const holisticMarking = z.object({
   description: z.string().trim().min(40),
 });
 
+export type TeacherRefs = z.infer<typeof teacherRefs>;
+export type WeightedMarking = z.infer<typeof weightedMarking>;
+export type HolisticMarking = z.infer<typeof holisticMarking>;
+
 export const collections = {
   sessions: defineCollection({
     loader: courseNodeLoader("sessions"),
-    schema: courseNodeSchema
-      .extend({
-        week: weekSchema,
-        date: z.coerce.date(),
-        teachers: teacherRefs.optional(),
-      })
-      .loose(),
+    schema: courseNode({
+      week: weekSchema,
+      date: z.coerce.date(),
+      teachers: teacherRefs.optional(),
+    }),
   }),
 
   assessments: defineCollection({
     loader: courseNodeLoader("assessments"),
-    schema: courseNodeSchema
-      .extend({
-        week: weekSchema,
-        due: z.coerce.date(),
-        weight: z.coerce.number().positive().max(100),
-        marking: z.discriminatedUnion("mode", [weightedMarking, holisticMarking]).optional(),
-      })
-      .loose(),
+    schema: courseNode({
+      week: weekSchema,
+      due: z.coerce.date(),
+      weight: z.coerce.number().positive().max(100),
+      marking: z.discriminatedUnion("mode", [weightedMarking, holisticMarking]).optional(),
+    }),
   }),
 
   lectures: defineCollection({
     loader: courseNodeLoader("lectures"),
-    schema: courseNodeSchema
-      .extend({
-        week: weekSchema,
-        date: z.coerce.date(),
-        teachers: teacherRefs.optional(),
-        slides: z
-          .string()
-          .regex(/^\/decks\/[a-z0-9-]+\/$/)
-          .optional(),
-      })
-      .loose(),
+    schema: courseNode({
+      week: weekSchema,
+      date: z.coerce.date(),
+      teachers: teacherRefs.optional(),
+      slides: z
+        .string()
+        .regex(/^\/decks\/[a-z0-9-]+\/$/)
+        .optional(),
+    }),
   }),
 
   people: defineCollection({

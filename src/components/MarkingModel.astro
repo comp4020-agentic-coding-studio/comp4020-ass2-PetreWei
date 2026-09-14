@@ -1,13 +1,5 @@
 ---
-interface WeightedMarking {
-  mode: "weighted";
-  criteria: { name: string; weight: number }[];
-}
-
-interface HolisticMarking {
-  mode: "holistic";
-  description: string;
-}
+import type { WeightedMarking, HolisticMarking } from "../content.config";
 
 interface Props {
   marking: WeightedMarking | HolisticMarking;

@@ -3,6 +3,7 @@ import { render } from "astro:content";
 import { getPublishedCollection } from "astro-course-university/content";
 import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
 import { siteConfig } from "../../site-config";
+import { roleLabels } from "../../lib/people";
 
 export async function getStaticPaths() {
   const people = await getPublishedCollection("people");
@@ -12,19 +13,7 @@ export async function getStaticPaths() {
 const { person } = Astro.props;
 const { Content } = await render(person);
 
-// Map the role enum (convenor|tutor|guest|other) to display labels rather than
-// rendering the raw lowercase value.
-const roleLabels: Record<string, string> = {
-  convenor: "Convenor",
-  tutor: "Tutor",
-  guest: "Guest lecturer",
-  other: "",
-};
 const roleLabel = person.data.role ? roleLabels[person.data.role] : undefined;
-// Astro's generated type does not retain the image/alt refinement relationship,
-// so narrow the alt at the rendering boundary as well.
-const rawPhotoAlt = (person.data as { photoAlt?: unknown }).photoAlt;
-const photoAlt = typeof rawPhotoAlt === "string" ? rawPhotoAlt : "";
 // Every page owes a description --- it is what a search result and a shared
 // link show underneath the title.
 const description = person.data.description;
@@ -34,7 +23,7 @@ const description = person.data.description;
   title={person.data.title}
   description={description}
   heroImage={person.data.photo ?? undefined}
-  heroImageAlt={photoAlt}
+  heroImageAlt={person.data.photoAlt ?? ""}
   {...siteConfig}
 >
   <dl>
