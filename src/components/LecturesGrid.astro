@@ -11,7 +11,13 @@ const visible = lectures.sort((a, b) => a.data.date.getTime() - b.data.date.getT
 <CardGrid columns={2}>
   {
     visible.map((lecture) => (
-      <Card headingLevel="h2" title={lecture.data.title} href={`/lectures/${lecture.id}/`}>
+      <Card
+        headingLevel="h2"
+        title={lecture.data.title}
+        href={`/lectures/${lecture.id}/`}
+        image={lecture.data.image ?? undefined}
+        imageAlt={lecture.data.imageAlt}
+      >
         {lecture.data.description && <p>{lecture.data.description}</p>}
         <p><small>Week {lecture.data.week} · {formatCourseDate(lecture.data.date)}</small></p>
       </Card>

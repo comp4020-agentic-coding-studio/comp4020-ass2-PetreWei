@@ -19,7 +19,13 @@ const { Content } = await render(lecture);
 const title = `Week ${lecture.data.week}: ${lecture.data.title}`;
 ---
 
-<ContentLayout title={title} description={lecture.data.description} {...siteConfig}>
+<ContentLayout
+  title={title}
+  description={lecture.data.description}
+  heroImage={lecture.data.image}
+  heroImageAlt={lecture.data.imageAlt}
+  {...siteConfig}
+>
   <p><strong>{formatCourseDate(lecture.data.date)}</strong></p>
   {
     lecture.data.slides && (

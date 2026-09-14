@@ -24,6 +24,8 @@ const { Content } = await render(assessment);
 <ContentLayout
   title={assessment.data.title}
   description={assessment.data.description}
+  heroImage={assessment.data.image}
+  heroImageAlt={assessment.data.imageAlt}
   {...siteConfig}
 >
   {
