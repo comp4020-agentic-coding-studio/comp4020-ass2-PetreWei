@@ -1,6 +1,6 @@
 # Image provenance
 
-Every image in this repo that is not part of the starter template was generated with OpenAI `gpt-image-2.5-flare`, through the course API key, and downloaded into the repo in the same step that made it — the returned URLs expire, so an image that is not saved immediately is an image that has to be paid for twice. The hero, card and two portraits were generated on 2026-09-10; the twelve weekly and assessment illustrations below them were generated on 2026-09-15, once every lecture, session and assessment collection gained an optional image field.
+Every image in this repo that is not part of the starter template was generated with OpenAI `gpt-image-2.5-flare`, through the course API key, and downloaded into the repo in the same step that made it — the returned URLs expire, so an image that is not saved immediately is an image that has to be paid for twice. The hero, card and two portraits were generated on 2026-09-10; the eight weekly and assessment illustrations below them were generated on 2026-09-15, once every lecture, session and assessment collection gained an optional image field.
 
 All twelve share one prompt preamble, which is what makes the site read as one printed object rather than twelve unrelated pictures:
 
@@ -14,14 +14,14 @@ The misregistration is not decoration. Risograph printing goes wrong by laying t
 | `src/assets/images/card.jpg` | Three concentric rings of arrows chasing each other, each ring off-register with the one beneath | 1536×1024 | 1200×630 JPEG q88, centre crop | 96 KB |
 | `src/content/people/marisol-quaye.avif` | Three-quarter portrait, short cropped hair, round glasses | 1024×1024 | 800×800 AVIF q55 | 68 KB |
 | `src/content/people/idris-fenn.avif` | Front-on portrait, short beard, long hair tied back | 1024×1024 | 800×800 AVIF q55 | 76 KB |
-| `src/content/lectures/week-02.avif`, `src/content/sessions/02-charging-twice-on-purpose.avif` | A rubber stamp striking the same receipt twice, the second impression landing just off the first | 1024×1024 | 800×800 AVIF q55, centre crop | 68.2 KB |
-| `src/content/lectures/week-04.avif`, `src/content/sessions/04-synchronising-a-herd.avif` | A tight cluster of identical alarm clocks, all ringing at the same moment | 1024×1024 | 800×800 AVIF q55, centre crop | 79.5 KB |
-| `src/content/lectures/week-05.avif`, `src/content/sessions/05-counting-to-twenty-seven.avif` | A pressure gauge with its needle pinned into a red zone near the top of the dial | 1024×1024 | 800×800 AVIF q55, centre crop | 65.0 KB |
-| `src/content/lectures/week-08.avif`, `src/content/sessions/08-watching-a-breaker-trip.avif` | An industrial circuit-breaker switch lever caught half-thrown | 1024×1024 | 800×800 AVIF q55, centre crop | 90.1 KB |
-| `src/content/lectures/week-12.avif`, `src/content/sessions/12-arguing-the-case.avif` | A two-pan balance scale weighing a single coin against a stack of coins | 1024×1024 | 800×800 AVIF q55, centre crop | 43.1 KB |
-| `src/content/assessments/retry-audit.avif` | A magnifying glass held over a tangled knot of cord | 1024×1024 | 800×800 AVIF q55, centre crop | 83.1 KB |
-| `src/content/assessments/retry-policy.avif` | A wax seal stamped twice onto the same document, the second impression doubled over the first | 1024×1024 | 800×800 AVIF q55, centre crop | 100.9 KB |
-| `src/content/assessments/case-against-retrying.avif` | A gavel resting on a closed case file | 1024×1024 | 800×800 AVIF q55, centre crop | 56.0 KB |
+| `src/content/lectures/week-02.avif`, `src/content/sessions/02-charging-twice-on-purpose.avif` | A rubber stamp striking the same receipt twice, the second impression landing just off the first | 1024×1024 | 800×800 AVIF q55 | 68.2 KB |
+| `src/content/lectures/week-04.avif`, `src/content/sessions/04-synchronising-a-herd.avif` | A tight cluster of identical alarm clocks, all ringing at the same moment | 1024×1024 | 800×800 AVIF q55 | 79.5 KB |
+| `src/content/lectures/week-05.avif`, `src/content/sessions/05-counting-to-twenty-seven.avif` | A pressure gauge with its needle pinned into a red zone near the top of the dial | 1024×1024 | 800×800 AVIF q55 | 65.0 KB |
+| `src/content/lectures/week-08.avif`, `src/content/sessions/08-watching-a-breaker-trip.avif` | An industrial circuit-breaker switch lever caught half-thrown | 1024×1024 | 800×800 AVIF q55 | 90.1 KB |
+| `src/content/lectures/week-12.avif`, `src/content/sessions/12-arguing-the-case.avif` | A two-pan balance scale weighing a single coin against a stack of coins | 1024×1024 | 800×800 AVIF q55 | 43.1 KB |
+| `src/content/assessments/retry-audit.avif` | A magnifying glass held over a tangled knot of cord | 1024×1024 | 800×800 AVIF q55 | 83.1 KB |
+| `src/content/assessments/retry-policy.avif` | A wax seal stamped twice onto the same document, the second impression doubled over the first | 1024×1024 | 800×800 AVIF q55 | 100.9 KB |
+| `src/content/assessments/case-against-retrying.avif` | A gavel resting on a closed case file | 1024×1024 | 800×800 AVIF q55 | 56.0 KB |
 
 The first crop of the card and hero used sharp's `position: "attention"`, which cropped the card's outer ring off the top of the frame. Both were re-cropped from the saved raw files with `position: "centre"` — which is the reason the raws are worth keeping until a build has been looked at, rather than deleting them once the final file exists.
 
