@@ -5,6 +5,7 @@ week: 12
 date: 2027-05-24
 teachers:
   - idris-fenn
+slides: /decks/week-12/
 related:
   - sessions/12-arguing-the-case
 ---

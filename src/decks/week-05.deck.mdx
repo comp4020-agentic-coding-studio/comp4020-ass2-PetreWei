@@ -1,0 +1,111 @@
+---
+title: "Week 5: Counting to twenty-seven"
+description: A budget beats a per-call count
+---
+
+import { withBase } from "astro-theme-university/url";
+
+{/* _class: impact */}
+
+# Counting to twenty-seven
+
+Week 5 — SLOP3092
+
+<a href={withBase("/lectures/week-05/")}>&larr; Back to the lecture page</a>
+
+---
+
+## Last week
+
+Ten thousand clients, each backing off correctly on its own.
+
+All retried on the same second anyway.
+
+Correct in isolation. Compounding in aggregate.
+
+---
+
+## This week: same shape, one request
+
+A request passes through three services stacked on top of each other.
+
+The innermost one starts failing intermittently.
+
+---
+
+## The reflex
+
+Let each layer retry the call below it up to three times.
+
+Three retries, at any one layer, seems modest.
+
+---
+
+{/* _class: impact */}
+
+# 3 × 3 × 3 = ?
+
+---
+
+## Twenty-seven
+
+Twenty-seven requests reach the failing dependency, for the one request the user made.
+
+The retries compound multiplicatively up the stack. They do not add.
+
+---
+
+## Nobody can see it happening
+
+Each layer only sees its own three attempts.
+
+The total is only visible from a vantage point no single layer has.
+
+---
+
+## The fix
+
+One retry budget, shared by the whole call chain.
+
+Held as a fraction of recent calls, not a count per layer — so retries throttle themselves as the ratio nears the cap.
+
+---
+
+## What it costs
+
+It trades locality for a sane total.
+
+A layer that would have recovered on its second attempt is sometimes refused it, because another layer spent the budget first.
+
+The reason a call wasn't retried now lives somewhere the person debugging it isn't looking.
+
+---
+
+## Who decides
+
+`platform`.
+
+A per-layer count can only ever see its own three attempts. Keeping the total sane needs a budget the whole call chain draws from.
+
+---
+
+## In the studio
+
+1. Trace a three-layer call stack with independent per-layer retries
+2. Count the amplification by hand
+3. Replace the per-layer counts with one shared retry budget
+4. Confirm the total drops to three
+
+Bring the amplified count to the first review.
+
+---
+
+{/* _class: impact */}
+
+# Next week
+
+You bounded *how many* retries reach a failing dependency.
+
+Now: what happens when it stays down.
+
+<a href={withBase("/lectures/week-05/")}>&larr; Back to the lecture page</a>

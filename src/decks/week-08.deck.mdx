@@ -1,0 +1,115 @@
+---
+title: "Week 8: Watching a breaker trip"
+description: A breaker that never closes was never protecting anything
+---
+
+import { withBase } from "astro-theme-university/url";
+
+{/* _class: impact */}
+
+# Watching a breaker trip
+
+Week 8 — SLOP3092
+
+<a href={withBase("/lectures/week-08/")}>&larr; Back to the lecture page</a>
+
+---
+
+## The situation
+
+A dependency goes down — for minutes, not seconds.
+
+Long enough that no per-request backoff is going to help.
+
+---
+
+## The reflex
+
+Keep retrying each request against the dependency individually.
+
+The same schedule that worked for a two-second blip in week 3.
+
+---
+
+## What it costs
+
+Every request still pays the full timeout finding out the dependency is down.
+
+A fact that was already known after the first failure.
+
+---
+
+{/* _class: impact */}
+
+# Closed. Open. Half-open.
+
+---
+
+## Closed
+
+Requests flow through normally.
+
+The breaker is counting failures.
+
+---
+
+## Open
+
+Enough requests have failed.
+
+The breaker stops sending requests immediately — no more timeouts spent finding out.
+
+---
+
+## Half-open
+
+After a cooldown, exactly one probe is let through.
+
+It asks whether the dependency is back. Closing again only if that probe succeeds.
+
+---
+
+## The step that actually matters
+
+Skip half-open, and a breaker either never risks finding out the dependency has recovered, or floods it the instant it reopens.
+
+That's week 3's problem again, delayed.
+
+---
+
+## What it costs
+
+Availability it might have had.
+
+While the breaker is open, requests fail that would have worked — a known small loss now, instead of an unknown larger one spread across every caller.
+
+---
+
+## Who decides
+
+`platform`.
+
+A circuit breaker is shared state the whole client needs to see. Not something any individual request can hold on its own.
+
+---
+
+## In the studio
+
+1. Wire a breaker in front of a dependency seeded to fail for an extended window
+2. Watch requests stop reaching it once the breaker opens
+3. Confirm it closes again once the dependency recovers
+4. Confirm what happens when it doesn't
+
+This is the defence you'll give in this week's retry policy review.
+
+---
+
+{/* _class: impact */}
+
+# Next week
+
+You gave up availability on purpose.
+
+Now: what happens when the answer arrives after you've already stopped waiting.
+
+<a href={withBase("/lectures/week-08/")}>&larr; Back to the lecture page</a>
