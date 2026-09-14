@@ -1,8 +1,8 @@
 # Image provenance
 
-Every image in this repo that is not part of the starter template was generated with OpenAI `gpt-image-2.5-flare`, through the course API key, and downloaded into the repo in the same step that made it — the returned URLs expire, so an image that is not saved immediately is an image that has to be paid for twice. The hero, card and two portraits were generated on 2026-09-10; the eight weekly and assessment illustrations below them were generated on 2026-09-15, once every lecture, session and assessment collection gained an optional image field.
+Every image in this repo that is not part of the starter template was generated with OpenAI `gpt-image-2.5-flare`, through the course API key, and downloaded into the repo in the same step that made it — the returned URLs expire, so an image that is not saved immediately is an image that has to be paid for twice. The hero, card and two portraits were generated on 2026-09-10; the eight weekly and assessment illustrations were generated on 2026-09-15, once every lecture, session and assessment collection gained an optional image field; the remaining seven weekly illustrations, covering every week the first pass had skipped, were generated later the same day.
 
-All twelve share one prompt preamble, which is what makes the site read as one printed object rather than twelve unrelated pictures:
+All nineteen share one prompt preamble, which is what makes the site read as one printed object rather than nineteen unrelated pictures:
 
 > Two-ink risograph print using only warm gold and black ink on warm off-white cream paper. Flat solid shapes, visible halftone grain, and deliberate slight misregistration where the two ink layers overlap. Bold, graphic, printmaking aesthetic. Absolutely no text, no letters, no numbers, no words anywhere in the image.
 
@@ -14,10 +14,17 @@ The misregistration is not decoration. Risograph printing goes wrong by laying t
 | `src/assets/images/card.jpg` | Three concentric rings of arrows chasing each other, each ring off-register with the one beneath | 1536×1024 | 1200×630 JPEG q88, centre crop | 96 KB |
 | `src/content/people/marisol-quaye.avif` | Three-quarter portrait, short cropped hair, round glasses | 1024×1024 | 800×800 AVIF q55 | 68 KB |
 | `src/content/people/idris-fenn.avif` | Front-on portrait, short beard, long hair tied back | 1024×1024 | 800×800 AVIF q55 | 76 KB |
+| `src/content/lectures/week-01.avif`, `src/content/sessions/01-reproducing-the-reflex.avif` | A boomerang mid-flight, curving back toward the open hand that threw it | 1024×1024 | 800×800 AVIF q55 | 41.0 KB |
 | `src/content/lectures/week-02.avif`, `src/content/sessions/02-charging-twice-on-purpose.avif` | A rubber stamp striking the same receipt twice, the second impression landing just off the first | 1024×1024 | 800×800 AVIF q55 | 68.2 KB |
+| `src/content/lectures/week-03.avif`, `src/content/sessions/03-becoming-the-outage.avif` | A single tap turned fully open, overflowing a basin faster than the drain can take it | 1024×1024 | 800×800 AVIF q55 | 75.7 KB |
 | `src/content/lectures/week-04.avif`, `src/content/sessions/04-synchronising-a-herd.avif` | A tight cluster of identical alarm clocks, all ringing at the same moment | 1024×1024 | 800×800 AVIF q55 | 79.5 KB |
 | `src/content/lectures/week-05.avif`, `src/content/sessions/05-counting-to-twenty-seven.avif` | A pressure gauge with its needle pinned into a red zone near the top of the dial | 1024×1024 | 800×800 AVIF q55 | 65.0 KB |
+| `src/content/lectures/week-06.avif`, `src/content/sessions/06-two-people-one-payout.avif` | Two hands, each dropping an identical coin into the same slot at once | 1024×1024 | 800×800 AVIF q55 | 87.1 KB |
+| `src/content/lectures/week-07.avif`, `src/content/sessions/07-telling-a-no-from-a-not-yet.avif` | An envelope caught between two mail slots side by side, one bricked shut, the other open | 1024×1024 | 800×800 AVIF q55 | 112.7 KB |
 | `src/content/lectures/week-08.avif`, `src/content/sessions/08-watching-a-breaker-trip.avif` | An industrial circuit-breaker switch lever caught half-thrown | 1024×1024 | 800×800 AVIF q55 | 90.1 KB |
+| `src/content/lectures/week-09.avif`, `src/content/sessions/09-retrying-into-an-empty-room.avif` | A telephone ringing on a desk in an empty room, its chair pushed back and empty | 1024×1024 | 800×800 AVIF q55 | 101.5 KB |
+| `src/content/lectures/week-10.avif`, `src/content/sessions/10-reading-past-the-dashboard.avif` | A house of cards standing perfectly still on a table that is visibly tilting to one side beneath it | 1024×1024 | 800×800 AVIF q55 | 55.9 KB |
+| `src/content/lectures/week-11.avif`, `src/content/sessions/11-finding-the-point-of-no-return.avif` | A row of dominoes with the last one already fallen, out of order ahead of the ones still standing | 1024×1024 | 800×800 AVIF q55 | 35.1 KB |
 | `src/content/lectures/week-12.avif`, `src/content/sessions/12-arguing-the-case.avif` | A two-pan balance scale weighing a single coin against a stack of coins | 1024×1024 | 800×800 AVIF q55 | 43.1 KB |
 | `src/content/assessments/retry-audit.avif` | A magnifying glass held over a tangled knot of cord | 1024×1024 | 800×800 AVIF q55 | 83.1 KB |
 | `src/content/assessments/retry-policy.avif` | A wax seal stamped twice onto the same document, the second impression doubled over the first | 1024×1024 | 800×800 AVIF q55 | 100.9 KB |
@@ -34,4 +41,6 @@ The card is a JPEG rather than a PNG because the artwork is grainy rather than f
 
 The two portraits are of invented people. They are stylised prints rather than photographs, which is the honest form for a fictional teaching team: nothing here should read as a photograph of a real person who could be looked up.
 
-Weeks 2, 4, 5, 8 and 12 are the only weeks with an illustration, matching the same scoping the deck build already used — a few non-adjacent weeks and the assessments, not catalogue coverage of all twelve. Each weekly subject is generated once and saved twice: `sessions` and `lectures` are separate content collections that each resolve their own relative image paths, so the same AVIF bytes are copied into both directories under each collection's own filename rather than referenced across a directory boundary.
+All twelve weeks now carry an illustration, extending the first pass's five (2, 4, 5, 8, 12) to full coverage; each subject is still grounded in that week's own `failure_scenario` rather than a generic retry image, so no two weeks share a metaphor. Each weekly subject is generated once and saved twice: `sessions` and `lectures` are separate content collections that each resolve their own relative image paths, so the same AVIF bytes are copied into both directories under each collection's own filename rather than referenced across a directory boundary.
+
+The second batch's week 10 image was regenerated once: the first attempt rendered its traffic-light subject with actual green ink, breaking the two-ink gold-and-black rule, and was caught by inspection before being saved into the repo. The subject was replaced with a house of cards on a tilting table, which carries the same "still standing, about to fail" idea without depending on colour to read.
