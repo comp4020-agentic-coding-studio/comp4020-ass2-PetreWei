@@ -7,6 +7,7 @@ const weekSchema = z.coerce.number().int().min(1).max(12);
 const courseNodeLoader = (dir: string) =>
   glob({ pattern: ["**/*.{md,mdx}", "!**/CLAUDE.md"], base: `src/content/${dir}` });
 const teacherRefs = z.array(reference("people")).min(1);
+const roleSchema = z.enum(["convenor", "tutor", "guest", "other"]);
 
 const courseNode = <T extends z.ZodRawShape>(fields: T) => courseNodeSchema.extend(fields).loose();
 
@@ -37,6 +38,7 @@ const marking = z.discriminatedUnion("mode", [weightedMarking, holisticMarking])
 
 export type TeacherRefs = z.infer<typeof teacherRefs>;
 export type Marking = z.infer<typeof marking>;
+export type Role = z.infer<typeof roleSchema>;
 
 export const collections = {
   sessions: defineCollection({
@@ -78,7 +80,7 @@ export const collections = {
         .object({
           title: z.string().trim().min(1),
           description: z.string().trim().min(40),
-          role: z.string().trim().min(1),
+          role: roleSchema,
           contact: z.string().trim().min(1).optional(),
           affiliation: z.string().trim().min(1).optional(),
           email: z.email().optional(),
