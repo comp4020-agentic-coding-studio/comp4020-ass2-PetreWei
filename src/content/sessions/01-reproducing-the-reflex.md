@@ -31,6 +31,6 @@ There is nothing to fix yet, and the honest move is to write down what the bare 
 
 `client`. The decision is small enough, and safe enough here, that the calling code just makes it inline.
 
-## In the studio
+## In the lab
 
 Students trigger a real timeout against a flaky read endpoint and watch a bare retry succeed, so the reflex they will be asked to distrust all semester is one they have just watched work.

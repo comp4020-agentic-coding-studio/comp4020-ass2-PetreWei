@@ -31,6 +31,6 @@ Send an idempotency key with the write and have the server check it before it co
 
 `client`, again, which is the point of putting this week straight after week 1. Nothing about the interface warned the client the decision had become dangerous.
 
-## In the studio
+## In the lab
 
 Students build the naive retry against a payment stub that silently commits before replying, produce a double charge on purpose, then fix it with an idempotency key and confirm the same retry now costs nothing.

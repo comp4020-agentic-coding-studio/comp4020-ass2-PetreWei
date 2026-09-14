@@ -31,6 +31,6 @@ One retry budget shared by the whole call chain, held as a fraction of recent ca
 
 `platform`. A per-layer retry count can only ever see its own three attempts; keeping the total sane needs a shared budget the whole call chain draws from, which is a platform concern rather than something any one layer can enforce alone.
 
-## In the studio
+## In the lab
 
 Students trace a three-layer call stack with independent per-layer retries, count the amplification by hand, then replace the per-layer counts with one shared retry budget and confirm the total drops to three.

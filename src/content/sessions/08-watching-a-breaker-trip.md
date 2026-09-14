@@ -33,6 +33,6 @@ A circuit breaker that opens once enough requests have failed, waits, then lets 
 
 `platform`. A circuit breaker that stops requests from even trying, once enough of them have failed, is a shared piece of state the whole client needs to see, which puts the decision at the platform level rather than the individual request.
 
-## In the studio
+## In the lab
 
 Students wire a circuit breaker in front of a dependency seeded to fail for an extended window, watch requests stop reaching it once the breaker opens, and confirm it closes again once the dependency recovers, including the failure mode where it does not.

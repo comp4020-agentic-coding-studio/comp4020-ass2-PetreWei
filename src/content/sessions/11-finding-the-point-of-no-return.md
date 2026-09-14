@@ -31,6 +31,6 @@ Reorder the operation so the irreversible step runs last, after everything that 
 
 `nobody`. There is no client, library, platform, operator or product owner who gets to decide whether this step retries, because by the time anyone could decide, it has already happened — which is why the only real move is upstream, in the ordering.
 
-## In the studio
+## In the lab
 
 Students are given a call graph for a multi-step operation and asked to find the one step that cannot be undone, then reorder the operation so that step runs last instead of in the middle.

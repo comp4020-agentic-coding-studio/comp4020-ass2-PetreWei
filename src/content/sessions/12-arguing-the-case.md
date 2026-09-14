@@ -33,6 +33,6 @@ There is no fix to hand you this week: the trade is the assessment. Name what re
 
 `product`. Whether retrying was worth it is finally a call about what the business was willing to trade, latency against correctness, user experience against load, which is a product decision dressed up as a technical one for eleven weeks.
 
-## In the studio
+## In the lab
 
 Students take the case, argue for or against having retried, name what they would measure to know if they were right, and defend the argument against a partner assigned to take the opposite side.

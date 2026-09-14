@@ -31,6 +31,6 @@ Read the failure before retrying it: a status code already says which bucket it 
 
 `library`. A consumer sees one message and a call site sees one response, so neither can notice it is looping; the library is where the attempt count and the classification table both live long enough to be right.
 
-## In the studio
+## In the lab
 
 Students sort a log of mixed failures — malformed payloads, 400s, 429s, timeouts — into retryable and not, wire the classification into both a consumer and a client, then confirm the poison message reaches the dead-letter queue and the 429 waits out its `Retry-After`.

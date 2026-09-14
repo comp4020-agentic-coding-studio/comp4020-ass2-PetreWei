@@ -31,6 +31,6 @@ Measure the thing retries exist to hide: retry rate and retried latency, reporte
 
 `platform`. No single request can tell you it took three attempts to succeed; that fact only exists in aggregate, which puts it in whoever owns the dashboard's definition, not in the code path that already moved on once it got its answer.
 
-## In the studio
+## In the lab
 
 Students are given six weeks of request logs where the success rate never drops, asked to find the actual decline using only the data available, and then asked what single metric would have surfaced it three weeks earlier.

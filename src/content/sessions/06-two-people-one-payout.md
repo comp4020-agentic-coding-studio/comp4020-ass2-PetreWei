@@ -31,6 +31,6 @@ A runbook line that makes the resend one person's job for the duration of the in
 
 `operator`. There is no client or platform to make this decision, because there is no code between the failure and the fix; the judgement sits with whoever is holding the pager, which is exactly why it needs a runbook as much as any library does.
 
-## In the studio
+## In the lab
 
 Students are given the incident as a role-play, two people, one spreadsheet, one payout, and asked to write the runbook line that would have stopped the second resend before it happened.

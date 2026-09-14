@@ -26,7 +26,7 @@ Eleven weeks have mostly been about retries going wrong, which makes the reflex 
 
 ## What you submit
 
-A written argument, no more than the length stated in the studio brief, taking one side and defending it: what would you have retried or not, what does that decision trade away, and what would you have measured to know if you were right before the outcome was in.
+A written argument, no more than the length stated in the lab brief, taking one side and defending it: what would you have retried or not, what does that decision trade away, and what would you have measured to know if you were right before the outcome was in.
 
 ## How it's marked
 

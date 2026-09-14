@@ -33,6 +33,6 @@ Randomise each client's wait inside its backoff window, on every attempt rather 
 
 `platform`. No one client can see the other nine thousand nine hundred and ninety-nine, so the fix has to be a property the platform requires of every client rather than a courtesy any one of them can opt into.
 
-## In the studio
+## In the lab
 
 Students run a simulated recovery with ten synchronised clients and watch it fail, then add jitter to each client's backoff independently and watch the same recovery succeed.

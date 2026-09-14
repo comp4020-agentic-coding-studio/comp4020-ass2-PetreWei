@@ -31,6 +31,6 @@ Exponential backoff: each wait roughly doubles, so a struggling dependency sees 
 
 `library`. Nothing about this call site is special: the same curve works for anything talking to anything, so the client only has to ask for a retry, not choose how long to wait before the next one.
 
-## In the studio
+## In the lab
 
 Students point a zero-delay retry loop at a service seeded to degrade for two seconds, watch it fail to recover, then add exponential backoff and watch the same two-second blip pass without incident.

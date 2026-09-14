@@ -31,6 +31,6 @@ Pass a deadline down with the request and check the time remaining before each a
 
 `client`. Weeks 1 and 2 asked the client whether a retry was safe; this week asks the same client whether it is still wanted, and it is the only party who can tell — a library sees attempts and a platform sees load, and neither can see the person who closed the tab.
 
-## In the studio
+## In the lab
 
 Students instrument a request path so every attempt logs the time left on the caller's deadline, watch attempts continue long past zero, then add deadline propagation and confirm the loop stops on the clock rather than on the attempt count.

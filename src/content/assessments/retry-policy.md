@@ -31,11 +31,11 @@ imageAlt: A wax seal stamped twice onto the same document, the second impression
 
 By week 8 you've seen a retry loop cause its own outage, a herd synchronise by accident, a budget replace a per-call count, two operators resend the same payout, a failure that could never have succeeded, and a breaker that has to close again as much as it has to open. A policy that only covers one of these is not a policy, it's a fix for last week's failure. State what retries when, how long it backs off, when the breaker trips, and how those three interact under load.
 
-Then price each of them. Every session this semester has ended by naming what its fix trades away, and a policy that reads as pure gain is a policy that has not been thought through — the panel's first question will be which of your mechanisms costs the most, and you should already know.
+Then price each of them. Every lab this semester has ended by naming what its fix trades away, and a policy that reads as pure gain is a policy that has not been thought through — the panel's first question will be which of your mechanisms costs the most, and you should already know.
 
 ## What you submit
 
-A written policy, plus a short defence in the studio session where a panel — your teacher and a rotating pair of classmates — challenges one part of it. The written document is marked on its own; the defence is marked on how you respond to the actual challenge raised, not on how well the policy was rehearsed beforehand.
+A written policy, plus a short defence in the lab where a panel — your teacher and a rotating pair of classmates — challenges one part of it. The written document is marked on its own; the defence is marked on how you respond to the actual challenge raised, not on how well the policy was rehearsed beforehand.
 
 ## How it's marked
 
