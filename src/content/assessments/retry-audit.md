@@ -21,6 +21,8 @@ spec:
   - submitted by the deadline, as a single document with one entry per retry site
 related:
   - sessions/04-synchronising-a-herd
+image: ./retry-audit.avif
+imageAlt: A magnifying glass held over a tangled knot of cord
 ---
 
 ## The brief

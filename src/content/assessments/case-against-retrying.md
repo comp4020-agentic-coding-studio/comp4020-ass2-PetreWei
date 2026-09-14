@@ -14,6 +14,8 @@ spec:
   - engages the strongest version of the opposing argument, not a weaker one it's easier to beat
 related:
   - sessions/12-arguing-the-case
+image: ./case-against-retrying.avif
+imageAlt: A gavel resting on a closed case file
 ---
 
 ## The brief

@@ -21,6 +21,8 @@ spec:
   - the defence responds to the specific challenge raised, not a rehearsed answer prepared in advance
 related:
   - sessions/08-watching-a-breaker-trip
+image: ./retry-policy.avif
+imageAlt: A wax seal stamped twice onto the same document, the second impression doubled over the first
 ---
 
 ## The brief
