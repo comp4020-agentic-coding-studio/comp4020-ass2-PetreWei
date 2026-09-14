@@ -9,6 +9,8 @@ failure_scenario: "A described outage where the retries were the cause, read col
 decided_by: product
 related:
   - assessments/case-against-retrying
+image: ./12-arguing-the-case.avif
+imageAlt: A two-pan balance scale weighing a single coin against a tall stack of coins
 ---
 
 ## The situation

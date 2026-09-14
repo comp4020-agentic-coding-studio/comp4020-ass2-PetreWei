@@ -7,6 +7,8 @@ teachers:
   - idris-fenn
 failure_scenario: "A payment write times out after the charge has already been committed server-side, and the client retries it."
 decided_by: client
+image: ./02-charging-twice-on-purpose.avif
+imageAlt: A rubber stamp striking the same receipt twice, the second impression landing just off the first
 ---
 
 ## The situation

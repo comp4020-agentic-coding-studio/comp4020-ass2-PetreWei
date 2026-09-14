@@ -9,6 +9,8 @@ failure_scenario: "Ten thousand clients, each backing off correctly on its own, 
 decided_by: platform
 related:
   - assessments/retry-audit
+image: ./04-synchronising-a-herd.avif
+imageAlt: A tight cluster of identical alarm clocks, all their hands at the same hour, ringing together
 ---
 
 ## The situation

@@ -9,6 +9,8 @@ failure_scenario: "A dependency is down for an extended period, and every reques
 decided_by: platform
 related:
   - assessments/retry-policy
+image: ./08-watching-a-breaker-trip.avif
+imageAlt: An industrial circuit-breaker switch lever caught in its half-thrown middle position
 ---
 
 ## The situation

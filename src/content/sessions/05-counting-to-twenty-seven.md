@@ -7,6 +7,8 @@ teachers:
   - marisol-quaye
 failure_scenario: "Three layers of a call stack each retry a failing downstream call three times, independently."
 decided_by: platform
+image: ./05-counting-to-twenty-seven.avif
+imageAlt: A pressure gauge with its needle pinned into a red zone near the top of the dial
 ---
 
 ## The situation
