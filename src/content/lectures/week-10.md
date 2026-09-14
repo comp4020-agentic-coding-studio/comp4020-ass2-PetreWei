@@ -7,6 +7,8 @@ teachers:
   - idris-fenn
 related:
   - sessions/10-reading-past-the-dashboard
+image: ./week-10.avif
+imageAlt: A house of cards standing perfectly still on a table that is visibly tilting to one side beneath it
 ---
 
 Success rate answers whether a request eventually got a good response; it says nothing about how many attempts that took or how long the client waited for it. A retry that succeeds on the third try is invisible to that metric and expensive to the person waiting on it, which is why a dashboard built only on success rate can watch a dependency decline for six weeks and never move. The fix is measuring the thing retries are built to hide, retried latency and retry rate, tracked alongside success rate rather than instead of it.

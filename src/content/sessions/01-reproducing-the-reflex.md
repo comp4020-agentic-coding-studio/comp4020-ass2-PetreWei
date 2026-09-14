@@ -7,6 +7,8 @@ teachers:
   - marisol-quaye
 failure_scenario: "A read request times out once; a client retries it and the second attempt succeeds."
 decided_by: client
+image: ./01-reproducing-the-reflex.avif
+imageAlt: A boomerang mid-flight, curving back toward the open hand that threw it
 ---
 
 ## The situation

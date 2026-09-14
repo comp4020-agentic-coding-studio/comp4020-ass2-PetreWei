@@ -7,6 +7,8 @@ teachers:
   - marisol-quaye
 failure_scenario: "A queue consumer retries a malformed message forever and a client retries a 400 it will never pass, because neither can tell a permanent failure from a transient one."
 decided_by: library
+image: ./07-telling-a-no-from-a-not-yet.avif
+imageAlt: An envelope caught between two mail slots side by side, one bricked shut, the other open
 ---
 
 ## The situation

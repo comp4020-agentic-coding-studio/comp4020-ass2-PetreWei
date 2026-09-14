@@ -7,6 +7,8 @@ teachers:
   - marisol-quaye
 related:
   - sessions/03-becoming-the-outage
+image: ./week-03.avif
+imageAlt: A single tap turned fully open, overflowing a basin faster than the drain can take it
 ---
 
 Exponential backoff doesn't make an attempt more likely to succeed, it makes the moment of the attempt less likely to land inside the storm: each wait roughly doubles, so a degrading dependency gets a rapidly thinning trickle of requests instead of a flood that never lets up. A fixed one-second delay doesn't have this property, it just delays the flood rather than shrinking it. The other ingredient, jitter, is next week's problem: a whole fleet of clients backing off on the same clock just synchronises the flood instead of preventing it.

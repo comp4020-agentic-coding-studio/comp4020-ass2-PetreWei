@@ -7,6 +7,8 @@ teachers:
   - idris-fenn
 failure_scenario: "A failed payout is retried at 3am by two on-call operators working the same incident independently, with no queue or lock between them."
 decided_by: operator
+image: ./06-two-people-one-payout.avif
+imageAlt: Two hands, each dropping an identical coin into the same slot at once
 ---
 
 ## The situation

@@ -7,6 +7,8 @@ teachers:
   - marisol-quaye
 failure_scenario: "A client with no delay between attempts retries into a dependency that is down for two seconds."
 decided_by: library
+image: ./03-becoming-the-outage.avif
+imageAlt: A single tap turned fully open, overflowing a basin faster than the drain can take it
 ---
 
 ## The situation

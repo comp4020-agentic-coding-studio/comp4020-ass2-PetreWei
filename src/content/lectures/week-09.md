@@ -7,6 +7,8 @@ teachers:
   - marisol-quaye
 related:
   - sessions/09-retrying-into-an-empty-room
+image: ./week-09.avif
+imageAlt: A telephone ringing on a desk in an empty room, its chair pushed back and empty
 ---
 
 A deadline is a different kind of bound to a retry count: the count asks how many times you have tried, the deadline asks whether the answer is still worth having. Propagating one means every layer passes down the time remaining instead of starting its own fresh timeout, which is also the only version of week 5's budget the person waiting can reason about, because seconds are a unit they actually share. Weeks 1 and 2 asked the client whether retrying was safe; this is the same client, asked whether it is still wanted.

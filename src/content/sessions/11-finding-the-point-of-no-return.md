@@ -7,6 +7,8 @@ teachers:
   - marisol-quaye
 failure_scenario: "A confirmation email has already been sent and a resource lock has already been released by the time a later step in the same request fails."
 decided_by: nobody
+image: ./11-finding-the-point-of-no-return.avif
+imageAlt: A row of dominoes with the last one already fallen, out of order ahead of the ones still standing
 ---
 
 ## The situation

@@ -7,6 +7,8 @@ teachers:
   - idris-fenn
 failure_scenario: "Retries quietly absorb a dependency degrading over six weeks, and the dashboard stays green while the retried latency climbs unmeasured."
 decided_by: platform
+image: ./10-reading-past-the-dashboard.avif
+imageAlt: A house of cards standing perfectly still on a table that is visibly tilting to one side beneath it
 ---
 
 ## The situation

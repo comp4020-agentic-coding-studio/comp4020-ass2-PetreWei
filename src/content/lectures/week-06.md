@@ -7,6 +7,8 @@ teachers:
   - idris-fenn
 related:
   - sessions/06-two-people-one-payout
+image: ./week-06.avif
+imageAlt: Two hands, each dropping an identical coin into the same slot at once
 ---
 
 Every fix so far this semester has lived in a client, a library or a platform, because there was code between the failure and the retry. Take the code away and the same failure modes are still possible, no idempotency check, no backoff, no shared state between the two people acting, they just need a runbook line, a wait-and-check step, and a shared incident channel instead of a shared variable. A runbook is a retry policy a human executes instead of a process, which is why it can be wrong in exactly the same ways.

@@ -7,6 +7,8 @@ teachers:
   - marisol-quaye
 failure_scenario: "A request is retried for ninety seconds against a caller that gave up after three, and the successful attempt returns to a connection that has already closed."
 decided_by: client
+image: ./09-retrying-into-an-empty-room.avif
+imageAlt: A telephone ringing on a desk in an empty room, its chair pushed back and empty
 ---
 
 ## The situation
