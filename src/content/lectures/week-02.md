@@ -8,6 +8,8 @@ teachers:
 slides: /decks/week-02/
 related:
   - sessions/02-charging-twice-on-purpose
+image: ./week-02.avif
+imageAlt: A rubber stamp striking the same receipt twice, the second impression landing just off the first
 ---
 
 An idempotency key doesn't stop the timeout, it stops the timeout from mattering: the server checks the key before it commits the write, so a repeated request lands on the same charge instead of a new one. That's a property the client has to ask for, not one it can assume, which is the sense in which the bug here isn't the retry, it's retrying without knowing the answer.

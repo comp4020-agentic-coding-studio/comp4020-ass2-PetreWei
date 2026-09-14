@@ -8,6 +8,8 @@ teachers:
 slides: /decks/week-04/
 related:
   - sessions/04-synchronising-a-herd
+image: ./week-04.avif
+imageAlt: A tight cluster of identical alarm clocks, all their hands at the same hour, ringing together
 ---
 
 Jitter breaks the synchrony by randomising when, inside its own window, each client actually fires, so instead of ten thousand clients hitting the same second, they spread across the whole window and the dependency sees a manageable trickle. It has to be randomised on every attempt, not just the first, or clients that started backing off together stay together. Week 3 was one client learning to wait; this week is what happens when ten thousand clients learn the same lesson at the same moment.

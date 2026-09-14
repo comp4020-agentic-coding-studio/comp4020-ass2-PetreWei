@@ -8,6 +8,8 @@ teachers:
 slides: /decks/week-05/
 related:
   - sessions/05-counting-to-twenty-seven
+image: ./week-05.avif
+imageAlt: A pressure gauge with its needle pinned into a red zone near the top of the dial
 ---
 
 A retry budget tracks a ratio, not a count: the fraction of recent calls that were retries, capped at something like ten percent, so retries throttle themselves as the ratio nears the cap instead of every layer independently deciding three is a small number. The three layers in this week's incident weren't wrong on their own terms, which is the same shape as week 4's thundering herd: correct in isolation, compounding in aggregate, and only visible from a vantage point no single layer has.

@@ -8,6 +8,8 @@ teachers:
 slides: /decks/week-12/
 related:
   - sessions/12-arguing-the-case
+image: ./week-12.avif
+imageAlt: A two-pan balance scale weighing a single coin against a tall stack of coins
 ---
 
 Every fix this semester traded something for safety: an idempotency key trades storage, backoff trades latency, jitter trades a predictable worst case, a budget trades locality, a breaker trades availability, a deadline trades work that would have succeeded. None of those trades were free and none were really technical decisions — they were product decisions wearing a technical decision's clothes, which is the same disguise week 1's reflex wore. Arguing this case cold is the only way to notice you are making the trade before somebody tells you what it cost.
