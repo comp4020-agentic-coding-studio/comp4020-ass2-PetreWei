@@ -1,0 +1,107 @@
+---
+title: "Week 4: Synchronising a herd"
+description: Everyone retrying at once is one client, badly disguised
+---
+
+import { withBase } from "astro-theme-university/url";
+
+{/* _class: impact */}
+
+# Synchronising a herd
+
+Week 4 — SLOP3092
+
+<a href={withBase("/lectures/week-04/")}>&larr; Back to the lecture page</a>
+
+---
+
+## Last week
+
+One client learned to wait.
+
+A random delay, growing on every attempt.
+
+---
+
+## This week
+
+A dependency recovers from an outage.
+
+Every client that failed during it is, correctly, about to retry.
+
+---
+
+## The reflex
+
+Trust that each client's own backoff is enough.
+
+Each one is behaving well in isolation.
+
+---
+
+{/* _class: impact */}
+
+# 10,000 well-behaved clients
+
+---
+
+## What it costs
+
+Ten thousand clients retrying on the same second is a thundering herd.
+
+The recovering dependency is hit by a synchronised spike — and falls over again.
+
+No single client did anything wrong.
+
+---
+
+## Correct alone. Wrong together.
+
+Backoff fixed *how long* one client waits.
+
+It never touched *when*, relative to everyone else.
+
+---
+
+## The fix
+
+Randomise each client's wait inside its own backoff window.
+
+On every attempt — not only the first.
+
+---
+
+## What it costs
+
+Nothing a single client can feel, which is exactly why it gets left out.
+
+The cost lands on whoever operates the fleet: no client can now state its own worst-case latency, only the shape of its distribution.
+
+---
+
+## Who decides
+
+`platform`.
+
+No one client can see the other nine thousand nine hundred and ninety-nine. The fix has to be a property the platform requires of every client, not a courtesy any one of them can opt into.
+
+---
+
+## In the studio
+
+1. Run a simulated recovery with ten synchronised clients
+2. Watch it fail
+3. Add jitter to each client's backoff, independently
+4. Watch the same recovery succeed
+
+---
+
+{/* _class: impact */}
+
+# Next week
+
+Ten thousand clients backed off correctly and still fell over the dependency together.
+
+Now: what happens when every layer backs off on its own.
+
+<a href={withBase("/lectures/week-04/")}>&larr; Back to the lecture page</a>
