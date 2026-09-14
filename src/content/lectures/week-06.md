@@ -1,5 +1,5 @@
 ---
-title: The mechanism does not care whether there is code involved
+title: The mechanism doesn't need code to fail
 description: "Why some weeks have no client, library or platform to hand the decision to, and what a runbook has in common with a retry library."
 week: 6
 date: 2027-04-12

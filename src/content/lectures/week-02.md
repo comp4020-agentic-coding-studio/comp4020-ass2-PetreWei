@@ -1,5 +1,5 @@
 ---
-title: A retry that isn't idempotent is a bug wearing a feature's clothes
+title: A non-idempotent retry is a hidden bug
 description: "Why a timeout can't tell a client whether the write already happened, and what an idempotency key actually guarantees."
 week: 2
 date: 2027-03-01

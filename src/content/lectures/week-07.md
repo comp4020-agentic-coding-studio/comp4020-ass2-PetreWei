@@ -1,5 +1,5 @@
 ---
-title: Some failures cannot be retried into success
+title: Not every failure can be retried away
 description: "How a status code and a poison message are the same problem, and where the judgement that separates them has to live."
 week: 7
 date: 2027-04-19

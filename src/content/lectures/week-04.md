@@ -1,5 +1,5 @@
 ---
-title: Everyone retrying at once is one client, badly disguised
+title: Retrying at once is one disguised client
 description: "How individually correct backoff still adds up to a synchronised spike, and why jitter has to be mandatory rather than optional."
 week: 4
 date: 2027-03-15

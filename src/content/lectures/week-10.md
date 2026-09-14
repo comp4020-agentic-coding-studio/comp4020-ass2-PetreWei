@@ -1,5 +1,5 @@
 ---
-title: A green dashboard can be hiding a slow decline
+title: A green dashboard hides a slow decline
 description: "Why success rate alone cannot show a retry's cost, and what a dashboard has to measure instead to surface a decline early."
 week: 10
 date: 2027-05-10

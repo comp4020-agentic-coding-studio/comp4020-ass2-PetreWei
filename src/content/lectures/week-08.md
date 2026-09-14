@@ -1,5 +1,5 @@
 ---
-title: A breaker that never closes was never protecting anything
+title: A breaker stuck open protects nothing
 description: "Why a circuit breaker is shared state the platform has to hold, and why it needs to close again as much as it needs to open."
 week: 8
 date: 2027-04-26

@@ -1,5 +1,5 @@
 ---
-title: Retrying is usually right, which is what makes it dangerous
+title: Being right is what makes retrying risky
 description: "Why the reflex to retry is rewarded so often that nobody thinks to examine it, and what changes from week 2 onward."
 week: 1
 date: 2027-02-22
