@@ -1,4 +1,5 @@
 import { defineCollection, reference } from "astro:content";
+import type { ImageFunction } from "astro/content/config";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 import { courseNodeSchema } from "astro-course-university/schemas";
@@ -9,7 +10,25 @@ const courseNodeLoader = (dir: string) =>
 const teacherRefs = z.array(reference("people")).min(1);
 const roleSchema = z.enum(["convenor", "tutor", "guest", "other"]);
 
-const courseNode = <T extends z.ZodRawShape>(fields: T) => courseNodeSchema.extend(fields).loose();
+const requireAltWithImage = <T extends { image?: unknown; imageAlt?: unknown }>(
+  node: T,
+  ctx: z.RefinementCtx,
+) => {
+  if (node.image && !node.imageAlt) {
+    ctx.addIssue({
+      code: "custom",
+      path: ["imageAlt"],
+      message: "describe the image when one is supplied",
+    });
+  }
+};
+
+const courseNode = <T extends z.ZodRawShape>(fields: T) =>
+  ({ image }: { image: ImageFunction }) =>
+    courseNodeSchema
+      .extend({ ...fields, image: image().optional(), imageAlt: z.string().trim().optional() })
+      .loose()
+      .superRefine(requireAltWithImage);
 
 const weightedMarking = z
   .object({
