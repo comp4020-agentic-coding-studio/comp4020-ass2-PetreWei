@@ -1,0 +1,64 @@
+/* Platform gap in astro-theme-university's Nav (never edited directly --
+ * see CLAUDE.md): `.at-nav-inner` puts three flex items -- the brand, the
+ * link list, and the search button -- in one `flex-wrap: wrap` row. The
+ * link list is designed to shrink and scroll internally
+ * (`overflow-x: auto`) when it doesn't fit, but the browser's line-wrap
+ * decision still measures each item's full, unshrunk content width, not
+ * its post-shrink rendered size. At some viewport widths that pushes the
+ * search button alone onto a second line even though there'd be room once
+ * the list shrinks as designed.
+ *
+ * This isn't specific to the Chinese pilot: it's a latent bug in the
+ * shared nav that any nav-link text short enough to land in the same
+ * narrow window would trigger. The English nav's longer labels happen to
+ * overflow further and take the whole link list with them onto row two,
+ * which looks clean by accident but is the same underlying bug -- the
+ * shorter Chinese labels (zh/index.astro's `zhLinks`) just land in the
+ * window where only the search button spills over, at ~768px.
+ *
+ * Fix: giving the link list `flex-basis: 0` keeps it out of the
+ * wrap-width calculation (which uses flex basis, not rendered size), so
+ * the brand and search button now reliably share a line with it, with the
+ * list itself still free to grow, shrink, and fall back to its own
+ * internal scroll when content genuinely doesn't fit. Loaded via
+ * `brandCss` in astro.config.ts, after the theme's own components.css and
+ * unlayered, so it wins the cascade without needing `!important`. */
+@media (width >= 640px) {
+  .at-nav-links {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
+}
+
+/* The flex fix above means `.at-nav-links` now genuinely relies on its own
+ * `overflow-x: auto` + scroll-driven trailing fade (components.css) in the
+ * width range where the links don't all fit -- previously the whole list
+ * always fit on its line (or wrapped as a block, per the bug above), so this
+ * path was never exercised. The trailing fade is driven by
+ * `animation-timeline: scroll(self inline)` over an `animation-range` of
+ * "the last 1rem of scrollable distance", so whenever the overflow is
+ * itself smaller than 1rem (common: e.g. 13px of "中文" clipped at ~970px on
+ * the English page) that range's lower bound clamps past the scrollable
+ * start, and in that degenerate case Chromium renders no fade at all --
+ * `--at-nav-fade-end` measures 0px at rest instead of the intended 1rem, so
+ * the last visible link is hard-clipped with no visual cue that it's cut
+ * off or that the row scrolls. That reads as the trailing link being
+ * "covered" by whatever sits next to it (the search button), which is what
+ * this was reported as for "中文", the shortest and last link on the
+ * English home page. Confirmed empirically (computed mask-image at 970px
+ * width) rather than derived from the scroll-timeline spec, which is easy
+ * to get backwards for a range this small.
+ *
+ * Fix: drop the scroll-driven trailing-fade animation and replace it with a
+ * constant one. The leading (start) fade is untouched -- it measures
+ * correctly at rest and isn't what was reported. A constant trailing fade
+ * has no visible effect when the row isn't actually scrollable (nothing sits
+ * near the edge in that case), so this only changes behaviour in the
+ * overflowing case, where it now always shows instead of only past a
+ * scroll-timeline threshold that can clamp itself out of existence. */
+@media (width >= 640px) {
+  .at-nav-links {
+    animation: at-nav-reveal-start linear both;
+    --at-nav-fade-end: 1rem;
+  }
+}
