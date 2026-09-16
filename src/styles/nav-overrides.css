@@ -30,69 +30,85 @@
   }
 }
 
-/* The flex fix above means `.at-nav-links` now genuinely relies on its own
- * `overflow-x: auto` + scroll-driven trailing fade (components.css) in the
- * width range where the links don't all fit -- previously the whole list
- * always fit on its line (or wrapped as a block, per the bug above), so this
- * path was never exercised. The trailing fade is driven by
- * `animation-timeline: scroll(self inline)` over an `animation-range` of
- * "the last 1rem of scrollable distance", so whenever the overflow is
- * itself smaller than 1rem (common: e.g. 13px of "中文" clipped at ~970px on
- * the English page) that range's lower bound clamps past the scrollable
- * start, and in that degenerate case Chromium renders no fade at all --
- * `--at-nav-fade-end` measures 0px at rest instead of the intended 1rem, so
- * the last visible link is hard-clipped with no visual cue that it's cut
- * off or that the row scrolls. That reads as the trailing link being
- * "covered" by whatever sits next to it (the search button), which is what
- * this was reported as for "中文", the shortest and last link on the
- * English home page. Confirmed empirically (computed mask-image at 970px
- * width) rather than derived from the scroll-timeline spec, which is easy
- * to get backwards for a range this small.
+/* Desktop nav spacing. `.at-nav-inner` is a fixed 864px content column at
+ * every viewport at or above the content cap (measured identical at 1280
+ * and 1920 CSS px), so these gaps are arithmetic on a constant width, not
+ * something that drifts with the window.
  *
- * Fix: drop the scroll-driven trailing-fade animation and replace it with a
- * constant one. The leading (start) fade is untouched -- it measures
- * correctly at rest and isn't what was reported. A constant trailing fade
- * has no visible effect when the row isn't actually scrollable (nothing sits
- * near the edge in that case), so this only changes behaviour in the
- * overflowing case, where it now always shows instead of only past a
- * scroll-timeline threshold that can clamp itself out of existence. */
-@media (width >= 640px) {
-  .at-nav-links {
-    animation: at-nav-reveal-start linear both;
-    --at-nav-fade-end: 1rem;
-  }
+ * Three separate theme behaviours combined into a row that reads as badly
+ * spaced -- a large hole after the brand, the link list colliding with the
+ * language switcher, and the trailing link washed out by a gradient:
+ *
+ * 1. components.css gives `.at-nav-brand` an optical nudge,
+ *    `translateX(calc(-1 * var(--at-content-inset) + var(--at-logo-offset-x)))`,
+ *    so the logo mark lines up with the content rule below it. A transform
+ *    doesn't change layout, so the ~53px it shifts left is simply vacated:
+ *    it lands on top of the 27px flex gap and reads as ~81px of dead space
+ *    before the first link. Reclaiming it with a negative margin closes
+ *    the hole. Reclaim only `--at-content-inset`, NOT the full transform:
+ *    `--at-logo-offset-x` computes to a percentage (-5.9% here), and a
+ *    percentage resolves against the element's own width in `transform`
+ *    but against the containing block in `margin`, so including it
+ *    over-reclaims to -87px and slides the links ~10px on top of the logo.
+ *    It is also a per-logo nudge compensating that mark's own internal
+ *    whitespace, so reclaiming it would double-count it.
+ *
+ * 2. `.at-nav-links` is a flex item with `margin-inline-start: auto`, and
+ *    it grows past its content: the ul measured 474px around 429px of
+ *    links. With the switcher added, brand + grown ul + two icon buttons +
+ *    gaps came to exactly the 864px available, which is why the switcher
+ *    previously had to be positioned absolutely to avoid wrapping, and why
+ *    it ended up 1px from the last link. Capping the ul at `max-content`
+ *    gives back the 45px of padding it was never using, and a smaller logo
+ *    (below) frees ~29px more. Sending all of that slack to a single
+ *    `margin-inline-end: auto` -- rather than splitting it evenly across
+ *    both auto margins -- is deliberate: the brand gap is already set by
+ *    the reclaim in (1), so an even split would reopen it, and one
+ *    flexible gap between the links and the utility buttons keeps the
+ *    brand-to-links distance stable no matter how wide the logo or how
+ *    short the labels (the `/zh/` nav has noticeably shorter ones).
+ *
+ * 3. components.css masks `.at-nav-links` with a gradient that fades both
+ *    edges as a scroll affordance. The trailing half was already made
+ *    constant here (it used to clamp itself out of existence on small
+ *    overflows); the leading half has the opposite problem -- it is always
+ *    on, 18px wide, sitting directly over the left edge of the first link,
+ *    which is what reads as a shadow across the nav. With the ul now
+ *    capped at its content width it only scrolls when the links genuinely
+ *    don't fit, so at every other width the mask can only wash real text.
+ *    Dropping it (and the scroll-driven animation that drives it) trades
+ *    the fade affordance in the genuine-overflow case for text that is
+ *    never dimmed; the row keeps its native `overflow-x: auto`.
+ *
+ * The search button keeps its flush alignment to the content rule; the
+ * negative start margin narrows only the gap between it and the language
+ * switcher, from one 27px flex gap to 18px, so the two icon buttons read
+ * as one utility pair rather than two unrelated controls.
+ *
+ * Measured at 1920 CSS px: brand to first link 42px, last link to the
+ * switcher 75px, switcher to search 18px, search flush at 0px, and the
+ * link list not overflowing (scrollWidth === clientWidth === 429). */
+.at-nav-logo {
+  /* 2.5rem in components.css. At an 18px root that's 45px tall and 291px
+   * wide, which is oversized next to 45px icon buttons and eats the slack
+   * the gaps above need. */
+  height: 2.25rem;
 }
 
-/* LangSwitch.astro moves its icon button into `.at-nav-inner` as a third
- * flex child, next to `.at-search-trigger`. At desktop widths that took
- * ~4rem (its own 2.5rem width plus one 1.5rem flex gap) out of
- * `.at-nav-links`'s share of `.at-nav-inner`'s width -- on the home and
- * `/zh/` pages (the only two with the switcher) that was just enough to push
- * the list back into the overflow/scroll-fade case the two fixes above
- * exist for. Confirmed by comparing `.at-nav-links`'s scrollWidth/clientWidth
- * on `/` (429 vs 402, overflowing) against an unrelated page with the same
- * five links and no switcher, e.g. `/lectures/` (474 vs 474, exact fit) --
- * so this is a regression the switcher itself introduces, not the
- * pre-existing bug above.
- *
- * Fix: take the switcher out of the flex flow at desktop widths, where
- * `.at-nav-links` is genuinely width-constrained, and position it directly
- * instead. `.at-search-trigger` sits flush against `.at-nav-inner`'s own
- * right edge with no extra padding, so anchoring the switcher by exactly one
- * icon-button width plus one flex gap reproduces the same visual slot
- * without spending any of `.at-nav-links`'s width budget. Below 640px the
- * link list is hidden behind the nav toggle instead of sharing a row with
- * the switcher, so there's no budget to protect and it's left in normal
- * flow there. */
 @media (width >= 640px) {
-  .at-nav-inner {
-    position: relative;
+  .at-nav-brand {
+    margin-inline-end: calc(-1 * var(--at-content-inset));
   }
 
-  [data-lang-switch] {
-    position: absolute;
-    top: 50%;
-    right: calc(2.5rem + var(--at-spacing-lg));
-    transform: translateY(-50%);
+  .at-nav-links {
+    max-width: max-content;
+    margin-inline-start: 0;
+    margin-inline-end: auto;
+    mask-image: none;
+    animation: none;
+  }
+
+  .at-search-trigger {
+    margin-inline-start: calc(var(--at-spacing-md) - var(--at-spacing-lg));
   }
 }
