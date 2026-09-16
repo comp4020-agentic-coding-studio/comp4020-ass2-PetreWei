@@ -11,22 +11,15 @@ describe("skipLinkFocus", () => {
     expect(skipLinkFocus().name).toBe("skip-link-focus");
   });
 
-  it("injects a page-stage script on astro:config:setup", () => {
+  it("injects a single page-stage script containing the target selector, the tabindex fix and the focus call", () => {
     const injectScript = vi.fn();
     const setup = skipLinkFocus().hooks["astro:config:setup"];
     // @ts-expect-error -- only the one argument this hook reads is supplied
     setup?.({ injectScript });
 
     expect(injectScript).toHaveBeenCalledTimes(1);
-    expect(injectScript).toHaveBeenCalledWith("page", expect.any(String));
-  });
-
-  it("keeps the skip link's target selector, the tabindex fix and the focus call in the injected script", () => {
-    let script = "";
-    const setup = skipLinkFocus().hooks["astro:config:setup"];
-    // @ts-expect-error -- only the one argument this hook reads is supplied
-    setup?.({ injectScript: (_stage: string, code: string) => (script = code) });
-
+    const [stage, script] = injectScript.mock.calls[0];
+    expect(stage).toBe("page");
     expect(script).toContain('a[href="#main"]');
     expect(script).toContain('getElementById("main")');
     expect(script).toContain('setAttribute("tabindex", "-1")');
