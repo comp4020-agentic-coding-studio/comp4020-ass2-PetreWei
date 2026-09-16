@@ -112,3 +112,20 @@
     margin-inline-start: calc(var(--at-spacing-md) - var(--at-spacing-lg));
   }
 }
+
+/* The theme sets the nav links at `--at-font-size-sm` (0.875rem, 15.75px
+ * at this root), which is sized for Latin labels. CJK glyphs pack far more
+ * strokes into the same em box, so at an identical font-size the Chinese
+ * nav on `/zh/` reads visibly smaller and denser than the English one --
+ * a legibility difference, not a taste one. Nudge it up one step to
+ * `--at-font-size-h5` (0.9375rem) rather than inventing a value, so the
+ * nav stays on the theme's type scale.
+ *
+ * Scoped by `lang` so it only ever applies to Chinese pages. Note that
+ * `lang="zh-Hans"` is written by the `zh-html-lang` integration at
+ * `astro:build:done`, so this shows up in `astro preview` and on the
+ * deployed site but NOT in `astro dev`, where /zh/ still reports
+ * `lang="en"` (expected -- see scripts/zh-html-lang.ts). */
+:root[lang^="zh"] .at-nav-links a {
+  font-size: var(--at-font-size-h5);
+}
