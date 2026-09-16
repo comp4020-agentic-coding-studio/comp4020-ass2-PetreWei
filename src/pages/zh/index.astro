@@ -2,6 +2,7 @@
 import Card from "astro-theme-university/components/Card.astro";
 import CardGrid from "astro-theme-university/components/CardGrid.astro";
 import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
+import LangSwitch from "../../components/LangSwitch.astro";
 import heroImage from "../../assets/images/hero-home.avif";
 import { courseMeta } from "../../course-config";
 import { siteConfig, zhLinks } from "../../site-config";
@@ -25,6 +26,8 @@ const tagLabels: Record<string, string> = {
   {...siteConfig}
   links={zhLinks}
 >
+  <LangSwitch href="/" label="View in English" />
+
   <ul class="course-tags" aria-label="Course tags">
     {courseMeta.tags.map((tag) => <li>{tagLabels[tag] ?? tag}</li>)}
   </ul>

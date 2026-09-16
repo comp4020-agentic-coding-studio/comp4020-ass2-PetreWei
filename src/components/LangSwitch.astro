@@ -1,0 +1,46 @@
+---
+// Nav.astro (astro-theme-university, never edited directly --- see
+// CLAUDE.md) renders `links` as one flat list with no slot for a second
+// action next to the search button, so a language switcher can only exist
+// as a trailing entry in that same scrollable list --- which is exactly
+// what caused the earlier "中文 covered by shadow" report: the shortest
+// item at either edge of an overflowing list sits under the list's own
+// scroll-fade mask (see nav-overrides.css) regardless of how that mask is
+// tuned. Rendering the switcher here as its own icon button and physically
+// moving it next to `.at-search-trigger` at runtime keeps it out of
+// `.at-nav-links` entirely, so it can never land under that mask, and
+// mirrors Google Translate's icon instead of a hand-typed "文/A" glyph.
+import Icon from "astro-theme-university/components/Icon.astro";
+import { withBase } from "astro-theme-university/url";
+
+export interface Props {
+  href: string;
+  label: string;
+}
+
+const { href, label } = Astro.props;
+---
+
+<a class="at-icon-button" href={withBase(href)} aria-label={label} title={label} data-lang-switch>
+  <Icon name="translate" size={20} />
+</a>
+
+<script is:inline>
+  // Classic (not type=module) and inline so it runs synchronously as the
+  // parser reaches it --- Nav's own markup has already been parsed by this
+  // point in the document, so the move happens before first paint and
+  // there's no flash of the button sitting in the page body. Re-run on
+  // Astro's view-transition navigations (astro:page-load), the same hook
+  // Nav.astro's own script uses to re-attach after a swap.
+  (function () {
+    function placeLangSwitch() {
+      var button = document.querySelector("[data-lang-switch]");
+      var searchTrigger = document.querySelector(".at-search-trigger");
+      if (button && searchTrigger && button.nextElementSibling !== searchTrigger) {
+        searchTrigger.before(button);
+      }
+    }
+    placeLangSwitch();
+    document.addEventListener("astro:page-load", placeLangSwitch);
+  })();
+</script>

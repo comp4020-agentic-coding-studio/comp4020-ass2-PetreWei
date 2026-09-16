@@ -62,3 +62,37 @@
     --at-nav-fade-end: 1rem;
   }
 }
+
+/* LangSwitch.astro moves its icon button into `.at-nav-inner` as a third
+ * flex child, next to `.at-search-trigger`. At desktop widths that took
+ * ~4rem (its own 2.5rem width plus one 1.5rem flex gap) out of
+ * `.at-nav-links`'s share of `.at-nav-inner`'s width -- on the home and
+ * `/zh/` pages (the only two with the switcher) that was just enough to push
+ * the list back into the overflow/scroll-fade case the two fixes above
+ * exist for. Confirmed by comparing `.at-nav-links`'s scrollWidth/clientWidth
+ * on `/` (429 vs 402, overflowing) against an unrelated page with the same
+ * five links and no switcher, e.g. `/lectures/` (474 vs 474, exact fit) --
+ * so this is a regression the switcher itself introduces, not the
+ * pre-existing bug above.
+ *
+ * Fix: take the switcher out of the flex flow at desktop widths, where
+ * `.at-nav-links` is genuinely width-constrained, and position it directly
+ * instead. `.at-search-trigger` sits flush against `.at-nav-inner`'s own
+ * right edge with no extra padding, so anchoring the switcher by exactly one
+ * icon-button width plus one flex gap reproduces the same visual slot
+ * without spending any of `.at-nav-links`'s width budget. Below 640px the
+ * link list is hidden behind the nav toggle instead of sharing a row with
+ * the switcher, so there's no budget to protect and it's left in normal
+ * flow there. */
+@media (width >= 640px) {
+  .at-nav-inner {
+    position: relative;
+  }
+
+  [data-lang-switch] {
+    position: absolute;
+    top: 50%;
+    right: calc(2.5rem + var(--at-spacing-lg));
+    transform: translateY(-50%);
+  }
+}

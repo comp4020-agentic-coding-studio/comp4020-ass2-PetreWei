@@ -2,9 +2,10 @@
 import Card from "astro-theme-university/components/Card.astro";
 import CardGrid from "astro-theme-university/components/CardGrid.astro";
 import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
+import LangSwitch from "../components/LangSwitch.astro";
 import heroImage from "../assets/images/hero-home.avif";
 import { courseMeta } from "../course-config";
-import { homeLinks, sessionLabels, siteConfig } from "../site-config";
+import { sessionLabels, siteConfig } from "../site-config";
 
 ---
 
@@ -14,8 +15,9 @@ import { homeLinks, sessionLabels, siteConfig } from "../site-config";
   heroImage={heroImage}
   heroImageAlt="The same hand pressing the same button five times over, each impression printed further out of register than the last, in flat gold and black on cream — a two-ink risograph print"
   {...siteConfig}
-  links={homeLinks}
 >
+  <LangSwitch href="/zh/" label="中文" />
+
   <ul class="course-tags" aria-label="Course tags">
     {courseMeta.tags.map((tag) => <li>{tag}</li>)}
   </ul>
