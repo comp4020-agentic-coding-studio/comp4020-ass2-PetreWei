@@ -5,6 +5,7 @@ import { astromotion, deckRemarkPlugins } from "astromotion";
 import { courseMeta } from "./src/course-config.ts";
 import { courseApiCollections } from "./src/site-config.ts";
 import { gitOrigin, resolveDeployment } from "./scripts/pages-base.ts";
+import { skipLinkFocus } from "./scripts/skip-link-focus.ts";
 
 // Derived, never hardcoded --- see scripts/pages-base.ts for why.
 const { site, base } = resolveDeployment(process.env, gitOrigin);
@@ -55,5 +56,6 @@ export default defineConfig({
       // `assets/slop-crest.svg`. Re-copy it if the theme's crest ever changes.
       favicon: "/favicon.svg",
     }),
+    skipLinkFocus(),
   ],
 });
