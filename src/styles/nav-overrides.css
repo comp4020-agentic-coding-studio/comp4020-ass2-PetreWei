@@ -69,16 +69,42 @@
  *    short the labels (the `/zh/` nav has noticeably shorter ones).
  *
  * 3. components.css masks `.at-nav-links` with a gradient that fades both
- *    edges as a scroll affordance. The trailing half was already made
- *    constant here (it used to clamp itself out of existence on small
- *    overflows); the leading half has the opposite problem -- it is always
- *    on, 18px wide, sitting directly over the left edge of the first link,
- *    which is what reads as a shadow across the nav. With the ul now
- *    capped at its content width it only scrolls when the links genuinely
- *    don't fit, so at every other width the mask can only wash real text.
- *    Dropping it (and the scroll-driven animation that drives it) trades
- *    the fade affordance in the genuine-overflow case for text that is
- *    never dimmed; the row keeps its native `overflow-x: auto`.
+ *    edges as a scroll affordance, driven by `animation-timeline:
+ *    scroll(self inline)` so a fade can only appear when the row actually
+ *    has somewhere to scroll. That part is correct and is left to the
+ *    theme. What read as a shadow across the nav was this file's own
+ *    earlier override, which set `animation: at-nav-reveal-start linear
+ *    both` and nothing after it: the `animation` shorthand resets
+ *    `animation-timeline` to `auto`, so the fade stopped being
+ *    scroll-driven and became a 0s animation on the document timeline,
+ *    parked permanently on its `to` value -- a constant 18px wash over
+ *    the first link. Deleting that override is the whole fix; the theme's
+ *    own rule then measures `--at-nav-fade-start` and `--at-nav-fade-end`
+ *    at 0px at every width where the row fits, and only raises the
+ *    trailing fade when the row genuinely scrolls.
+ *
+ * 4. Above 640px the theme shows the full 262px horizontal lockup and
+ *    leans on `overflow-x: auto` to absorb a link row that no longer
+ *    fits. Between 640px and ~925px it does not fit, and since the ul is
+ *    capped at `max-content` by (2) and the theme hides the scrollbar
+ *    (`scrollbar-width: none`), whole links were simply not rendered:
+ *    "Policies" from ~915px down, "People" as well from ~768px, and
+ *    "Assessments" too at 640px. The fade in (3) cannot cue that either,
+ *    because the cut usually falls in the gap between two links, where
+ *    there is nothing to fade. Navigation destinations disappearing with
+ *    no affordance is a functional defect, not a cosmetic one.
+ *
+ *    The theme already ships the mechanism for it: a compact crest
+ *    (`.at-nav-logo-compact`), which it swaps in only below 640px.
+ *    Swapping it in across the whole narrow-desktop band gives back the
+ *    221px the wordmark was using, and stepping the link padding and the
+ *    two row gaps down one notch on the spacing scale gives back ~60px
+ *    more -- between them enough that the crest, all five links and both
+ *    icon buttons fit with room to spare even at 640px. Above 960px
+ *    nothing changes: the full lockup returns and the gaps are exactly
+ *    what (1) and (2) set. Measured `scrollWidth === clientWidth` with no
+ *    link past the ul's right edge at every width from 390 to 1440 on
+ *    both `/` and `/zh/`.
  *
  * The search button keeps its flush alignment to the content rule; the
  * negative start margin narrows only the gap between it and the language
@@ -104,12 +130,43 @@
     max-width: max-content;
     margin-inline-start: 0;
     margin-inline-end: auto;
-    mask-image: none;
-    animation: none;
   }
 
   .at-search-trigger {
     margin-inline-start: calc(var(--at-spacing-md) - var(--at-spacing-lg));
+  }
+}
+
+/* Narrow-desktop band -- see item 4 above. Everything here exists only to
+ * keep all five links on the row between the mobile breakpoint and the
+ * width at which the full lockup fits again. */
+@media (640px <= width < 960px) {
+  .at-nav-brand:has(.at-nav-logo-compact) .at-nav-logo-full {
+    display: none;
+  }
+
+  .at-nav-logo-compact {
+    display: block;
+  }
+
+  .at-nav-inner {
+    gap: 0 var(--at-spacing-md);
+  }
+
+  .at-nav-links {
+    gap: var(--at-spacing-xs);
+  }
+
+  .at-nav-links a {
+    padding-inline: var(--at-spacing-xs);
+  }
+
+  /* The desktop rule above pulls the search button 9px nearer the
+   * switcher so the two read as one utility pair. The narrower
+   * `.at-nav-inner` gap in this band already does that, so cancel the
+   * pull here and the pair stays 18px apart at every width. */
+  .at-search-trigger {
+    margin-inline-start: 0;
   }
 }
 
