@@ -50,8 +50,11 @@
  *    percentage resolves against the element's own width in `transform`
  *    but against the containing block in `margin`, so including it
  *    over-reclaims to -87px and slides the links ~10px on top of the logo.
- *    It is also a per-logo nudge compensating that mark's own internal
- *    whitespace, so reclaiming it would double-count it.
+ *    It is also not slack to be reclaimed: astro-theme-slop's slop.css
+ *    sets it to -5.9% because the crest sits at the far left of the
+ *    lockup, its centre 5.9% of the way across, and the offset drops that
+ *    centre onto the vertical rule the content column draws. Reclaiming
+ *    it as margin would undo that alignment as well as double-count it.
  *
  * 2. `.at-nav-links` is a flex item with `margin-inline-start: auto`, and
  *    it grows past its content: the ul measured 474px around 429px of
@@ -159,6 +162,19 @@
 
   .at-nav-links a {
     padding-inline: var(--at-spacing-xs);
+  }
+
+  /* The offset above is calibrated in lockup coordinates: -5.9% of a
+   * 262px lockup is where that artwork's crest centre sits. Showing the
+   * crest on its own makes the brand 41px wide with the crest centred in
+   * it, so the same -5.9% lands the centre 17.9px to the right of the
+   * content rule and the rule grazes the crest's left edge instead of
+   * bisecting it. The crest's centre is at 50% of its own width, so say
+   * that instead of hardcoding a pixel nudge — it then stays correct if
+   * the crest's rendered height ever changes.
+   */
+  .at-nav-brand {
+    --at-logo-offset-x: -50%;
   }
 
   /* The desktop rule above pulls the search button 9px nearer the
