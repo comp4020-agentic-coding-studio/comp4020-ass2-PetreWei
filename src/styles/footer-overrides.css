@@ -1,0 +1,25 @@
+/* Platform gap in astro-theme-university's Footer (never edited directly --
+ * see CLAUDE.md). The last footer row is assembled from three optional
+ * parts: `legalLinks`, a `footer-legal` slot, and the theme toggle. The
+ * separator between two legal links is correctly guarded by its index
+ * (`{i > 0 && ...}`, components/Footer.astro:199), but the separator before
+ * the theme toggle is emitted unconditionally
+ * (components/Footer.astro:205-207). This site sets no `legalLinks` and
+ * fills no `footer-legal` slot — see src/site-config.ts — so that
+ * separator becomes the row's first child with nothing on its left, and the
+ * footer of every page reads `|` followed by the theme toggle.
+ *
+ * Hidden rather than removed, because the markup is the theme's and the
+ * span already carries `aria-hidden="true"`: assistive technology never
+ * announced it, so the defect only ever had a visual half and this is it.
+ * Scoped to a separator in first position, so the moment `legalLinks` gains
+ * an entry the pipe between the links and the toggle resumes separating two
+ * real things and this rule stops matching — it corrects the theme's
+ * missing guard rather than deleting the separator outright.
+ *
+ * Loaded via `brandCss` in astro.config.ts, after the theme's own
+ * components.css and unlayered, so it wins the cascade without needing
+ * `!important`. */
+.at-footer-legal > span[aria-hidden="true"]:first-child {
+  display: none;
+}

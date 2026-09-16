@@ -2,9 +2,48 @@
 import MdxPageLayout from "astro-theme-university/layouts/MdxPageLayout.astro";
 import LangSwitch from "../components/LangSwitch.astro";
 import { siteConfig } from "../site-config";
+
+/* Platform gap in astro-theme-university's BaseLayout (never edited
+ * directly — see CLAUDE.md). A page's <h1> is rendered only by Hero
+ * (components/Hero.astro:93), and BaseLayout gates the hero on
+ * `heroTitle && resolvedHeroImage` (layouts/BaseLayout.astro:214). A
+ * `heroTitle` set without a `heroImage` is therefore discarded in silence:
+ * the title still reaches <title>, the page still builds, and the axe
+ * sweep, both link checks and `astro check` all stay green while the page
+ * arrives with no visible name and its outline starting at <h2>. Three of
+ * the five section landing pages were in that state.
+ *
+ * ContentLayout already carries the fallback this path is missing
+ * (layouts/ContentLayout.astro:35), which is why /sessions/ is headed
+ * "Labs" while /lectures/ was headed nothing. MdxPageLayout has no
+ * equivalent, and it is the layout every .mdx page under src/pages/ is
+ * given, so the fallback belongs here — the one site-owned file on that
+ * path — rather than as a hero image pinned onto the three pages that
+ * happen to hit it today. Fixing it in frontmatter leaves the next page
+ * free to make the same mistake with nothing to catch it.
+ *
+ * Two details it has to get right. `lead` is switched off and the
+ * description re-emitted below the heading, because MdxPageLayout prints it
+ * ahead of <slot /> (layouts/MdxPageLayout.astro:52) — left on, the intro
+ * paragraph would sit above the title it introduces. And the fallback is
+ * gated on `heroTitle` rather than `title`, because a page that asks for no
+ * hero writes its own `#` heading in the body (/policies/ does), and an
+ * unconditional fallback would hand it a second one.
+ *
+ * The result — heading, lead, then content — is the order
+ * ContentLayout.astro:35-37 already produces, so the two layouts now agree
+ * on what a page without a hero looks like. */
+const frontmatter = (Astro.props.frontmatter ?? Astro.props) as {
+  heroTitle?: string;
+  heroImage?: unknown;
+  description?: string;
+};
+const needsHeading = Boolean(frontmatter.heroTitle) && !frontmatter.heroImage;
 ---
 
-<MdxPageLayout siteConfig={siteConfig} {...Astro.props}>
+<MdxPageLayout siteConfig={siteConfig} {...Astro.props} lead={!needsHeading}>
   <LangSwitch href="/zh/" label="中文" />
+  {needsHeading && <h1>{frontmatter.heroTitle}</h1>}
+  {needsHeading && frontmatter.description && <p class="lead">{frontmatter.description}</p>}
   <slot />
 </MdxPageLayout>

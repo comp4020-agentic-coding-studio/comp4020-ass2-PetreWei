@@ -34,10 +34,15 @@ export default defineConfig({
       defaultLayout: "src/layouts/PageLayout.astro",
       // The whole brand choice: three colour tokens and a set of lockups. Keep
       // institutional brand packages and assets out of this fictional site.
-      // The second entry is ours, not the brand's: a scoped fix for a
-      // pre-existing nav flex-wrap bug in the theme (see the file for why),
-      // loaded the same way so it stays outside node_modules.
-      brandCss: ["astro-theme-slop/slop.css", "/src/styles/nav-overrides.css"],
+      // The entries after the first are ours, not the brand's: scoped fixes
+      // for pre-existing theme bugs — a nav flex-wrap bug and an unguarded
+      // footer separator (see each file for why) — loaded the same way so
+      // they stay outside node_modules.
+      brandCss: [
+        "astro-theme-slop/slop.css",
+        "/src/styles/nav-overrides.css",
+        "/src/styles/footer-overrides.css",
+      ],
       imageFormat: "avif",
       llmsTxt: true,
       // The theme owns the markdown plugin chain, so astromotion's slide
