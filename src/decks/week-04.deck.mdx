@@ -4,6 +4,7 @@ description: Everyone retrying at once is one client, badly disguised
 ---
 
 import { withBase } from "astro-theme-university/url";
+import CourseMark from "../components/CourseMark.astro";
 
 {/* _class: impact */}
 
@@ -105,3 +106,9 @@ Ten thousand clients backed off correctly and still fell over the dependency tog
 Now: what happens when every layer backs off on its own.
 
 <a href={withBase("/lectures/week-04/")}>&larr; Back to the lecture page</a>
+
+---
+
+{/* _class: logo-slide */}
+
+<CourseMark />
