@@ -1,8 +1,10 @@
 ---
 import MdxPageLayout from "astro-theme-university/layouts/MdxPageLayout.astro";
+import LangSwitch from "../components/LangSwitch.astro";
 import { siteConfig } from "../site-config";
 ---
 
 <MdxPageLayout siteConfig={siteConfig} {...Astro.props}>
+  <LangSwitch href="/zh/" label="中文" />
   <slot />
 </MdxPageLayout>

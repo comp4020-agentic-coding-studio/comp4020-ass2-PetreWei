@@ -1,5 +1,6 @@
 ---
 import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
+import LangSwitch from "../../components/LangSwitch.astro";
 import SessionsGrid from "../../components/SessionsGrid.astro";
 import { sessionLabels, siteConfig } from "../../site-config";
 ---
@@ -9,6 +10,8 @@ import { sessionLabels, siteConfig } from "../../site-config";
   description={`The twelve-week teaching schedule: what happens in each ${sessionLabels.singular.toLowerCase()}, what to prepare, and what leaves the room.`}
   {...siteConfig}
 >
+  <LangSwitch href="/zh/" label="中文" />
+
   <p>
     Each lab is the hands-on work behind that week's lecture: build the
     failure, make it happen on purpose, then fix it and name what the fix

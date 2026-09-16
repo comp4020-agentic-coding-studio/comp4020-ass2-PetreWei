@@ -2,6 +2,7 @@
 import { render } from "astro:content";
 import { getPublishedCollection } from "astro-course-university/content";
 import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
+import LangSwitch from "../../components/LangSwitch.astro";
 import { siteConfig } from "../../site-config";
 import { roleLabelFor } from "../../lib/people";
 
@@ -26,6 +27,8 @@ const description = person.data.description;
   heroImageAlt={person.data.photoAlt ?? ""}
   {...siteConfig}
 >
+  <LangSwitch href="/zh/" label="中文" />
+
   <dl>
     {roleLabel && (
       <>
