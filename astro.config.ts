@@ -6,6 +6,7 @@ import { courseMeta } from "./src/course-config.ts";
 import { courseApiCollections } from "./src/site-config.ts";
 import { gitOrigin, resolveDeployment } from "./scripts/pages-base.ts";
 import { skipLinkFocus } from "./scripts/skip-link-focus.ts";
+import { zhHtmlLang } from "./scripts/zh-html-lang.ts";
 
 // Derived, never hardcoded --- see scripts/pages-base.ts for why.
 const { site, base } = resolveDeployment(process.env, gitOrigin);
@@ -18,6 +19,16 @@ export default defineConfig({
   // and what a visitor clicks in agreement --- otherwise each click costs a
   // 301 on GitHub Pages.
   trailingSlash: "always",
+  // English is unprefixed at the root; only the Chinese pilot page lives
+  // under a locale prefix (`/zh/`). Only the home page is translated so far
+  // --- no `fallback` is set, so an untranslated `/zh/*` URL 404s rather than
+  // silently serving English content under a URL that implies it's
+  // translated.
+  i18n: {
+    locales: ["en", "zh"],
+    defaultLocale: "en",
+    routing: { prefixDefaultLocale: false },
+  },
   integrations: [
     universityTheme({
       defaultLayout: "src/layouts/PageLayout.astro",
@@ -57,5 +68,9 @@ export default defineConfig({
       favicon: "/favicon.svg",
     }),
     skipLinkFocus(),
+    // Runs after the theme's own a11y scan and both link checks --- none of
+    // them care about `lang`, so patching it last doesn't affect what they
+    // report.
+    zhHtmlLang(),
   ],
 });

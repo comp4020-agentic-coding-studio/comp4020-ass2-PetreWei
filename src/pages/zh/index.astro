@@ -1,0 +1,92 @@
+---
+import Card from "astro-theme-university/components/Card.astro";
+import CardGrid from "astro-theme-university/components/CardGrid.astro";
+import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
+import heroImage from "../../assets/images/hero-home.avif";
+import { courseMeta } from "../../course-config";
+import { siteConfig, zhLinks } from "../../site-config";
+
+// Pilot translation: only the home page and nav are translated so far, so
+// the tags below are a display-only Chinese gloss of courseMeta.tags rather
+// than a second source of truth --- the English tags in course-config.ts
+// remain the ones spec/course-promises.test.ts checks.
+const tagLabels: Record<string, string> = {
+  retries: "重试",
+  backoff: "退避",
+  outages: "故障",
+};
+---
+
+<ContentLayout
+  title={`${courseMeta.code}：稍后重试`}
+  description="一门关于同一个决定的课程，这个决定在每周都换一个新的情境被重新提出：出了问题——你该不该重试？该怎么重试？从不稳定的 HTTP 客户端到被重复扣款两次的支付，我们研究坚持何时有用，何时会不动声色地把情况变得更糟。"
+  heroImage={heroImage}
+  heroImageAlt="同一只手一次又一次地按下同一个按钮，五次印痕逐次错位、越来越远，米色纸上以金色与黑色两色套印而成的孔版印刷图像"
+  {...siteConfig}
+  links={zhLinks}
+>
+  <ul class="course-tags" aria-label="Course tags">
+    {courseMeta.tags.map((tag) => <li>{tagLabels[tag] ?? tag}</li>)}
+  </ul>
+
+  <p class="thesis">
+    答案通常是"再试一次"。这恰恰是危险所在：重试看起来像是尽职尽责，几乎每次都能得到回报，却从不是免费的。这门课里的每一个修复方案，都是用某样东西换取另一样东西，而这门课要教的技能，就是在你付出代价之前，先把价格说清楚。
+  </p>
+
+  <h2>十二周，十二种情形</h2>
+  <p>
+    不是十二个主题。每一周都把同一个问题带入一个新的情境，而这个情境总是具体到可以复现：一次超时的读取请求，一笔被重复扣款两次的付款，一万个客户端在同一秒一起重新连接，还有两个人在凌晨三点、没有任何协调机制的情况下，各自重发了同一笔款项。
+  </p>
+  <p>
+    每一周也都以同样的方式收尾——先是修复方案，再是这个方案的代价。退避（backoff）为一个正在挣扎的依赖服务争取了喘息空间，代价是你的延迟。熔断器（circuit
+    breaker）放弃了你本可以拥有的可用性。截止时间（deadline）会丢弃那些眼看就要成功的工作。到第十二周，你应该已经没办法在不说出代价的情况下提出任何一条重试策略——这正是这门课要教的全部技能。
+  </p>
+
+  <h2>适合谁</h2>
+  <p>
+    面向三年级学生：写过与网络通信的代码，并且已经被它出乎意料地坑过。你需要能够自如地阅读一份陌生的代码库并对它做出小的改动；你不需要分布式系统理论基础，这门课也不假设你曾在生产环境中运行过任何东西。
+  </p>
+  <p>
+    这学期你大部分时间都在故意制造故障，然后决定该拿它们怎么办。课程结束时，你会带走一份审计报告、一条你曾当面为之辩护并顶住了专门被安排来攻击它的人的重试策略，以及一篇论证"根本不应该重试"的书面文章。
+  </p>
+
+  <h2>接下来去哪</h2>
+  <CardGrid columns={2}>
+    <Card title="实验" href="/sessions/">
+      <p>十二种情形，按顺序排列，以及每一种要付出的代价。（英文页面）</p>
+    </Card>
+    <Card title="评估" href="/assessments/">
+      <p>一份审计、一条你要为之辩护的策略，还有一场你要论证的案子。各自的分值与时间。（英文页面）</p>
+    </Card>
+    <Card title="人员" href="/people/">
+      <p>谁在教这门课，该给他们带点什么，以及他们什么时候有空。（英文页面）</p>
+    </Card>
+  </CardGrid>
+</ContentLayout>
+
+<style>
+  .course-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-block: 0 2rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .thesis {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    margin-block: 0 2.5rem;
+    padding-inline-start: 1rem;
+    border-inline-start: 3px solid var(--at-accent);
+  }
+
+  .course-tags li {
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    color: var(--at-text-secondary);
+    background: var(--at-bg-alt);
+    font-size: 0.9rem;
+  }
+</style>
