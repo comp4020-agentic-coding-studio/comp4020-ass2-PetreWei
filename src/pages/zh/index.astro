@@ -7,6 +7,11 @@ import heroImage from "../../assets/images/hero-home.avif";
 import { courseMeta } from "../../course-config";
 import { siteConfig, zhLinks } from "../../site-config";
 
+// This page is written from the course's ideas rather than translated from
+// src/pages/index.astro: the English is deliberately colloquial, and that
+// register reads as flippant in Chinese, so the prose here is plain 书面语
+// and diverges sentence by sentence while stating the same argument.
+//
 // Pilot translation: only the home page and nav are translated so far, so
 // the tags below are a display-only Chinese gloss of courseMeta.tags rather
 // than a second source of truth — the English tags in course-config.ts
@@ -14,55 +19,55 @@ import { siteConfig, zhLinks } from "../../site-config";
 const tagLabels: Record<string, string> = {
   retries: "重试",
   backoff: "退避",
-  outages: "宕机",
+  outages: "服务中断",
 };
 ---
 
 <ContentLayout
   title={`${courseMeta.code}：稍后重试`}
-  description="一个决定，每周换一种处境重新问一遍：出错了—该不该重试？又该怎么重试？从时好时坏的 HTTP 客户端，到同一笔钱被扣两次的支付流程，我们要弄清楚的是：执着于重试，什么时候真能解决问题，什么时候只是悄悄把事情推得更糟。"
+  description="本课程围绕同一个决定展开：系统出错之后，是否应当重试，以及如何重试。十二周对应十二种具体情况，从时断时续的 HTTP 调用，到同一笔款项被重复扣除的支付流程。课程要回答的问题是：重试在什么情况下确实有效，又在什么情况下会使问题进一步恶化。"
   heroImage={heroImage}
-  heroImageAlt="同一只手反复按下同一个按钮，五道印痕一次比一次错开得更远；米色纸上以金、黑两色套印的孔版画"
+  heroImageAlt="同一只手反复按下同一个按钮，五次印痕依次错位，偏移逐次增大；米色纸面，金黑双色孔版印刷"
   {...siteConfig}
   links={zhLinks}
 >
   <LangSwitch href="/" label="View in English" />
 
-  <ul class="course-tags" aria-label="Course tags">
+  <ul class="course-tags" aria-label="课程标签">
     {courseMeta.tags.map((tag) => <li>{tagLabels[tag] ?? tag}</li>)}
   </ul>
 
   <p class="thesis">
-    答案通常是“该重试”。危险恰恰在这里：重试看着像是尽责，也几乎每次都能奏效，可它从来不是免费的。这门课里的每一种解法都是一笔交易—换来一些东西，同时也花掉另一些东西；而要练的本事只有一样：付钱之前，先把价码报出来。
+    答案通常是肯定的，而风险恰恰在于此。重试看上去是负责任的做法，几乎每一次也都能奏效，但它从来都不是没有代价的。本课程讨论的每一种方案都是一次权衡：在换取某些保障的同时，必然付出另一些成本。课程要训练的只有一项能力：在付出代价之前，先把代价说清楚。
   </p>
 
-  <h2>十二周，十二种处境</h2>
+  <h2>十二周，十二种情况</h2>
   <p>
-    不是十二个主题，而是同一个问题，换十二种处境来问；每一种都具体得可以照着复现：一次读操作超时；一笔钱被扣了两次；一万个客户端在同一秒集体重连；凌晨三点，两个人各自把同一笔款打了出去，中间没有一行代码拦着。
+    课程安排的不是十二个主题，而是同一个问题在十二种情况下的十二次提问。每一种情况都足够具体，可以直接复现：一次读取操作超时；同一笔款项被扣除两次；一万个客户端在同一秒内同时重连；凌晨三点，两个人分别发出了同一笔付款，而两次操作之间没有任何代码加以拦截。
   </p>
   <p>
-    每周的收尾也是同一套路：先给解法，再算代价。退避（backoff）替快撑不住的下游服务争来一口气，花掉的是你的延迟；熔断器（circuit
-    breaker）主动让出本来还能拿到的可用性；截止时间（deadline）会把眼看就要成功的活儿直接丢掉。到第十二周，你应该已经再也提不出一条不谈代价的重试策略—这门课要教的，从头到尾就只有这一件事。
-  </p>
-
-  <h2>这门课适合谁</h2>
-  <p>
-    三年级学生：写过要走网络的代码，也已经被网络坑过一次。你要能读懂一份陌生的代码库，并在上面改动几行；但不需要分布式系统的理论底子，这门课也不假定你在生产环境里跑过什么东西。
-  </p>
-  <p>
-    这学期，你大半时间都在故意把东西弄坏，然后决定拿它怎么办。学期结束时，你会带走三样东西：一份审计报告；一条重试策略—你要当面为它辩护，而对手是专门被派来拆台的人；还有一篇文章，论证这一次根本就不该重试。
+    每一周的结构相同：先给出方案，再核算代价。退避（backoff）为濒临过载的下游服务争取了缓冲时间，代价是自身请求的延迟；熔断（circuit
+    breaker）主动放弃了原本可能获得的可用性；超时截止（deadline）会丢弃即将成功的请求。到第十二周，你应当已经无法接受一条不说明代价的重试策略。这就是本课程的全部内容。
   </p>
 
-  <h2>接下来看什么</h2>
+  <h2>适合什么样的学生</h2>
+  <p>
+    本课程面向三年级学生：写过需要经过网络通信的代码，并且已经为此付出过一次代价。你应当能够读懂一份陌生的代码库，并在其中做出少量修改。课程不要求分布式系统的理论基础，也不假定你有生产环境的运维经验。
+  </p>
+  <p>
+    本学期的大部分时间，你都在有意制造故障，并决定如何应对。学期结束时，你会得到三项成果：一份审计报告；一条重试策略，你需要当面为它辩护，而对方受命找出它的漏洞；以及一篇书面论证，说明在某些情况下根本不应重试。
+  </p>
+
+  <h2>继续了解</h2>
   <CardGrid columns={2}>
     <Card title="实验" href="/sessions/">
-      <p>十二种处境，按周次排开，以及每一种要付的代价。（该页暂为英文）</p>
+      <p>十二种情况按周次排列，以及各自需要付出的代价。（该页面暂为英文）</p>
     </Card>
     <Card title="考核" href="/assessments/">
-      <p>一份审计、一条要你当面辩护的策略，还有一份要你论证的主张。各占多少分，什么时候交。（该页暂为英文）</p>
+      <p>一份审计、一条需要当面辩护的策略，以及一篇论证文章。各项分值与截止时间。（该页面暂为英文）</p>
     </Card>
     <Card title="教学团队" href="/people/">
-      <p>谁在教这门课，找他们时该带上什么，以及什么时候能找到人。（该页暂为英文）</p>
+      <p>课程的授课人员、联系时应准备的材料，以及答疑时间。（该页面暂为英文）</p>
     </Card>
   </CardGrid>
 </ContentLayout>

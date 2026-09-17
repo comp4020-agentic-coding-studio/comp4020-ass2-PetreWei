@@ -40,11 +40,11 @@ export const siteConfig = defineSiteConfig({
 // (LangSwitch.astro), not a list entry — see that file for why.
 //
 // These are the terms a Chinese course site would actually use, not the
-// dictionary's first gloss: 讲座 is a one-off guest talk rather than a
-// course's weekly lectures, 评估 reads as evaluating a system rather than
-// assessing students, and 人员 reads like an org chart.
+// dictionary's first gloss: 讲座 is a one-off guest talk and 课堂 is the
+// room rather than the teaching, 评估 reads as evaluating a system rather
+// than assessing students, and 人员 reads like an org chart.
 export const zhLinks: NavLink[] = [
-  { text: "课堂", href: "/lectures/" },
+  { text: "讲义", href: "/lectures/" },
   { text: "实验", href: "/sessions/" },
   { text: "考核", href: "/assessments/" },
   { text: "教学团队", href: "/people/" },
