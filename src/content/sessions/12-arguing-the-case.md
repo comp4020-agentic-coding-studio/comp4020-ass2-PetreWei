@@ -10,7 +10,7 @@ decided_by: product
 related:
   - assessments/case-against-retrying
 image: ./12-arguing-the-case.avif
-imageAlt: A two-pan balance scale weighing a single coin against a tall stack of coins
+imageAlt: A wooden signpost whose two blank arms are the same size and point in opposite directions
 ---
 
 ## A policy you did not write
