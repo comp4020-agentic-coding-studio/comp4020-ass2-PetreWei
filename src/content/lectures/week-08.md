@@ -12,10 +12,10 @@ image: ./week-08.avif
 imageAlt: An industrial circuit-breaker switch lever caught in its half-thrown middle position
 ---
 
-A circuit breaker's half-open state is the part that actually matters: once enough failures trip it open, it stops sending requests for a cooldown period, then lets exactly one probe through to ask whether the dependency has recovered, closing again only if that probe succeeds. Skip the half-open step and a breaker either never risks finding out the dependency is back, or floods it the instant it reopens, which is week 3's problem again in a different disguise, just delayed: backoff spaces out attempts against a dependency recovering on its own, a breaker decides whether to attempt at all against one that isn't.
+A circuit breaker counts failures across requests and, past a threshold, stops making the call at all: requests fail immediately, with no network round trip. That is the easy half. The half that decides whether the breaker is any use is half-open — after a cooldown it admits exactly one probe, and closes only if the probe succeeds. Without it, a breaker either never finds out the dependency came back, or returns to full traffic the instant the cooldown expires, which is week 3's flood with a timer in front of it. The difference from backoff is worth stating plainly: backoff spaces out attempts against a dependency that is recovering, and a breaker decides whether to attempt at all against one that is not.
 
 ## Outline
 
 - circuit breakers: open, half-open, closed
-- a breaker that never closes is as broken as one that never opens
+- why a breaker that never closes is as broken as one that never opens
 - the retry policy defence: what the reviewer will actually challenge

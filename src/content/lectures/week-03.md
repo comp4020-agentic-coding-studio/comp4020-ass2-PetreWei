@@ -11,10 +11,10 @@ image: ./week-03.avif
 imageAlt: A single tap turned fully open, overflowing a basin faster than the drain can take it
 ---
 
-Exponential backoff doesn't make an attempt more likely to succeed, it makes the moment of the attempt less likely to land inside the storm: each wait roughly doubles, so a degrading dependency gets a rapidly thinning trickle of requests instead of a flood that never lets up. A fixed one-second delay doesn't have this property, it just delays the flood rather than shrinking it. The other ingredient, jitter, is next week's problem: a whole fleet of clients backing off on the same clock just synchronises the flood instead of preventing it.
+Exponential backoff does not improve any single attempt's chance of succeeding. It changes when the attempt arrives. Each wait roughly doubles — 100 ms, 200 ms, 400 ms — so a failing dependency sees a thinning stream of requests instead of a constant flood, and gets idle time to work through the queue that is already there. A fixed one-second delay has none of that property: ten thousand clients retrying every second is still ten thousand requests a second, arriving a beat later. The schedule belongs in the client library, because a call site that writes its own loop picks its own numbers, and once every call site has done that nobody can state the service's worst-case attempt rate. Jitter is the other half and it is next week: a fleet backing off on the same doubling clock stays in step.
 
 ## Outline
 
 - why more attempts, sooner, makes recovery slower
-- exponential backoff, and why fixed backoff is not enough on its own
+- exponential backoff, and why a fixed delay is not enough on its own
 - what belongs in a library instead of at the call site

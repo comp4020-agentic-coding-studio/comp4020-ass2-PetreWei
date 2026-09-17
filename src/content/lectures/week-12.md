@@ -1,6 +1,6 @@
 ---
-title: Retrying is a decision, not a default
-description: "Why whether to retry is finally a product decision about what a business is willing to trade, dressed up as a technical one all semester."
+title: Reading a retry policy's numbers against each other
+description: "How a policy holding every mechanism from the semester still fails, and why the last question of the course is a product one."
 week: 12
 date: 2027-05-24
 teachers:
@@ -12,10 +12,10 @@ image: ./week-12.avif
 imageAlt: A two-pan balance scale weighing a single coin against a tall stack of coins
 ---
 
-Every fix this semester traded something for safety: an idempotency key trades storage, backoff trades latency, jitter trades a predictable worst case, a budget trades locality, a breaker trades availability, a deadline trades work that would have succeeded. None of those trades were free and none were really technical decisions — they were product decisions wearing a technical decision's clothes, which is the same disguise week 1's reflex wore. Arguing this case cold is the only way to notice you are making the trade before somebody tells you what it cost.
+Every mechanism this semester has a limit that is a fact about the mechanism rather than a flaw in it. An idempotency key needs storage and a key the client remembers. Backoff adds latency to requests that were about to succeed. Jitter removes any single client's ability to state its own worst-case wait. A shared budget refuses a layer the attempt it would have recovered on. A breaker fails calls that would have worked. A deadline discards work in flight. Each of those limits can be measured, and none of them tells you whether a given service should retry. That is where the semester ends: engineering can state both numbers precisely — 400 ms added to the 99th percentile, one order in a thousand that stops failing — and cannot choose between them, because the choice depends on what the product is for.
 
 ## Outline
 
-- the case, read cold, with the outcome withheld
-- arguing both sides before committing to one
+- the policy, read cold, with the outcome withheld
+- checking each number in it against the others
 - what the case against retrying is actually asking for

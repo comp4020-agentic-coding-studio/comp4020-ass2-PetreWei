@@ -1,5 +1,5 @@
 ---
-title: Retrying at once is one disguised client
+title: Ten thousand correct clients make one spike
 description: "How individually correct backoff still adds up to a synchronised spike, and why jitter has to be mandatory rather than optional."
 week: 4
 date: 2027-03-15
@@ -12,7 +12,7 @@ image: ./week-04.avif
 imageAlt: A tight cluster of identical alarm clocks, all their hands at the same hour, ringing together
 ---
 
-Jitter breaks the synchrony by randomising when, inside its own window, each client actually fires, so instead of ten thousand clients hitting the same second, they spread across the whole window and the dependency sees a manageable trickle. It has to be randomised on every attempt, not just the first, or clients that started backing off together stay together. Week 3 was one client learning to wait; this week is what happens when ten thousand clients learn the same lesson at the same moment.
+Every client in week 3's fleet waits the right amount of time, and every one of them starts waiting at the same moment: the second the dependency stopped answering. So the second attempts arrive together, and the tenth attempts arrive together 51.2 seconds in. Jitter randomises where inside each window a client actually fires, spreading the attempts across the window instead of stacking them on its edge. It has to be drawn again on every attempt — randomise only the first wait and the fleet keeps whatever formation that first draw gave it. No single client can fix this by being more careful, because each one is already correct on its own terms, which is why the randomisation has to be in the shared library rather than a recommendation in its documentation.
 
 ## Outline
 

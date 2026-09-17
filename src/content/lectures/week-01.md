@@ -1,6 +1,6 @@
 ---
-title: Being right is what makes retrying risky
-description: "Why the reflex to retry is rewarded so often that nobody thinks to examine it, and what changes from week 2 onward."
+title: A retried read is safe for a reason nobody writes down
+description: "Why the retry reflex gets learned on requests where it cannot do harm, and what changes as soon as the call writes something."
 week: 1
 date: 2027-02-22
 teachers:
@@ -11,10 +11,10 @@ image: ./week-01.avif
 imageAlt: A boomerang mid-flight, curving back toward the open hand that threw it
 ---
 
-A retry is a bet that the world hasn't changed since the request failed, and for a read, that bet is usually good: nothing was written, so trying again costs nothing but time. The reflex generalises past reads because nothing in the interface tells you which bet you're actually making. From week 2, one assumption behind that bet gets removed at a time, first whether the call writes anything, then how long a retry waits, then how many other clients are retrying alongside you, and each removal is what turns the same reflex from correct to expensive.
+A retry assumes the request had no effect before it failed. For a `GET` that assumption holds: nothing was written, so the second attempt reads the same row and the caller waits a few hundred milliseconds longer. The assumption is nowhere in the code. `client.get(url)` and `client.post(url, body)` are the same shape at the call site, and neither carries a note about what happens if it runs twice. From week 2 we remove one part of the assumption at a time — whether the call writes, how long the retry waits, how many other clients are retrying alongside you — and the same three lines stop being correct.
 
 ## Outline
 
-- what this course is for, and why it is shaped as twelve failures rather than twelve topics
-- the reflex: why retrying looks like diligence
-- the plan for the semester, and what changes in week 2
+- what the course covers, and why it is built around twelve specific failures
+- why retrying a read works, and what that teaches by accident
+- what changes in week 2

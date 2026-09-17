@@ -1,6 +1,6 @@
 ---
 title: A green dashboard hides a slow decline
-description: "Why success rate alone cannot show a retry's cost, and what a dashboard has to measure instead to surface a decline early."
+description: "Why success rate stays flat while a dependency degrades for six weeks, and what has to be reported beside it."
 week: 10
 date: 2027-05-10
 teachers:
@@ -11,10 +11,10 @@ image: ./week-10.avif
 imageAlt: A house of cards standing perfectly still on a table that is visibly tilting to one side beneath it
 ---
 
-Success rate answers whether a request eventually got a good response; it says nothing about how many attempts that took or how long the client waited for it. A retry that succeeds on the third try is invisible to that metric and expensive to the person waiting on it, which is why a dashboard built only on success rate can watch a dependency decline for six weeks and never move. The fix is measuring the thing retries are built to hide, retried latency and retry rate, tracked alongside success rate rather than instead of it.
+Success rate answers one question: did the request eventually get a good response. A request that succeeded on its third attempt is a success by that definition, having done three times the work and waited out two backoff intervals to get there. So a dependency can degrade from one failure in a thousand to one in twenty over six weeks without the dashboard moving, while p99 latency goes from 120 ms to eleven seconds. The number that does move is attempts per request. Report it beside success rate rather than in place of it, and alert on a change in it rather than a fixed threshold, because the ratio has no correct value — only a history of its own to be compared against.
 
 ## Outline
 
-- why success rate alone hides a retry's cost
-- counting the second attempt, not just the eventual outcome
-- what to measure so retrying stops being invisible
+- why success rate alone stays flat through a six-week decline
+- counting attempts, not just the eventual outcome
+- alerting on a change in a ratio instead of a threshold

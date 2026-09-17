@@ -1,5 +1,5 @@
 ---
-title: The mechanism doesn't need code to fail
+title: A runbook fails the same ways a retry library does
 description: "Why some weeks have no client, library or platform to hand the decision to, and what a runbook has in common with a retry library."
 week: 6
 date: 2027-04-12
@@ -11,7 +11,7 @@ image: ./week-06.avif
 imageAlt: Two hands, each dropping an identical coin into the same slot at once
 ---
 
-Every fix so far this semester has lived in a client, a library or a platform, because there was code between the failure and the retry. Take the code away and the same failure modes are still possible, no idempotency check, no backoff, no shared state between the two people acting, they just need a runbook line, a wait-and-check step, and a shared incident channel instead of a shared variable. A runbook is a retry policy a human executes instead of a process, which is why it can be wrong in exactly the same ways.
+Every mechanism so far has lived in a client, a library or a platform, because there was code between the failure and the second attempt. Take the code out and the failure modes are unchanged. Two operators working the same incident from the same runbook have no idempotency check, no backoff and no shared state, so both of them issue the payout. What they need is what the code needed, in a different medium: a runbook line saying who acts, a wait-and-check step before anybody acts again, and one incident channel both people are reading. A runbook is a retry policy executed by a person, which is why it can be wrong in the same ways, and why nothing in your logs records it happening.
 
 ## Outline
 

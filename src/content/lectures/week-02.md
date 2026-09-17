@@ -1,6 +1,6 @@
 ---
 title: A non-idempotent retry is a hidden bug
-description: "Why a timeout can't tell a client whether the write already happened, and what an idempotency key actually guarantees."
+description: "Why a timeout cannot tell a client whether the write already happened, and what an idempotency key actually guarantees."
 week: 2
 date: 2027-03-01
 teachers:
@@ -12,7 +12,7 @@ image: ./week-02.avif
 imageAlt: A rubber stamp striking the same receipt twice, the second impression landing just off the first
 ---
 
-An idempotency key doesn't stop the timeout, it stops the timeout from mattering: the server checks the key before it commits the write, so a repeated request lands on the same charge instead of a new one. That's a property the client has to ask for, not one it can assume, which is the sense in which the bug here isn't the retry, it's retrying without knowing the answer.
+A timeout tells you that no response arrived. It does not tell you whether the server committed the write and lost the reply, and there is no field to check for that, because there is no response. An idempotency key moves the question to the server: the client generates one key per logical operation, the server stores it alongside the charge in the same transaction, and a second request carrying the same key returns the first result instead of charging again. The guarantee is exactly one effect per key, and nothing more. The timeout still happens, effects outside your database are not covered, and the whole thing depends on the client reusing the key on the retry rather than generating a fresh one.
 
 ## Outline
 

@@ -1,6 +1,6 @@
 ---
 title: Some steps only happen once, by design
-description: "Why an irreversible step has no retry decision to make, and why the real fix is ordering it to run last instead."
+description: "Why an irreversible step has no retry decision to make, and why the fix is ordering it to run last instead."
 week: 11
 date: 2027-05-17
 teachers:
@@ -11,7 +11,7 @@ image: ./week-11.avif
 imageAlt: A row of dominoes with the last one already fallen, out of order ahead of the ones still standing
 ---
 
-An irreversible step doesn't fail differently to a reversible one, it just can't be undone once it has run, which means the fix isn't in how you retry it, it's in when it runs. Put the email and the lock release last in the sequence, after every step that can still fail safely, and a retry of the whole operation either never reaches them or reaches them exactly once, on the attempt that actually succeeds. This is the one week where none of client, library, platform, operator or product gets to make a retry decision, because the ordering choice already made it for them, upstream of the failure.
+An irreversible step fails like any other step. What is different is that you cannot take it back once it has run, so the question stops being how to retry it and becomes when to run it. Put every step that can still fail first, and the send-the-email and release-the-lock steps last: a retry of the whole operation then either never reaches them, or reaches them once, on the attempt that succeeds. Where the ordering belongs to somebody else — a payment provider that emails the customer itself — there is nothing to reorder, and what is left is a compensating action: a refund, a correction email, a second effect that acknowledges the first. This is the one week where none of client, library, platform, operator or product makes the retry decision, because the ordering already made it, upstream of the failure.
 
 ## Outline
 

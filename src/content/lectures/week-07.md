@@ -11,7 +11,7 @@ image: ./week-07.avif
 imageAlt: An envelope caught between two mail slots side by side, one bricked shut, the other open
 ---
 
-A dead-letter queue and a status-code table are the same idea in two containers: somewhere to put a failure once the odds of the next attempt succeeding are indistinguishable from zero. The hard part is never the container, it's the telling — a malformed payload and a momentarily unreachable database can throw the identical exception, whereas HTTP has already done the classification for you if the client reads the code instead of treating every non-2xx response as one undifferentiated failure. A 400 is a no. A 429 is a not yet, and it usually names how long for.
+A malformed payload and a momentarily unreachable database can raise the identical exception, and a loop that catches `Exception` and retries treats them identically: the malformed payload is retried to the attempt limit every time it arrives, forever. HTTP has already done the classification — a 400 means the request is wrong and will be wrong on the next attempt, a 429 means try later and usually says how much later in `Retry-After` — but only for a client that reads the status code instead of treating every non-2xx response as one undifferentiated failure. Where there is no status code, the equivalent is a dead-letter queue: somewhere to put a message once further attempts are pointless, which does nothing at all unless somebody reads the queue.
 
 ## Outline
 
