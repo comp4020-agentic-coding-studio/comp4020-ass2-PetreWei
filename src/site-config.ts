@@ -37,11 +37,16 @@ export const siteConfig = defineSiteConfig({
 // Nav for the Chinese pilot page (`/zh/`). Labels are translated; hrefs still
 // point at the existing English pages, since only the home page is
 // translated so far. The language switch itself is a separate icon button
-// (LangSwitch.astro), not a list entry --- see that file for why.
+// (LangSwitch.astro), not a list entry — see that file for why.
+//
+// These are the terms a Chinese course site would actually use, not the
+// dictionary's first gloss: 讲座 is a one-off guest talk rather than a
+// course's weekly lectures, 评估 reads as evaluating a system rather than
+// assessing students, and 人员 reads like an org chart.
 export const zhLinks: NavLink[] = [
-  { text: "讲座", href: "/lectures/" },
+  { text: "课堂", href: "/lectures/" },
   { text: "实验", href: "/sessions/" },
-  { text: "评估", href: "/assessments/" },
-  { text: "人员", href: "/people/" },
-  { text: "政策", href: "/policies/" },
+  { text: "考核", href: "/assessments/" },
+  { text: "教学团队", href: "/people/" },
+  { text: "课程规定", href: "/policies/" },
 ];
