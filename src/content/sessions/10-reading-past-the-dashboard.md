@@ -23,7 +23,7 @@ Every failure is retried and nearly every retry succeeds. Success rate stays abo
 
 Nothing pages anybody. Per-request p99 latency has gone from 120 ms to eleven seconds, because a request that succeeds on its third attempt waits out two backoff intervals first. Retry traffic is now a noticeable share of what reaches the dependency, so the retries are contributing to the failure rate they are hiding. The first alert arrives when the failure rate crosses the point where three attempts stop being enough, and then six weeks of decline arrives at once, as an outage.
 
-## Measuring attempts, not requests
+## Counting attempts per request
 
 Measure attempts per request and report it beside success rate rather than in place of it. Success rate after retries answers whether the user got an answer; attempts per request answers how much work that took, and it is the number that moves while the other one is flat. Alert on a change in the ratio rather than on a fixed threshold.
 
