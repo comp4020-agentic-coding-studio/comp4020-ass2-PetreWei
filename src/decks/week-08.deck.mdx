@@ -15,11 +15,19 @@ Week 8 — SLOP3092
 
 ---
 
-## The situation
+## Last week
 
-A dependency goes down — for minutes, not seconds.
+A classification table: `5xx` and `429` retryable, `400` and `403` not.
 
-Long enough that no per-request backoff is going to help.
+Each caller still works it out one response at a time.
+
+---
+
+## This week: a dependency down for minutes
+
+Not seconds. Long enough that no per-request backoff is going to help.
+
+Every failure is correctly classified as retryable, and retrying is still the wrong move.
 
 ---
 
