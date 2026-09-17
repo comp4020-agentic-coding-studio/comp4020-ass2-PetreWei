@@ -1,6 +1,6 @@
 ---
 title: A retry policy you have to defend
-description: "Write a retry policy for a real service, then defend every trade in it against a panel assigned to find the one you cannot justify."
+description: "Write a retry policy for a real service, then defend every number in it against a panel assigned to find the one you cannot justify."
 week: 8
 due: 2027-04-30T12:00:00+10:00
 weight: 35
@@ -16,7 +16,7 @@ marking:
 spec:
   - the policy names a real service and covers what happens on failure end to end, not one mechanism in isolation
   - it states a retry budget, a backoff strategy and a breaker condition, and says how they interact
-  - "every mechanism it adopts is priced: what the policy gives up by adopting it, stated rather than implied"
+  - "every mechanism it adopts states its own limit: what that mechanism does to requests that would have succeeded without it, or what it needs from the client to work at all"
   - it names at least one alternative design it rejected, and why
   - the defence responds to the specific challenge raised, not a rehearsed answer prepared in advance
 related:
@@ -31,7 +31,7 @@ imageAlt: A wax seal stamped twice onto the same document, the second impression
 
 By week 8 you've seen a retry loop cause its own outage, a herd synchronise by accident, a budget replace a per-call count, two operators resend the same payout, a failure that could never have succeeded, and a breaker that has to close again as much as it has to open. A policy that only covers one of these is not a policy, it's a fix for last week's failure. State what retries when, how long it backs off, when the breaker trips, and how those three interact under load.
 
-Then price each of them. Every lab this semester has ended by naming what its fix trades away, and a policy that reads as pure gain is a policy that has not been thought through — the panel's first question will be which of your mechanisms costs the most, and you should already know.
+Then state the limit on each one. Backoff adds latency to requests that were about to succeed. An open breaker fails calls that would have worked. A shared budget refuses one layer the attempt it would have recovered on. Those are facts about the mechanisms rather than faults in them, and a policy that never mentions them is a policy whose author has not read it closely. The panel will go straight for whichever limit bites hardest on your service, so find it before they do.
 
 ## What you submit
 

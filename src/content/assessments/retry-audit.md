@@ -1,6 +1,6 @@
 ---
 title: Retry audit
-description: "Find every retry in a real codebase and diagnose it against the four weeks that got you here — safe to repeat, backed off, jittered, and honest about what each fix costs."
+description: "Find every retry in a real codebase and diagnose each one against the four weeks that got you here: safe to repeat, backed off, jittered, and survivable when ten thousand clients recover at once."
 week: 4
 due: 2027-03-19T12:00:00+10:00
 weight: 25
@@ -17,7 +17,7 @@ spec:
   - every retry site the codebase actually contains is found, not a sample of the obvious ones
   - each site is diagnosed against the specific failure modes named in weeks 1 to 4, not a generic checklist
   - a fix is proposed for each site that fails a check, and the fix is one this course has actually covered
-  - each proposed fix names what it trades away, in the same terms the weeks used
+  - each proposed fix names its own limit — the latency, the storage, or the predictability it takes away from somebody
   - submitted by the deadline, as a single document with one entry per retry site
 related:
   - sessions/04-synchronising-a-herd
@@ -33,7 +33,7 @@ You have four weeks of failure modes to check against: does a retry site disting
 
 ## What you submit
 
-One entry per retry site you find: where it is, which of the four failure modes it's exposed to (if any), what you'd change, and what that change would cost. Every fix in this course so far has traded something — latency, storage, a predictable worst case — and an entry that proposes a fix without naming its price has only done half the diagnosis. A retry site that already handles everything correctly is a legitimate finding, not a gap in your search, so say so and explain why it holds up.
+One entry per retry site you find: where it is, which of the four failure modes it is exposed to (if any), what you would change, and what that change does to everything around it. Every fix in this course so far arrives with a limit attached. Backoff adds latency to requests that were about to succeed. An idempotency key needs storage and a client that remembers it. Jitter means no single client can state its own worst-case wait. Say which of those your fix brings with it, because an entry that stops at "add backoff" has read the site without reading what happens next. A retry site that already handles all four correctly is a legitimate finding — say so, and explain what makes it hold up.
 
 ## How it's marked
 
