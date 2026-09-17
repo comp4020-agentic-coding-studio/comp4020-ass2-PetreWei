@@ -11,26 +11,28 @@ image: ./05-counting-to-twenty-seven.avif
 imageAlt: A pressure gauge with its needle pinned into a red zone near the top of the dial
 ---
 
-## The situation
+## One user request, three layers
 
-A request passes through three services stacked on top of each other, and the innermost one starts failing intermittently.
+A user hits an endpoint. That service calls a second, which calls a third, and the third starts failing on about one request in three.
 
-## The reflex
+## Every layer retries on its own
 
-Let each layer retry the call below it up to three times, since three retries at any one layer seems modest.
+Each layer retries three times. Three is a modest number. Every team picked it independently, in three separate pull requests, and every one of them was being careful.
 
-## What it costs
+## Why three retries become twenty-seven
 
-Twenty-seven requests reach the failing dependency for the one the user made, because the retries compound multiplicatively up the stack rather than adding.
+Retries compose multiplicatively, not additively. The innermost call gets three attempts. The middle layer retries that whole sequence three times, which is nine. The outer layer retries that, which is twenty-seven. Twenty-seven requests reach a struggling dependency for one thing the user asked for, and no layer's own logs show a number larger than three.
 
-## The fix, and what it trades
+## A budget the whole call shares
 
-One retry budget shared by the whole call chain, held as a fraction of recent calls rather than a count per layer, so retries throttle themselves as the ratio approaches the cap. It trades locality for a sane total: a layer that would have recovered on its second attempt is sometimes refused it because another layer spent the budget first, and the reason a call was not retried now lives somewhere the person debugging it is not looking.
+Give the call chain a single retry budget, expressed as a ratio — retries as a fraction of recent requests, ten percent or so — rather than a count per layer. Attach it to the request and decrement it as the request travels, so retries throttle themselves as the ratio approaches the cap.
 
-## Who decides
+Two limits. Locality goes: a layer that would have recovered on its second attempt is sometimes refused that attempt, because a layer above it drew the budget down first. And the reason a call was not retried now lives in a request header rather than in the code the person debugging it is reading.
 
-`platform`. A per-layer retry count can only ever see its own three attempts; keeping the total sane needs a shared budget the whole call chain draws from, which is a platform concern rather than something any one layer can enforce alone.
+## Why the platform enforces it
+
+`platform`. A per-layer count can only ever see its own three attempts, so no layer can detect the amplification from where it sits. A shared budget needs every layer to agree on one mechanism and to propagate it, and that agreement is infrastructure rather than a choice any single service can make.
 
 ## In the lab
 
-Students trace a three-layer call stack with independent per-layer retries, count the amplification by hand, then replace the per-layer counts with one shared retry budget and confirm the total drops to three.
+Trace a three-layer call stack with independent per-layer retries and count the attempts arriving at the bottom by hand. Replace the per-layer counts with one shared budget, rerun, and confirm the count at the bottom is three.

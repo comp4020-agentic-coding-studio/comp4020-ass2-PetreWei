@@ -1,6 +1,6 @@
 ---
 title: Watching a breaker trip
-description: "Giving up availability on purpose, so every caller stops paying to rediscover the same outage."
+description: "A dependency down for minutes, and a breaker that refuses calls outright rather than letting every request find out for itself."
 week: 8
 date: 2027-04-26
 teachers:
@@ -13,26 +13,28 @@ image: ./08-watching-a-breaker-trip.avif
 imageAlt: An industrial circuit-breaker switch lever caught in its half-thrown middle position
 ---
 
-## The situation
+## A dependency down for minutes
 
-A dependency goes down for minutes, not seconds, long enough that no per-request backoff is going to help.
+A dependency is down for minutes, not seconds. Week 3's backoff assumes the thing comes back within a few waits. This one does not.
 
-## The reflex
+## Backing off, one request at a time
 
-Keep retrying each request against the dependency individually, on the same schedule that worked for a two-second blip in week 3.
+Every request retries on the week 3 curve, independently. The schedule is right for a two-second pause and useless here, and nothing in the request can tell the difference.
 
-## What it costs
+## Every caller rediscovers the same outage
 
-Every request still pays the full timeout finding out the dependency is down, which spends the client's own latency budget on a fact that was already known after the first failure.
+Every request waits out its full thirty-second timeout to establish what the first failure already established. With backoff on top, a single request can hold a thread for over a minute before it gives up, and threads are finite. The pool fills with calls waiting on a dependency that is not going to answer, and requests with no interest in that dependency start queueing behind them. This is how one dependency's outage becomes your service's outage.
 
-## The fix, and what it trades
+## Refusing calls, and the half-open probe
 
-A circuit breaker that opens once enough requests have failed, waits, then lets exactly one probe through to ask whether the dependency is back, closing only if that probe succeeds. It trades availability it might have had: while the breaker is open, requests fail that would have worked, which is the course's most explicit purchase so far — a known small loss now, instead of an unknown larger one spread across every caller.
+A circuit breaker holds failure state shared across requests. It counts failures over a window, and past a threshold — half of the last twenty calls, say — it opens and fails immediately, with no network call at all. After a cooldown it goes half-open and admits exactly one probe. If the probe succeeds the breaker closes. If it fails, the cooldown restarts.
 
-## Who decides
+While the breaker is open, requests fail that would have worked. You are refusing calls on the evidence of earlier ones, and if the dependency recovers one second into a thirty-second cooldown, everything in that window fails for no reason. The half-open probe exists to shorten that window rather than to remove it.
 
-`platform`. A circuit breaker that stops requests from even trying, once enough of them have failed, is a shared piece of state the whole client needs to see, which puts the decision at the platform level rather than the individual request.
+## Why the breaker is platform state
+
+`platform`. A breaker is only useful if the failures counted into it are the failures every caller saw. A per-request retry counter cannot open anything, because it forgets everything between requests. Something has to hold that state, keep it consistent across processes and expose it, which is infrastructure — and which also means one badly chosen threshold refuses calls for every caller at once.
 
 ## In the lab
 
-Students wire a circuit breaker in front of a dependency seeded to fail for an extended window, watch requests stop reaching it once the breaker opens, and confirm it closes again once the dependency recovers, including the failure mode where it does not.
+Wire a breaker in front of a dependency seeded to fail for two minutes. Watch requests stop reaching it once the breaker opens, and time how long a call takes with the breaker open against how long it takes closed. Then make the dependency recover partway through the cooldown and count the requests that failed after it was already healthy.
