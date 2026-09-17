@@ -5,6 +5,7 @@ week: 10
 date: 2027-05-10
 teachers:
   - idris-fenn
+slides: /decks/week-10/
 related:
   - sessions/10-reading-past-the-dashboard
 image: ./week-10.avif

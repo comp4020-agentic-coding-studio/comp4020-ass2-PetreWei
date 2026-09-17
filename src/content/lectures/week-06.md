@@ -5,6 +5,7 @@ week: 6
 date: 2027-04-12
 teachers:
   - idris-fenn
+slides: /decks/week-06/
 related:
   - sessions/06-two-people-one-payout
 image: ./week-06.avif

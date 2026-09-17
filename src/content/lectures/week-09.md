@@ -5,6 +5,7 @@ week: 9
 date: 2027-05-03
 teachers:
   - marisol-quaye
+slides: /decks/week-09/
 related:
   - sessions/09-retrying-into-an-empty-room
 image: ./week-09.avif

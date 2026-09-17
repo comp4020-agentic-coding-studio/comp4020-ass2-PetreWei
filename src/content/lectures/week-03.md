@@ -5,6 +5,7 @@ week: 3
 date: 2027-03-08
 teachers:
   - marisol-quaye
+slides: /decks/week-03/
 related:
   - sessions/03-becoming-the-outage
 image: ./week-03.avif

@@ -5,6 +5,7 @@ week: 11
 date: 2027-05-17
 teachers:
   - marisol-quaye
+slides: /decks/week-11/
 related:
   - sessions/11-finding-the-point-of-no-return
 image: ./week-11.avif
