@@ -1,6 +1,6 @@
 ---
 title: Reading past the dashboard
-description: "Retries can absorb six weeks of decline without a dashboard moving, if nobody measures what they cost."
+description: "A dependency degrades for six weeks, retries absorb every failure, and the success-rate dashboard never moves."
 week: 10
 date: 2027-05-10
 teachers:
@@ -11,26 +11,28 @@ image: ./10-reading-past-the-dashboard.avif
 imageAlt: A house of cards standing perfectly still on a table that is visibly tilting to one side beneath it
 ---
 
-## The situation
+## A dependency getting slowly worse
 
-A dependency has been getting slower for six weeks. Every individual request still succeeds, because retries are catching the failures before a user ever sees one.
+A dependency's failure rate has been climbing for six weeks, from about one request in a thousand to one in twenty. No deploy lines up with it. A table grew and an index stopped fitting in memory.
 
-## The reflex
+## Retries absorb it
 
-Read success rate as the health of the system, since that is the number the dashboard shows and it has not moved.
+Every failure is retried and nearly every retry succeeds. Success rate stays above 99.9%, because a request that succeeds on its second attempt is a success.
 
-## What it costs
+## Six weeks of decline, no alert
 
-A dashboard reporting success while the retried p99 latency has climbed to eleven seconds, because the metric that would have shown the decline was never being measured in the first place.
+Nothing pages anybody. Per-request p99 latency has gone from 120 ms to eleven seconds, because a request that succeeds on its third attempt waits out two backoff intervals first. Retry traffic is now a noticeable share of what reaches the dependency, so the retries are contributing to the failure rate they are hiding. The first alert arrives when the failure rate crosses the point where three attempts stop being enough, and then six weeks of decline arrives at once, as an outage.
 
-## The fix, and what it trades
+## Measuring attempts, not requests
 
-Measure the thing retries exist to hide: retry rate and retried latency, reported next to success rate rather than instead of it. It trades two more metrics to maintain and one more way to be paged, and it surfaces a decline nobody has to act on yet — which is how a real signal gets tuned out long before the week it finally matters.
+Measure attempts per request and report it beside success rate rather than in place of it. Success rate after retries answers whether the user got an answer; attempts per request answers how much work that took, and it is the number that moves while the other one is flat. Alert on a change in the ratio rather than on a fixed threshold.
 
-## Who decides
+Two limits. The ratio has no correct value: a service where five percent of requests need a second attempt might be healthy or might be two weeks from an outage, and the only way to tell is to compare it against its own history — so the alert is close to useless for the first month after you add it. And you now have a signal that fires when nobody has to do anything today, which is how a real signal gets tuned out before the week it matters.
 
-`platform`. No single request can tell you it took three attempts to succeed; that fact only exists in aggregate, which puts it in whoever owns the dashboard's definition, not in the code path that already moved on once it got its answer.
+## Why this lands on the platform
+
+`platform`. A single request cannot report that it took three attempts; by the time it succeeds it has discarded the two failures. The number exists only in aggregate, which puts it with whoever owns the metrics pipeline and the dashboard definitions, not in the call site that moved on as soon as it had an answer.
 
 ## In the lab
 
-Students are given six weeks of request logs where the success rate never drops, asked to find the actual decline using only the data available, and then asked what single metric would have surfaced it three weeks earlier.
+Take six weeks of request logs in which success rate never drops below 99.9% and find the decline using only what is in the logs. Then name the one metric that would have surfaced it in the first week, compute it from the same logs, and check that it actually would have.

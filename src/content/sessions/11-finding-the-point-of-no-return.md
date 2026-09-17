@@ -11,26 +11,28 @@ image: ./11-finding-the-point-of-no-return.avif
 imageAlt: A row of dominoes with the last one already fallen, out of order ahead of the ones still standing
 ---
 
-## The situation
+## A sequence that got halfway
 
-A multi-step operation fails partway through, but the failure lands after an email has gone out and a lock has been released, both of which cannot be recalled.
+An order does five things in order: reserve the stock, charge the card, send the confirmation email, release the reservation lock, write the order row. The fifth one fails.
 
-## The reflex
+## Replaying it from the top
 
-Retry the whole operation from the start, the way every other failure this semester has been handled.
+Retry the whole operation. Eleven weeks have been about making exactly that safe, and this call has all of it — an idempotency key, a schedule with jitter, a shared budget, a classification table.
 
-## What it costs
+## The two steps that already happened
 
-The retry repeats the steps that were never a problem and cannot touch the two that already happened, so it does not fix the failure and may send the email a second time on top of it.
+Week 2's key covers the charge, so the card is not charged twice. It does not cover the email, because the email has left your system: the second run sends a second confirmation to a customer whose order still does not exist. The lock is already released, so the stock it was protecting may now be reserved by somebody else, and the replay can fail on a step that succeeded the first time. The retry does not fix the original failure and adds one of its own.
 
-## The fix, and what it trades
+## Finding the step you cannot undo
 
-Reorder the operation so the irreversible step runs last, after everything that can still fail safely, and a retry either never reaches it or reaches it exactly once. It trades the assumption that the ordering is yours to choose: when a third party sends the email, the only move left is a compensating action that admits the thing happened rather than pretending it can be undone.
+Find the step with an effect outside your system that you cannot recall, and move it after everything that can still fail. Reserve, charge, write the row, then email, and release the lock in a cleanup path that runs either way. A retry then either never reaches the irreversible step or reaches it exactly once.
 
-## Who decides
+Where the ordering is not yours — a payment provider that emails the customer itself, a partner API that despatches the parcel on receipt — there is nothing to reorder, and what is left is a compensating action: a second operation that acknowledges the first one happened. A refund is not an un-charge and a correction email is not an un-sent email. The customer sees both.
 
-`nobody`. There is no client, library, platform, operator or product owner who gets to decide whether this step retries, because by the time anyone could decide, it has already happened — which is why the only real move is upstream, in the ordering.
+## Why nobody owns this one
+
+`nobody`. No client, library, platform, operator or product owner gets to decide whether this step is retried, because by the time any of them could decide, the effect has already left. This is the week where the answer arrives before the question, and the only move available is upstream, in the ordering.
 
 ## In the lab
 
-Students are given a call graph for a multi-step operation and asked to find the one step that cannot be undone, then reorder the operation so that step runs last instead of in the middle.
+Take the call graph for a five-step operation and mark each step reversible or not. Find the point of no return, reorder the sequence so it comes last, then inject a failure after it and confirm the retry is now safe. Finally make one irreversible step belong to a third party, and write the compensating action instead.
