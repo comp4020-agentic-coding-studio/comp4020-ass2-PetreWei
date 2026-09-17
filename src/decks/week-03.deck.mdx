@@ -1,0 +1,111 @@
+---
+title: "Week 3: Becoming the outage"
+description: Two seconds of degradation, and a retry loop that keeps it going
+---
+
+import { withBase } from "astro-theme-university/url";
+
+{/* _class: impact */}
+
+# Becoming the outage
+
+Week 3 — SLOP3092
+
+<a href={withBase("/lectures/week-03/")}>&larr; Back to the lecture page</a>
+
+---
+
+## Last week
+
+A `POST` timed out and the retry charged the customer again.
+
+An idempotency key fixed **what** the retry does. It says nothing about how often.
+
+---
+
+## This week: a two-second blip
+
+A dependency slows down for two seconds. A garbage collection pause, a leader election, a spike in queue depth.
+
+Requests already in flight time out.
+
+---
+
+## The reflex
+
+Retry in a tight loop with no delay, on the theory that more attempts recover sooner.
+
+One client, a `while` loop, a 100 ms timeout.
+
+---
+
+{/* _class: impact */}
+
+# 20 requests a second. Per client.
+
+---
+
+## How a blip becomes a flood
+
+The dependency slowed down because it was already near its limit.
+
+Now every caller that timed out is sending twenty requests a second into it, so the queue it was trying to drain grows faster than it did before the blip.
+
+---
+
+## The outage outlasts its cause
+
+Two seconds of degradation becomes an outage that runs for as long as the clients keep going.
+
+The original pause ended a long time ago. The thing keeping the dependency down is the retry loop.
+
+---
+
+## The fix
+
+Exponential backoff.
+
+```text
+100 ms → 200 → 400 → 800 → ... → ceiling
+```
+
+The dependency sees a thinning trickle instead of a constant flood, which leaves it enough idle capacity to drain the queue.
+
+---
+
+## What backoff delays
+
+Every retried request, including the ones that would have succeeded immediately.
+
+A dependency that recovers 90 ms in does not get asked again until the current wait expires. The recovering case gets slower so the bad case becomes survivable.
+
+---
+
+## Who decides
+
+`library`.
+
+Nothing about this call site is special — the same curve works for any caller talking to any dependency. The client asks for a retry and the library decides when.
+
+It also means one place to change the numbers when they turn out to be wrong, which they will.
+
+---
+
+## In the lab
+
+1. Point a zero-delay retry loop at a service seeded to degrade for two seconds
+2. Watch it fail to recover
+3. Add exponential backoff and rerun the same degradation
+4. Look at what happened to p99 latency on the requests that succeeded
+
+---
+
+{/* _class: impact */}
+
+# Next week
+
+One client now waits.
+
+Ten thousand of them wait the same way, on the same clock.
+
+<a href={withBase("/lectures/week-03/")}>&larr; Back to the lecture page</a>

@@ -1,0 +1,107 @@
+---
+title: "Week 11: Finding the point of no return"
+description: A five-step operation that failed on step five, and the email that already went out
+---
+
+import { withBase } from "astro-theme-university/url";
+
+{/* _class: impact */}
+
+# Finding the point of no return
+
+Week 11 — SLOP3092
+
+<a href={withBase("/lectures/week-11/")}>&larr; Back to the lecture page</a>
+
+---
+
+## Last week
+
+Attempts per request — the number that moves while the success rate stays flat.
+
+---
+
+## This week: a sequence that got halfway
+
+Five steps, in this order:
+
+1. Reserve the stock
+2. Charge the card
+3. Send the confirmation email
+4. Release the reservation lock
+5. Write the order row
+
+Step five fails.
+
+---
+
+## The reflex
+
+Replay the whole operation from the top.
+
+Eleven weeks made exactly that safe. This call has an idempotency key, a schedule with jitter, a shared budget and a classification table.
+
+---
+
+{/* _class: impact */}
+
+# The email has already been sent
+
+---
+
+## The two steps that already happened
+
+Week 2's key covers the charge, so the card is not charged twice.
+
+It does not cover the email. That has left your system, so the second run sends a second confirmation to a customer whose order still does not exist.
+
+The lock is already released, so the stock may now be reserved by somebody else — and the replay can fail on a step that succeeded the first time.
+
+---
+
+## The fix
+
+Find the step with an effect outside your system that you cannot recall, and move it after everything that can still fail.
+
+Reserve, charge, write the row, then email. Release the lock in a cleanup path that runs either way.
+
+A retry then either never reaches the irreversible step, or reaches it exactly once.
+
+---
+
+## When the ordering is not yours
+
+A payment provider that emails the customer itself. A partner API that despatches on receipt.
+
+What is left is a compensating action, which is a different thing: a refund is not an un-charge and a correction email is not an un-sent email. The customer sees both.
+
+---
+
+## Who decides
+
+`nobody`.
+
+By the time any of client, library, platform, operator or product could decide, the effect has already left the building. There is no retry policy that undoes it.
+
+The only move available is upstream, in the ordering — which is why this is the one week with no owner to name.
+
+---
+
+## In the lab
+
+1. Mark each step of a five-step operation reversible or not
+2. Find the point of no return
+3. Reorder so it comes last, inject a failure after it, and confirm the retry is safe
+4. Then make one irreversible step belong to a third party and write the compensating action
+
+---
+
+{/* _class: impact */}
+
+# Next week
+
+Twelve weeks of mechanisms.
+
+Next: whether the retry should have happened at all.
+
+<a href={withBase("/lectures/week-11/")}>&larr; Back to the lecture page</a>

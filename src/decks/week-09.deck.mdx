@@ -1,0 +1,100 @@
+---
+title: "Week 9: Retrying into an empty room"
+description: Ninety seconds of attempts for a caller who closed the tab
+---
+
+import { withBase } from "astro-theme-university/url";
+
+{/* _class: impact */}
+
+# Retrying into an empty room
+
+Week 9 — SLOP3092
+
+<a href={withBase("/lectures/week-09/")}>&larr; Back to the lecture page</a>
+
+---
+
+## Last week
+
+A circuit breaker, open and half-open, refusing calls on the evidence of earlier ones.
+
+Every caller stopped rediscovering the same outage separately.
+
+---
+
+## This week: the caller stopped waiting
+
+A user taps a button, waits three seconds, sees nothing, and closes the tab.
+
+The request is still being retried.
+
+---
+
+## The reflex
+
+The policy counts attempts and nothing else.
+
+Nothing in it asks whether anybody is still waiting for the answer, and nothing in the call stack has been told the connection is gone.
+
+---
+
+{/* _class: impact */}
+
+# 30s × 3 = 90s of work for nobody
+
+---
+
+## What those ninety seconds hold
+
+A worker thread, a connection slot, a row lock. The answer, when it finally arrives, gets written to a closed socket.
+
+Under load this compounds: abandoned attempts queue ahead of live requests and hold their resources longer than live ones do, so the share of capacity working for nobody grows.
+
+---
+
+## The fix
+
+An absolute deadline — a timestamp, not a duration — propagated through the call and checked before each attempt and each inner call.
+
+A call entered with 300 ms left on the clock gets 300 ms, not a fresh 30 seconds.
+
+gRPC and Go's `context.Context` carry one by default. Most HTTP clients do not.
+
+---
+
+## What a deadline cancels
+
+Work that was about to succeed.
+
+A deadline set 200 ms too tight fails requests the user would happily have waited for. And one layer that starts a fresh timeout instead of honouring the one it was handed restores the old behaviour beneath it, silently.
+
+---
+
+## Who decides
+
+`client`.
+
+Weeks 1 and 2 asked the client whether a retry was safe. This asks whether it is still wanted, and the caller is the only party that knows.
+
+A library sees attempt counts. The platform sees load. Neither can see a closed tab.
+
+---
+
+## In the lab
+
+1. Log the time left on the caller's deadline at each attempt, and watch attempts continue past zero
+2. Add propagation and recount them
+3. Then set the deadline 200 ms too tight and count the requests it kills
+
+---
+
+{/* _class: impact */}
+
+# Next week
+
+You stopped the attempts nobody wanted.
+
+Next: the attempts nobody counted.
+
+<a href={withBase("/lectures/week-09/")}>&larr; Back to the lecture page</a>

@@ -1,0 +1,99 @@
+---
+title: "Week 6: Two people, one payout"
+description: The same failure with no code in it, and a runbook standing in for a lock
+---
+
+import { withBase } from "astro-theme-university/url";
+
+{/* _class: impact */}
+
+# Two people, one payout
+
+Week 6 — SLOP3092
+
+<a href={withBase("/lectures/week-06/")}>&larr; Back to the lecture page</a>
+
+---
+
+## Last week
+
+Three layers, three retries each, twenty-seven requests reaching a failing dependency.
+
+One budget the whole call chain draws from, instead of a count per layer.
+
+---
+
+## This week: no code in the failure
+
+A scheduled payout fails at 3am. Two people are paged for the same alert.
+
+Neither knows the other is awake, and both can reach the button that resends it.
+
+---
+
+## The reflex
+
+Resend it.
+
+Resending it is what fixing this has always meant. The second person arrives four minutes later, sees a failed payout on the dashboard, and does the same.
+
+---
+
+{/* _class: impact */}
+
+# Two payouts leave the account
+
+---
+
+## The retry no system logged
+
+No retry loop. No idempotency key to add. Nothing in an exception handler to change.
+
+The shape is week 2 exactly — the second actor could not tell whether the work had already been done — except that the state lived on a dashboard and in a group chat rather than in a database.
+
+---
+
+## The fix
+
+A runbook step naming one person as the only one who presses resend for the duration of the incident.
+
+That person checks the payout log first, and says in the incident channel that they are about to press it.
+
+---
+
+## What the runbook does not enforce
+
+This is a weaker guarantee than any of the code fixes so far.
+
+A written step is slower than a button at 3am, and it holds only if a tired person reads it and follows it. There is no enforcement anywhere: it is an agreement between two people, and agreements fail differently from locks.
+
+---
+
+## Who decides
+
+`operator`.
+
+No client and no platform appear in this failure, because there is no code between the failure and the resend. The decision belongs to whoever is holding the pager.
+
+Which is the argument for writing it down. The parts of a system made of people fail the same ways and get less attention.
+
+---
+
+## In the lab
+
+1. Run the incident as a role-play: two people, one dashboard, one failed payout
+2. No communication outside the incident channel
+3. Write the runbook line that would have stopped the second resend
+4. Hand it to a pair who have not seen the scenario and see whether it survives them
+
+---
+
+{/* _class: impact */}
+
+# Next week
+
+Every failure so far could have succeeded on a later attempt.
+
+Next: the ones that cannot.
+
+<a href={withBase("/lectures/week-06/")}>&larr; Back to the lecture page</a>

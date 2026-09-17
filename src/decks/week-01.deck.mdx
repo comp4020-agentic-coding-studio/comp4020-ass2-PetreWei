@@ -1,0 +1,106 @@
+---
+title: "Week 1: Reproducing the reflex"
+description: The retry that works, and the fact about the endpoint that made it work
+---
+
+import { withBase } from "astro-theme-university/url";
+
+{/* _class: impact */}
+
+# Reproducing the reflex
+
+Week 1 — SLOP3092
+
+<a href={withBase("/lectures/week-01/")}>&larr; Back to the lecture page</a>
+
+---
+
+## One question, twelve times
+
+Something failed. Should you try again, and how?
+
+Twelve weeks, twelve situations. This week's is the one where the answer is yes.
+
+---
+
+## A read that times out once
+
+```text
+GET /accounts/8814/balance
+```
+
+Thirty seconds, then a timeout. The endpoint is read-only, so nothing on the server changed.
+
+---
+
+## The reflex
+
+Retry.
+
+Nobody classifies the failure first. The call did not return, so the call gets made again.
+
+---
+
+{/* _class: impact */}
+
+# The second attempt returns 200
+
+---
+
+## Why it worked
+
+Sending that request twice produces the same result as sending it once.
+
+The property is idempotence, and here it holds for a dull reason: the endpoint only reads.
+
+---
+
+## The precondition nobody wrote down
+
+The retry depended on a fact about this one endpoint, and the three lines of retry code do not mention it.
+
+Write it down: **repeating this call cannot change anything on the server.**
+
+---
+
+## Change one word
+
+```text
+POST /charges
+```
+
+The retry code is unchanged. The sentence you just wrote down is now false.
+
+That is next week.
+
+---
+
+## Who decides
+
+`client`.
+
+A loop and a counter, inline at the call site. No configuration, no policy, nothing to look up.
+
+Note where it sits. By week 5 the same decision has moved two layers away and nobody can find it.
+
+---
+
+## In the lab
+
+1. Point a client at a read endpoint rigged to time out on one request in four
+2. Retry it
+3. Watch it succeed
+
+You will spend eleven weeks being asked to distrust this, so watch it work once.
+
+---
+
+{/* _class: impact */}
+
+# Next week
+
+The same three lines of retry code.
+
+A call that writes.
+
+<a href={withBase("/lectures/week-01/")}>&larr; Back to the lecture page</a>

@@ -1,0 +1,104 @@
+---
+title: "Week 10: Reading past the dashboard"
+description: Six weeks of decline behind a success rate that never dropped
+---
+
+import { withBase } from "astro-theme-university/url";
+
+{/* _class: impact */}
+
+# Reading past the dashboard
+
+Week 10 — SLOP3092
+
+<a href={withBase("/lectures/week-10/")}>&larr; Back to the lecture page</a>
+
+---
+
+## Last week
+
+Deadlines, propagated through the call, cancelling work nobody was waiting for.
+
+---
+
+## This week: a dependency getting slowly worse
+
+Its failure rate has been climbing for six weeks, from about one request in a thousand to one in twenty.
+
+No deploy lines up with the start. A table grew and an index stopped fitting in memory.
+
+---
+
+## The reflex
+
+Nothing.
+
+Every failure is retried and nearly every retry succeeds, so the success rate on the dashboard stays above 99.9% the whole time.
+
+---
+
+{/* _class: impact */}
+
+# 99.9% success. Six weeks. No alert.
+
+---
+
+## What the dashboard is not showing
+
+Per-request p99 has gone from 120 ms to eleven seconds, because a request that succeeds on its third attempt has waited out two backoff intervals first.
+
+Retry traffic is now a noticeable share of everything reaching the dependency, so the retries are adding to the failure rate they are hiding.
+
+---
+
+## The first alert
+
+It arrives when the failure rate crosses the point where three attempts stop being enough.
+
+Six weeks of decline then arrives at once, as an outage.
+
+---
+
+## The fix
+
+Measure attempts per request, and report it beside success rate rather than in place of it.
+
+Alert on a change in the ratio rather than on a fixed threshold, because the number that matters is movement.
+
+---
+
+## What the ratio cannot tell you
+
+Its correct value. Five percent of requests needing a second attempt might be healthy for one dependency and two weeks from an outage for another, so the metric is close to useless for its first month while you learn what normal looks like.
+
+And a signal that fires when nobody has to act today is how a real signal gets tuned out.
+
+---
+
+## Who decides
+
+`platform`.
+
+A single request cannot report that it took three attempts, having discarded the two failures on its way to succeeding. The number only exists in aggregate.
+
+So it lands with whoever owns the metrics pipeline and the dashboard definitions.
+
+---
+
+## In the lab
+
+1. Find the decline in six weeks of logs where success rate never drops below 99.9%
+2. Name the one metric that would have surfaced it in week one
+3. Compute it from the same logs and check that it actually would have
+
+---
+
+{/* _class: impact */}
+
+# Next week
+
+Every fix so far assumed the attempt could be repeated.
+
+Next: the step that cannot.
+
+<a href={withBase("/lectures/week-10/")}>&larr; Back to the lecture page</a>
