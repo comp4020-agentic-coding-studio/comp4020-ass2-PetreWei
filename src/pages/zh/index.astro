@@ -8,9 +8,14 @@ import { courseMeta } from "../../course-config";
 import { siteConfig, zhLinks } from "../../site-config";
 
 // This page is written from the course's ideas rather than translated from
-// src/pages/index.astro: the English is deliberately colloquial, and that
-// register reads as flippant in Chinese, so the prose here is plain 书面语
-// and diverges sentence by sentence while stating the same argument.
+// src/pages/index.astro. The two pages state the same argument and diverge
+// sentence by sentence: Chinese technical prose carries a shorter sentence
+// than the English does, and the parenthetical asides that read as plain in
+// English read as padding here, so this is written as 书面语 from scratch.
+//
+// No 破折号 anywhere on the page. The correct character is —— and the site's
+// font stack renders it with a visible gap in the middle, so every place the
+// English uses an em dash is restructured here with a colon or a semicolon.
 //
 // Pilot translation: only the home page and nav are translated so far, so
 // the tags below are a display-only Chinese gloss of courseMeta.tags rather
@@ -38,21 +43,24 @@ const tagLabels: Record<string, string> = {
   </ul>
 
   <p class="thesis">
-    答案通常是肯定的，而风险恰恰在于此。重试看上去是负责任的做法，几乎每一次也都能奏效，但它从来都不是没有代价的。本课程讨论的每一种方案都是一次权衡：在换取某些保障的同时，必然付出另一些成本。课程要训练的只有一项能力：在付出代价之前，先把代价说清楚。
+    系统出错之后，是否应当重试，以及如何重试？答案通常是肯定的，重试大多也确实成功了，这个动作因此往往在无人审视的情况下就成了习惯。本课程用十二周讨论它失效的场合：同一笔款项被扣除两次；刚刚开始恢复的下游服务被自己的客户端再次压垮；调用方早已不再等待，重试却仍在九十秒之后继续执行。
   </p>
 
   <h2>十二周，十二种情况</h2>
   <p>
-    课程安排的不是十二个主题，而是同一个问题在十二种情况下的十二次提问。每一种情况都足够具体，可以直接复现：一次读取操作超时；同一笔款项被扣除两次；一万个客户端在同一秒内同时重连；凌晨三点，两个人分别发出了同一笔付款，而两次操作之间没有任何代码加以拦截。
+    每一周都把同一个问题放进一种新的情况，而每一种情况都足够具体，可以直接复现：一次读取操作超时；同一笔款项被扣除两次；一万个客户端在同一秒内同时重连；凌晨三点，两个人分别发出了同一笔付款，而两次操作之间没有任何代码加以拦截。
   </p>
   <p>
-    每一周的结构相同：先给出方案，再核算代价。退避（backoff）为濒临过载的下游服务争取了缓冲时间，代价是自身请求的延迟；熔断（circuit
-    breaker）主动放弃了原本可能获得的可用性；超时截止（deadline）会丢弃即将成功的请求。到第十二周，你应当已经无法接受一条不说明代价的重试策略。这就是本课程的全部内容。
+    每一周的结构相同，都由五个部分组成：具体情况；多数人首先想到的做法；这种做法在此处失效的原因；应当改用的方案；以及这个决定由谁负责，可能是客户端、调用库、平台、运维人员或产品团队，也可能无人负责。
+  </p>
+  <p>
+    每一种方案的适用边界都由它自身的工作原理决定：退避（backoff）会给本来即将成功的请求增加延迟；熔断（circuit
+    breaker）在断开期间会拒绝那些原本可以成功的调用；超时截止（deadline）会丢弃即将完成的工作。到第十二周，你应当能够指出自己提出的任何一条重试策略的边界，并当面为它辩护。
   </p>
 
   <h2>适合什么样的学生</h2>
   <p>
-    本课程面向三年级学生：写过需要经过网络通信的代码，并且已经为此付出过一次代价。你应当能够读懂一份陌生的代码库，并在其中做出少量修改。课程不要求分布式系统的理论基础，也不假定你有生产环境的运维经验。
+    本课程面向三年级学生：写过需要经过网络通信的代码，并且已经遇到过它出乎意料的失败。你应当能够读懂一份陌生的代码库，并在其中做出少量修改。课程不要求分布式系统的理论基础，也不假定你有生产环境的运维经验。
   </p>
   <p>
     本学期的大部分时间，你都在有意制造故障，并决定如何应对。学期结束时，你会得到三项成果：一份审计报告；一条重试策略，你需要当面为它辩护，而对方受命找出它的漏洞；以及一篇书面论证，说明在某些情况下根本不应重试。
@@ -61,7 +69,7 @@ const tagLabels: Record<string, string> = {
   <h2>继续了解</h2>
   <CardGrid columns={2}>
     <Card title="实验" href="/sessions/">
-      <p>十二种情况按周次排列，以及各自需要付出的代价。（该页面暂为英文）</p>
+      <p>十二种情况按周次排列，以及每一周所针对的具体故障。（该页面暂为英文）</p>
     </Card>
     <Card title="考核" href="/assessments/">
       <p>一份审计、一条需要当面辩护的策略，以及一篇论证文章。各项分值与截止时间。（该页面暂为英文）</p>
