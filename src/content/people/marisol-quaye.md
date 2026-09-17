@@ -13,7 +13,7 @@ photoAlt: A stylised portrait in three-quarter view, short cropped hair and roun
 
 Marisol convenes SLOP3092 and teaches the odd-numbered weeks. She spent eleven years on payments and settlement systems before moving to the School of Invented Disciplines, which is where the course's fixation on the double charge comes from: she has written the incident report for that failure more times than she is willing to say out loud.
 
-The argument the course makes — that retrying is a decision rather than a default, and that every fix for it costs something — is hers. She will tell you, unprompted, that she spent most of those eleven years on the wrong side of it.
+The argument the course makes is hers: that retrying is a decision somebody has to make on purpose, and that the mechanisms which make it safe each have a limit built into how they work. She will tell you, unprompted, that she spent most of those eleven years treating it as a default.
 
 ## What to bring her
 

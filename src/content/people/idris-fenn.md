@@ -23,4 +23,4 @@ He is also the right person to ask whether the fix you have in mind is one the c
 
 ## Consultation
 
-Thursdays, 2 to 4pm, or immediately after any lab. Email is fine for short questions; for anything involving code, come to the consultation and bring the code, because the round trip by email will cost you more time than the walk.
+Thursdays, 2 to 4pm, or immediately after any lab. Email is fine for short questions; for anything involving code, come to the consultation and bring the code, because the round trip by email will take longer than the walk.
