@@ -81,20 +81,20 @@ The client picks a key. The server checks it **before it commits**.
 
 ## What it guarantees
 
-The second request lands on the **same charge**, not a new one.
+The second request lands on the **same charge**. It does not create a second one.
 
-Not "the retry is prevented" — the retry still happens. It just stops mattering.
+The retry still goes out. The key makes it a no-op.
 
 ---
 
-## What it costs
+## What the server has to remember
 
-The server has to remember every key for as long as a client might retry.
+Every key, for as long as a client might still retry with it.
 
 - window too short → a late retry double-charges anyway
 - window too long → you are storing keys forever
 
-There is no free version of this.
+Both ends are wrong in a different direction, so somebody has to pick the window and write down why.
 
 ---
 
@@ -103,7 +103,7 @@ There is no free version of this.
 1. Build the naive retry against a stub that commits, then times out
 2. Produce the double charge on purpose
 3. Add the key
-4. Confirm the same retry now costs nothing
+4. Confirm the same retry now lands on the same charge
 
 Bring the double charge to the first review.
 

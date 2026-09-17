@@ -45,7 +45,7 @@ Each one is behaving well in isolation.
 
 ---
 
-## What it costs
+## Why they all return on the same second
 
 Ten thousand clients retrying on the same second is a thundering herd.
 
@@ -55,11 +55,11 @@ No single client did anything wrong.
 
 ---
 
-## Correct alone. Wrong together.
+## Backoff never said when
 
-Backoff fixed *how long* one client waits.
+Week 3 fixed *how long* one client waits.
 
-It never touched *when*, relative to everyone else.
+It says nothing about *when* that client waits, relative to the other nine thousand nine hundred and ninety-nine.
 
 ---
 
@@ -71,11 +71,11 @@ On every attempt — not only the first.
 
 ---
 
-## What it costs
+## What jitter takes away
 
-Nothing a single client can feel, which is exactly why it gets left out.
+Nothing a single client can feel, which is why it gets left out of the implementation.
 
-The cost lands on whoever operates the fleet: no client can now state its own worst-case latency, only the shape of its distribution.
+What changes is that no client can state its own worst-case wait any more — only the shape of the distribution it draws from.
 
 ---
 
@@ -83,7 +83,7 @@ The cost lands on whoever operates the fleet: no client can now state its own wo
 
 `platform`.
 
-No one client can see the other nine thousand nine hundred and ninety-nine. The fix has to be a property the platform requires of every client, not a courtesy any one of them can opt into.
+No one client can see the other nine thousand nine hundred and ninety-nine. The fix has to be a property the platform requires of every client; one client adding jitter on its own changes nothing about the spike.
 
 ---
 

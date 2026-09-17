@@ -31,11 +31,11 @@ The same schedule that worked for a two-second blip in week 3.
 
 ---
 
-## What it costs
+## Every caller rediscovers the outage
 
-Every request still pays the full timeout finding out the dependency is down.
+Every request waits out its full thirty-second timeout to learn the dependency is down.
 
-A fact that was already known after the first failure.
+The first failure already established that.
 
 ---
 
@@ -57,7 +57,7 @@ The breaker is counting failures.
 
 Enough requests have failed.
 
-The breaker stops sending requests immediately — no more timeouts spent finding out.
+The breaker stops sending requests and fails them immediately — no more thirty-second waits to learn the same fact.
 
 ---
 
@@ -77,11 +77,11 @@ That's week 3's problem again, delayed.
 
 ---
 
-## What it costs
+## What an open breaker refuses
 
-Availability it might have had.
+While the breaker is open, requests fail that would have worked.
 
-While the breaker is open, requests fail that would have worked — a known small loss now, instead of an unknown larger one spread across every caller.
+You are refusing calls on the evidence of earlier ones. That failure rate is visible and measurable; the one it replaces was spread across every caller and never counted anywhere.
 
 ---
 
@@ -89,7 +89,7 @@ While the breaker is open, requests fail that would have worked — a known smal
 
 `platform`.
 
-A circuit breaker is shared state the whole client needs to see. Not something any individual request can hold on its own.
+A circuit breaker is shared state the whole client needs to see. No individual request can hold it on its own.
 
 ---
 
@@ -108,7 +108,7 @@ This is the defence you'll give in this week's retry policy review.
 
 # Next week
 
-You gave up availability on purpose.
+You failed requests on purpose, to stop waiting out timeouts for an answer you already had.
 
 Now: what happens when the answer arrives after you've already stopped waiting.
 

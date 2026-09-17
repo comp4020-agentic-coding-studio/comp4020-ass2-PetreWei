@@ -21,7 +21,7 @@ Ten thousand clients, each backing off correctly on its own.
 
 All retried on the same second anyway.
 
-Correct in isolation. Compounding in aggregate.
+Each one was correct in isolation, and together they were a spike.
 
 ---
 
@@ -67,15 +67,13 @@ The total is only visible from a vantage point no single layer has.
 
 One retry budget, shared by the whole call chain.
 
-Held as a fraction of recent calls, not a count per layer — so retries throttle themselves as the ratio nears the cap.
+Held as a fraction of recent calls rather than a count per layer, so retries throttle themselves as the ratio nears the cap.
 
 ---
 
-## What it costs
+## What a shared budget refuses
 
-It trades locality for a sane total.
-
-A layer that would have recovered on its second attempt is sometimes refused it, because another layer spent the budget first.
+A layer that would have recovered on its second attempt is sometimes refused it, because another layer drew the budget down first.
 
 The reason a call wasn't retried now lives somewhere the person debugging it isn't looking.
 

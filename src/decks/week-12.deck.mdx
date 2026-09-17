@@ -1,6 +1,6 @@
 ---
 title: "Week 12: Arguing the case"
-description: Retrying is a decision, not a default
+description: Every mechanism in the policy is defensible, and the set of them is not
 ---
 
 import { withBase } from "astro-theme-university/url";
@@ -19,7 +19,7 @@ Week 12 — SLOP3092
 
 Idempotency keys. Backoff. Jitter. Shared budgets. Breakers. Deadlines.
 
-Every one of them bought something and spent something else.
+Each one has a limit built into how it works, and each one is the right answer somewhere.
 
 ---
 
@@ -39,9 +39,9 @@ Eleven weeks of this course have mostly been about retries going wrong.
 
 ---
 
-## What it costs
+## Deciding before reading
 
-A verdict reached without doing the work.
+Week 1's retry was correct. So was week 2's, once the key was in place.
 
 The reflex to distrust retrying can be just as unexamined as the reflex to trust it was, in week 1.
 
@@ -53,21 +53,19 @@ The reflex to distrust retrying can be just as unexamined as the reflex to trust
 
 ---
 
-## The trade is the assessment
+## Reading it cold
 
-Name what retrying bought.
+Say what the retry actually did: how many attempts reached the dependency, what they added to the latency of calls that were already working, what state a failed attempt left behind, who could see it happening.
 
-Name what it cost, in the units the last eleven weeks have used.
-
-Say which you would have chosen, knowing only what was knowable at the time.
+Then say what you would have decided knowing only what was knowable at the time.
 
 ---
 
-## What it costs
+## Hedging is the easiest answer to write
 
-The comfort of hedging.
+It is also the one that scores lowest here.
 
-You have to commit to a position you can be wrong about, in front of somebody assigned to argue the other side.
+You commit to a position you can be wrong about, in front of somebody assigned to argue the other one.
 
 ---
 
@@ -75,7 +73,7 @@ You have to commit to a position you can be wrong about, in front of somebody as
 
 `product`.
 
-Whether retrying was worth it is a call about what the business was willing to trade — latency against correctness, user experience against load. A product decision dressed up as a technical one, for eleven weeks.
+Engineering can measure both sides of this and still not settle it. Whether a checkout flow should add 400 ms to its 99th percentile so that one order in a thousand stops failing depends on what the product is for. That has been true since week 1; it only ever looked like a question about mechanism.
 
 ---
 
