@@ -13,26 +13,28 @@ image: ./04-synchronising-a-herd.avif
 imageAlt: A tight cluster of identical alarm clocks, all their hands at the same hour, ringing together
 ---
 
-## The situation
+## Ten thousand clients, one recovery
 
-A dependency recovers from an outage. Every client that failed during the outage is, correctly, about to retry.
+A dependency comes back after a four-minute outage. Ten thousand clients failed during it, and all of them are about to retry.
 
-## The reflex
+## Everyone waits correctly
 
-Trust that each client's own backoff is enough, because each one is behaving well in isolation.
+Every client does what week 3 asked: exponential backoff, doubling from 100 ms. Reviewed one at a time, in ten thousand separate pull requests, each client is correct.
 
-## What it costs
+## Why they all return on the same second
 
-Ten thousand well-behaved clients retrying on the same second is a thundering herd: the recovering dependency is hit by a synchronised spike and falls over again, and no single client did anything wrong.
+They failed at the same instant — when the dependency went down — and they are running the same schedule from that instant. The tenth wait is 51.2 seconds for every one of them, so the tenth attempt lands in the same second for every one of them. Deterministic backoff preserves that alignment rather than breaking it, and the dependency that just came back goes down again under a synchronised spike.
 
-## The fix, and what it trades
+## Randomising inside the window
 
-Randomise each client's wait inside its backoff window, on every attempt rather than only the first. It trades nothing a single client can feel, which is exactly why it gets left out: the cost lands on whoever operates the fleet rather than on the caller, because no client can now state its own worst-case latency, only the shape of its distribution.
+Draw each wait uniformly at random from inside the backoff window instead of taking the window's edge, and redraw on every attempt rather than only the first. The ten thousand attempts then spread across the window instead of stacking on its boundary.
 
-## Who decides
+The limit is that a client can no longer state its own worst-case wait, only the distribution the wait is drawn from. That is a genuine loss for whoever has to write the latency SLO, and it is the main reason jitter is the line missing from otherwise careful retry code.
 
-`platform`. No one client can see the other nine thousand nine hundred and ninety-nine, so the fix has to be a property the platform requires of every client rather than a courtesy any one of them can opt into.
+## Why no single client can fix it
+
+`platform`. One client cannot see the other 9,999, and adding jitter to your client alone changes nothing measurable — it moves your request around inside a spike that is still a spike. The fix only works if every client does it, which makes it a rule the platform enforces rather than a courtesy any one team can volunteer.
 
 ## In the lab
 
-Students run a simulated recovery with ten synchronised clients and watch it fail, then add jitter to each client's backoff independently and watch the same recovery succeed.
+Run a simulated recovery with ten clients on identical deterministic backoff and watch the attempts land in the same bucket. Add jitter to each client independently, rerun, and plot the arrival histogram both times.

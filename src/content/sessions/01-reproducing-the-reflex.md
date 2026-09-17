@@ -1,6 +1,6 @@
 ---
 title: Reproducing the reflex
-description: "Retrying a failed read costs nothing, and that free success is where the semester's bad habit is learned."
+description: "A read times out and the retry succeeds. Nothing was written and nothing broke, so the reflex gets learned before anyone examines it."
 week: 1
 date: 2027-02-22
 teachers:
@@ -11,26 +11,26 @@ image: ./01-reproducing-the-reflex.avif
 imageAlt: A boomerang mid-flight, curving back toward the open hand that threw it
 ---
 
-## The situation
+## A read that times out once
 
-A request to a read-only endpoint times out. Nothing was written, nothing was charged, and trying again is free.
+A `GET` against a read-only endpoint times out after thirty seconds. Nothing on the server changed, because that endpoint does not write.
 
-## The reflex
+## What everyone does next
 
-Retry immediately, without asking whether this failure is the kind retrying fixes.
+Retry. Nobody classifies the failure first — the call did not return, so the call gets made again.
 
-## What it costs
+## Why it worked
 
-Nothing, this time. That is exactly the problem: the reflex gets rewarded before it has been examined.
+The second attempt returns `200`. Sending that request twice produces the same result as sending it once, so the repeat was safe. The property is called idempotence, and here it holds for a dull reason: the endpoint only reads.
 
-## The fix, and what it trades
+## The precondition nobody wrote down
 
-There is nothing to fix yet, and the honest move is to write down what the bare retry relied on: this call reads, so repeating it cannot change anything. That sentence is the only thing standing between this week and next week's double charge. It trades nothing at all, which is precisely why the reflex survives long enough to become expensive.
+The retry depended on a fact about this specific endpoint, and the retry code does not mention it. Write it down: repeating this call cannot change anything on the server. Change the method to `POST` and that sentence is false while the three lines of retry code stay exactly as they are. That is next week.
 
-## Who decides
+## Where the decision was made
 
-`client`. The decision is small enough, and safe enough here, that the calling code just makes it inline.
+`client`. The retry is inline at the call site — a loop, a counter, no configuration and no policy. Note where it sits, because by week 5 the same decision has moved two layers away and nobody can find it.
 
 ## In the lab
 
-Students trigger a real timeout against a flaky read endpoint and watch a bare retry succeed, so the reflex they will be asked to distrust all semester is one they have just watched work.
+Point a client at a read endpoint rigged to time out on one request in four, retry it, and watch it succeed. You will spend eleven weeks being asked to distrust this, so it is worth watching it work once.
