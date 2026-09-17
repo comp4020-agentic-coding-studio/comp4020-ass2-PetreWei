@@ -28,6 +28,6 @@ Eleven weeks have mostly been about retries going wrong, which makes the reflex 
 
 A written argument, no more than the length stated in the lab brief, taking one side and defending it: what you would have retried or not, what that decision does to the dependency and to the caller still waiting on it, and what you would have measured to know you were right before the outcome was in.
 
-## How it's marked
+## Why there is no criterion table
 
-There is no criterion table here on purpose: a case argued well is one thing, not a sum of separable parts, and splitting "took a position" from "engaged the opposing argument" would reward answers that do both badly but score on the boxes.
+This one is marked holistically, on purpose. Splitting "took a position" from "engaged the opposing argument" would reward an answer that does both badly and scores on the boxes, because the two are the same act: the position is only worth anything once it has survived the strongest objection to it.

@@ -35,6 +35,6 @@ You have four weeks of failure modes to check against: does a retry site disting
 
 One entry per retry site you find: where it is, which of the four failure modes it is exposed to (if any), what you would change, and what that change does to everything around it. Every fix in this course so far arrives with a limit attached. Backoff adds latency to requests that were about to succeed. An idempotency key needs storage and a client that remembers it. Jitter means no single client can state its own worst-case wait. Say which of those your fix brings with it, because an entry that stops at "add backoff" has read the site without reading what happens next. A retry site that already handles all four correctly is a legitimate finding — say so, and explain what makes it hold up.
 
-## How it's marked
+## Why correctness weighs more than coverage
 
-The criteria above weight coverage below correctness deliberately: a shallow audit of every site scores worse than a careful audit of most of them, but a careful audit that stops at the first three retry loops it finds is still an audit that missed the point.
+The weighting below is deliberate. A shallow audit of every retry site scores worse than a careful audit of most of them, because a wrong diagnosis sends someone to change working code. An audit that is careful but stops at the first three retry loops it finds has still missed the point.

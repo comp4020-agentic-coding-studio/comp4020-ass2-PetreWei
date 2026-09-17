@@ -37,6 +37,6 @@ Then state the limit on each one. Backoff adds latency to requests that were abo
 
 A written policy, plus a short defence in the lab where a panel — your teacher and a rotating pair of classmates — challenges one part of it. The written document is marked on its own; the defence is marked on how you respond to the actual challenge raised, not on how well the policy was rehearsed beforehand.
 
-## How it's marked
+## Why the policy outweighs the defence
 
-The policy is worth the most because it's the artefact that has to work; the defence is worth less because it tests something narrower, whether you can explain a decision you made rather than one you're seeing for the first time.
+The policy carries the most marks because it is the artefact that has to work. The defence carries fewer because it tests something narrower: whether you can explain a decision you made, rather than one you are seeing for the first time.
