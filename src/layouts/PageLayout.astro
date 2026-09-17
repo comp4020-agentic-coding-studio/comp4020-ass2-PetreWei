@@ -1,5 +1,8 @@
 ---
+import type { ImageMetadata } from "astro";
+import { resolveHeroImage } from "astro-theme-university/images";
 import MdxPageLayout from "astro-theme-university/layouts/MdxPageLayout.astro";
+import type { RemoteImage } from "astro-theme-university/types";
 import LangSwitch from "../components/LangSwitch.astro";
 import { siteConfig } from "../site-config";
 
@@ -32,18 +35,28 @@ import { siteConfig } from "../site-config";
  *
  * The result — heading, lead, then content — is the order
  * ContentLayout.astro:35-37 already produces, so the two layouts now agree
- * on what a page without a hero looks like. */
+ * on what a page without a hero looks like.
+ *
+ * The gate has to be `resolveHeroImage(heroImage)`, not the raw prop's
+ * truthiness: a `heroImage` that's set but unresolvable (a mistyped
+ * "/src/..." path, an unsupported value) makes BaseLayout drop the Hero
+ * just as if it were unset, and a raw-truthiness check would then think a
+ * heading already exists and reproduce this exact defect. */
 const frontmatter = (Astro.props.frontmatter ?? Astro.props) as {
   heroTitle?: string;
-  heroImage?: unknown;
+  heroImage?: string | ImageMetadata | RemoteImage;
   description?: string;
 };
-const needsHeading = Boolean(frontmatter.heroTitle) && !frontmatter.heroImage;
+const needsHeading = Boolean(frontmatter.heroTitle) && !resolveHeroImage(frontmatter.heroImage);
 ---
 
 <MdxPageLayout siteConfig={siteConfig} {...Astro.props} lead={!needsHeading}>
   <LangSwitch href="/zh/" label="中文" />
-  {needsHeading && <h1>{frontmatter.heroTitle}</h1>}
-  {needsHeading && frontmatter.description && <p class="lead">{frontmatter.description}</p>}
+  {needsHeading && (
+    <>
+      <h1>{frontmatter.heroTitle}</h1>
+      {frontmatter.description && <p class="lead">{frontmatter.description}</p>}
+    </>
+  )}
   <slot />
 </MdxPageLayout>
