@@ -8,10 +8,10 @@ SLOP3092 *Try Again, Later*: twelve weeks on one decision in a new situation eac
 
 ### 2.1 The Frame I Invented
 
-- **Situation.** Eleven weeks explained what the naive retry breaks and nothing about the fix. I decided every fix is a trade and made it structural ([`dbb17b6`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-PetreWei/commit/dbb17b6)): a fifth slot on twelve sessions, a pricing requirement in three assessments ([`e654924`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-PetreWei/commit/e654924)). The brief never asked for it.
-- **Task.** Defend the frame or remove it from twelve weeks, three assessments, five decks and both documents.
+- **Situation.** The course already asked one question every week and named who owned it. I decided, on top of that, every fix is a trade too, and made it structural ([`dbb17b6`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-PetreWei/commit/dbb17b6)): a fifth slot on twelve sessions, a pricing requirement in three assessments ([`e654924`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-PetreWei/commit/e654924)). The brief never asked for it.
+- **Task.** Defend the frame or remove it from twelve weeks, three assessments and five decks.
 - **Action.** The client rejected premise and voice together: retrying is a decision about state you cannot observe, so pricing it flattens the subject, and the prose was performing. The client had traced the metaphor to its source, settling that it was mine, and pre-empted my defence — `CLAUDE.md` could not be quoted back, being in the voice under question. The sensor went first, red on purpose ([`c3b4261`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-PetreWei/commit/c3b4261)): no heading shared between weeks, the retired words banned. Then nine commits against it ([`ad08e28...1595b2f`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-PetreWei/compare/ad08e28...1595b2f)), `CLAUDE.md` last.
-- **Result.** The vocabulary is gone from `src/`. I had enforced an organising idea nobody asked for across twelve weeks.
+- **Result.** The vocabulary is gone from `src/`. I had enforced an organising idea nobody asked for.
 
 ### 2.2 What Became a Rule or a Check
 
